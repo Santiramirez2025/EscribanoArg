@@ -1,0 +1,162 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  emailVerified DateTime?
+  name          String
+  phone         String?
+  image         String?
+  password      String?
+  role          Role      @default(CLIENTE)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  escribano Escribano?
+  consultas Consulta[]
+  reviews   Review[]
+}
+
+enum Role {
+  CLIENTE
+  ESCRIBANO
+  ADMIN
+}
+
+model Escribano {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  matricula   String  @unique
+  bio         String?
+  experiencia Int     @default(0)
+  foto        String?
+  ubicacion   String
+  direccion   String?
+
+  atencionPresencial Boolean @default(true)
+  atencionVirtual    Boolean @default(true)
+  whatsappNumber     String?
+
+  plan         PlanType   @default(PRUEBA)
+  planExpiraEn DateTime?
+  estadoPago   EstadoPago @default(ACTIVO)
+
+  calificacion Float @default(0)
+  totalReviews Int   @default(0)
+  verificado   Boolean @default(false)
+  activo       Boolean @default(true)
+
+  precioEscrituras      Decimal? @db.Decimal(12, 2)
+  precioDeclaratoria    Decimal? @db.Decimal(12, 2)
+  precioPoderes         Decimal? @db.Decimal(12, 2)
+  precioCertificaciones Decimal? @db.Decimal(12, 2)
+  precioTestamentos     Decimal? @db.Decimal(12, 2)
+  precioDonaciones      Decimal? @db.Decimal(12, 2)
+  precioUsufructo       Decimal? @db.Decimal(12, 2)
+  precioLoteos          Decimal? @db.Decimal(12, 2)
+  precioRegimenPH       Decimal? @db.Decimal(12, 2)
+  precioFideicomisos    Decimal? @db.Decimal(12, 2)
+  precioAutorizaciones  Decimal? @db.Decimal(12, 2)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  consultas Consulta[]
+  reviews   Review[]
+
+  @@index([ubicacion])
+  @@index([calificacion])
+}
+
+enum PlanType {
+  PRUEBA
+  BASICO
+  NOTARIO
+  NOTARIO_PRO
+}
+
+enum EstadoPago {
+  ACTIVO
+  VENCIDO
+  SUSPENDIDO
+  CANCELADO
+}
+
+model Consulta {
+  id          String   @id @default(cuid())
+  clienteId   String
+  cliente     User     @relation(fields: [clienteId], references: [id])
+  escribanoId String
+  escribano   Escribano @relation(fields: [escribanoId], references: [id])
+
+  servicio  TipoServicio
+  modalidad Modalidad
+  fecha     DateTime
+  duracion  Int      @default(60)
+  detalles  String?
+  estado    EstadoConsulta @default(PENDIENTE)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  review Review?
+
+  @@index([clienteId])
+  @@index([escribanoId])
+}
+
+enum TipoServicio {
+  ESCRITURAS
+  DECLARATORIA
+  PODERES
+  CERTIFICACIONES
+  TESTAMENTOS
+  DONACIONES
+  USUFRUCTO
+  LOTEOS
+  REGIMEN_PH
+  FIDEICOMISOS
+  AUTORIZACIONES
+  OTROS
+}
+
+enum Modalidad {
+  PRESENCIAL
+  VIRTUAL_ZOOM
+  VIRTUAL_WHATSAPP
+}
+
+enum EstadoConsulta {
+  PENDIENTE
+  CONFIRMADA
+  COMPLETADA
+  CANCELADA
+  RECHAZADA
+}
+
+model Review {
+  id           String    @id @default(cuid())
+  clienteId    String
+  cliente      User      @relation(fields: [clienteId], references: [id])
+  escribanoId  String
+  escribano    Escribano @relation(fields: [escribanoId], references: [id])
+  consultaId   String    @unique
+  consulta     Consulta  @relation(fields: [consultaId], references: [id])
+  calificacion Int       @default(5)
+  comentario   String?
+  respuesta    String?
+  visible      Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@index([escribanoId])
+}
