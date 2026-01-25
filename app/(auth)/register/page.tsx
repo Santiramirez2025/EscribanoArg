@@ -163,11 +163,11 @@ function Logo() {
     <Link href="/" className="inline-flex items-center gap-2.5 group">
       <motion.div
         whileHover={{ scale: 1.05, rotate: 5 }}
-        className="h-12 w-12 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/20"
+        className="h-12 w-12 rounded-xl bg-gradient-to-br from-amber-400 to-amber-500 flex items-center justify-center shadow-lg shadow-amber-400/20"
       >
         <Scale className="w-6 h-6 text-white" />
       </motion.div>
-      <span className="text-2xl font-bold text-primary-900 font-serif">
+      <span className="text-2xl font-bold text-slate-800 font-serif">
         EscribanosARG
       </span>
     </Link>
@@ -190,27 +190,27 @@ function Input({
           <Icon
             className={cn(
               "absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 transition-colors",
-              error ? "text-red-400" : "text-primary-400"
+              error ? "text-rose-400" : "text-slate-400"
             )}
           />
         )}
         <input
           className={cn(
             "w-full rounded-xl border-2 bg-white",
-            "py-3.5 pr-4 text-primary-900 placeholder:text-primary-400",
+            "py-3.5 pr-4 text-slate-800 placeholder:text-slate-400",
             "focus:outline-none focus:ring-2 focus:ring-amber-400/20",
             "transition-all duration-200",
             Icon ? "pl-12" : "pl-4",
             error
-              ? "border-red-300 focus:border-red-400"
-              : "border-gray-200 focus:border-amber-400",
+              ? "border-rose-300 focus:border-rose-400"
+              : "border-slate-200 focus:border-amber-400",
             className
           )}
           {...props}
         />
       </div>
       {error && (
-        <p className="mt-1.5 text-sm text-red-600 flex items-center gap-1">
+        <p className="mt-1.5 text-sm text-rose-600 flex items-center gap-1">
           <AlertCircle className="w-4 h-4" />
           {error}
         </p>
@@ -236,20 +236,20 @@ function Select({
           <Icon
             className={cn(
               "absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 transition-colors pointer-events-none",
-              error ? "text-red-400" : "text-primary-400"
+              error ? "text-rose-400" : "text-slate-400"
             )}
           />
         )}
         <select
           className={cn(
             "w-full rounded-xl border-2 bg-white appearance-none",
-            "py-3.5 pr-10 text-primary-900",
+            "py-3.5 pr-10 text-slate-800",
             "focus:outline-none focus:ring-2 focus:ring-amber-400/20",
             "transition-all duration-200",
             Icon ? "pl-12" : "pl-4",
             error
-              ? "border-red-300 focus:border-red-400"
-              : "border-gray-200 focus:border-amber-400",
+              ? "border-rose-300 focus:border-rose-400"
+              : "border-slate-200 focus:border-amber-400",
             className
           )}
           {...props}
@@ -257,13 +257,13 @@ function Select({
           {children}
         </select>
         <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
-          <svg className="w-5 h-5 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
           </svg>
         </div>
       </div>
       {error && (
-        <p className="mt-1.5 text-sm text-red-600 flex items-center gap-1">
+        <p className="mt-1.5 text-sm text-rose-600 flex items-center gap-1">
           <AlertCircle className="w-4 h-4" />
           {error}
         </p>
@@ -281,10 +281,10 @@ function StepIndicator({ currentStep, totalSteps }: { currentStep: number; total
             className={cn(
               "w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold transition-all",
               step === currentStep
-                ? "bg-amber-500 text-white shadow-lg shadow-amber-500/30"
+                ? "bg-amber-500 text-white shadow-lg shadow-amber-400/30"
                 : step < currentStep
                 ? "bg-emerald-500 text-white"
-                : "bg-gray-200 text-primary-400"
+                : "bg-slate-200 text-slate-400"
             )}
           >
             {step < currentStep ? <CheckCircle2 className="w-5 h-5" /> : step}
@@ -293,7 +293,7 @@ function StepIndicator({ currentStep, totalSteps }: { currentStep: number; total
             <div
               className={cn(
                 "w-12 h-1 mx-1 rounded-full transition-all",
-                step < currentStep ? "bg-emerald-500" : "bg-gray-200"
+                step < currentStep ? "bg-emerald-500" : "bg-slate-200"
               )}
             />
           )}
@@ -320,8 +320,8 @@ function RoleSelector({
         className={cn(
           "relative p-4 rounded-xl border-2 text-left transition-all",
           role === "CLIENTE"
-            ? "border-amber-400 bg-amber-50 shadow-lg shadow-amber-500/10"
-            : "border-gray-200 bg-white hover:border-gray-300"
+            ? "border-amber-400 bg-amber-50 shadow-lg shadow-amber-400/10"
+            : "border-slate-200 bg-white hover:border-slate-300"
         )}
       >
         {role === "CLIENTE" && (
@@ -329,9 +329,9 @@ function RoleSelector({
             <CheckCircle2 className="w-5 h-5 text-amber-500" />
           </div>
         )}
-        <Users className={cn("w-8 h-8 mb-2", role === "CLIENTE" ? "text-amber-500" : "text-primary-400")} />
-        <p className="font-semibold text-primary-900">Soy Cliente</p>
-        <p className="text-sm text-primary-500 mt-1">Busco un escribano</p>
+        <Users className={cn("w-8 h-8 mb-2", role === "CLIENTE" ? "text-amber-500" : "text-slate-400")} />
+        <p className="font-semibold text-slate-800">Soy Cliente</p>
+        <p className="text-sm text-slate-500 mt-1">Busco un escribano</p>
       </motion.button>
 
       <motion.button
@@ -342,8 +342,8 @@ function RoleSelector({
         className={cn(
           "relative p-4 rounded-xl border-2 text-left transition-all",
           role === "ESCRIBANO"
-            ? "border-amber-400 bg-amber-50 shadow-lg shadow-amber-500/10"
-            : "border-gray-200 bg-white hover:border-gray-300"
+            ? "border-amber-400 bg-amber-50 shadow-lg shadow-amber-400/10"
+            : "border-slate-200 bg-white hover:border-slate-300"
         )}
       >
         {role === "ESCRIBANO" && (
@@ -351,9 +351,9 @@ function RoleSelector({
             <CheckCircle2 className="w-5 h-5 text-amber-500" />
           </div>
         )}
-        <Briefcase className={cn("w-8 h-8 mb-2", role === "ESCRIBANO" ? "text-amber-500" : "text-primary-400")} />
-        <p className="font-semibold text-primary-900">Soy Escribano</p>
-        <p className="text-sm text-primary-500 mt-1">Quiero ofrecer mis servicios</p>
+        <Briefcase className={cn("w-8 h-8 mb-2", role === "ESCRIBANO" ? "text-amber-500" : "text-slate-400")} />
+        <p className="font-semibold text-slate-800">Soy Escribano</p>
+        <p className="text-sm text-slate-500 mt-1">Quiero ofrecer mis servicios</p>
       </motion.button>
     </div>
   );
@@ -377,8 +377,8 @@ function PlanCard({
       className={cn(
         "relative p-4 rounded-xl border-2 text-left transition-all w-full",
         selected
-          ? "border-amber-400 bg-amber-50 shadow-lg shadow-amber-500/10"
-          : "border-gray-200 bg-white hover:border-gray-300",
+          ? "border-amber-400 bg-amber-50 shadow-lg shadow-amber-400/10"
+          : "border-slate-200 bg-white hover:border-slate-300",
         plan.popular && "ring-2 ring-amber-400 ring-offset-2"
       )}
     >
@@ -392,12 +392,12 @@ function PlanCard({
           <CheckCircle2 className="w-5 h-5 text-amber-500" />
         </div>
       )}
-      <p className="font-semibold text-primary-900">{plan.nombre}</p>
+      <p className="font-semibold text-slate-800">{plan.nombre}</p>
       <p className="text-lg font-bold text-amber-600 mt-1">{plan.precio}</p>
-      <p className="text-sm text-primary-500 mt-1">{plan.descripcion}</p>
+      <p className="text-sm text-slate-500 mt-1">{plan.descripcion}</p>
       <ul className="mt-3 space-y-1">
         {plan.features.slice(0, 3).map((feature) => (
-          <li key={feature} className="text-xs text-primary-600 flex items-center gap-1">
+          <li key={feature} className="text-xs text-slate-600 flex items-center gap-1">
             <CheckCircle2 className="w-3 h-3 text-emerald-500" />
             {feature}
           </li>
@@ -436,17 +436,17 @@ function Step1({
       className="space-y-5"
     >
       <motion.div variants={fadeInUp}>
-        <h2 className="text-xl font-bold font-serif text-primary-900">
+        <h2 className="text-xl font-bold font-serif text-slate-800">
           Crear cuenta
         </h2>
-        <p className="mt-1 text-primary-500">
+        <p className="mt-1 text-slate-500">
           Completá tus datos para registrarte
         </p>
       </motion.div>
 
       {/* Role selector */}
       <motion.div variants={fadeInUp}>
-        <label className="block text-sm font-medium text-primary-700 mb-2">
+        <label className="block text-sm font-medium text-slate-700 mb-2">
           ¿Qué tipo de cuenta querés crear?
         </label>
         <RoleSelector role={role} onChange={setRole} />
@@ -454,7 +454,7 @@ function Step1({
 
       {/* Name */}
       <motion.div variants={fadeInUp} className="space-y-2">
-        <label className="block text-sm font-medium text-primary-700">
+        <label className="block text-sm font-medium text-slate-700">
           Nombre completo
         </label>
         <Input
@@ -470,7 +470,7 @@ function Step1({
 
       {/* Email */}
       <motion.div variants={fadeInUp} className="space-y-2">
-        <label className="block text-sm font-medium text-primary-700">
+        <label className="block text-sm font-medium text-slate-700">
           Email
         </label>
         <Input
@@ -486,8 +486,8 @@ function Step1({
 
       {/* Phone */}
       <motion.div variants={fadeInUp} className="space-y-2">
-        <label className="block text-sm font-medium text-primary-700">
-          Teléfono <span className="text-primary-400">(opcional)</span>
+        <label className="block text-sm font-medium text-slate-700">
+          Teléfono <span className="text-slate-400">(opcional)</span>
         </label>
         <Input
           type="tel"
@@ -500,7 +500,7 @@ function Step1({
 
       {/* Password */}
       <motion.div variants={fadeInUp} className="space-y-2">
-        <label className="block text-sm font-medium text-primary-700">
+        <label className="block text-sm font-medium text-slate-700">
           Contraseña
         </label>
         <div className="relative">
@@ -518,7 +518,7 @@ function Step1({
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-4 top-1/2 -translate-y-1/2 text-primary-400 hover:text-primary-600 transition-colors"
+            className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
           >
             {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
           </button>
@@ -527,7 +527,7 @@ function Step1({
 
       {/* Confirm Password */}
       <motion.div variants={fadeInUp} className="space-y-2">
-        <label className="block text-sm font-medium text-primary-700">
+        <label className="block text-sm font-medium text-slate-700">
           Confirmar contraseña
         </label>
         <Input
@@ -561,17 +561,17 @@ function Step2({
       className="space-y-5"
     >
       <motion.div variants={fadeInUp}>
-        <h2 className="text-xl font-bold font-serif text-primary-900">
+        <h2 className="text-xl font-bold font-serif text-slate-800">
           Datos profesionales
         </h2>
-        <p className="mt-1 text-primary-500">
+        <p className="mt-1 text-slate-500">
           Información para verificar tu matrícula
         </p>
       </motion.div>
 
       {/* Matrícula */}
       <motion.div variants={fadeInUp} className="space-y-2">
-        <label className="block text-sm font-medium text-primary-700">
+        <label className="block text-sm font-medium text-slate-700">
           Número de matrícula
         </label>
         <Input
@@ -587,7 +587,7 @@ function Step2({
 
       {/* Colegio */}
       <motion.div variants={fadeInUp} className="space-y-2">
-        <label className="block text-sm font-medium text-primary-700">
+        <label className="block text-sm font-medium text-slate-700">
           Colegio de Escribanos
         </label>
         <Input
@@ -603,7 +603,7 @@ function Step2({
 
       {/* Provincia */}
       <motion.div variants={fadeInUp} className="space-y-2">
-        <label className="block text-sm font-medium text-primary-700">
+        <label className="block text-sm font-medium text-slate-700">
           Provincia
         </label>
         <Select
@@ -624,7 +624,7 @@ function Step2({
 
       {/* Localidad */}
       <motion.div variants={fadeInUp} className="space-y-2">
-        <label className="block text-sm font-medium text-primary-700">
+        <label className="block text-sm font-medium text-slate-700">
           Localidad
         </label>
         <Input
@@ -640,7 +640,7 @@ function Step2({
 
       {/* Dirección */}
       <motion.div variants={fadeInUp} className="space-y-2">
-        <label className="block text-sm font-medium text-primary-700">
+        <label className="block text-sm font-medium text-slate-700">
           Dirección del estudio
         </label>
         <Input
@@ -657,13 +657,13 @@ function Step2({
       {/* Info verificación */}
       <motion.div
         variants={fadeInUp}
-        className="p-4 rounded-xl bg-blue-50 border border-blue-200"
+        className="p-4 rounded-xl bg-sky-50 border border-sky-200"
       >
         <div className="flex items-start gap-3">
-          <Shield className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+          <Shield className="w-5 h-5 text-sky-600 flex-shrink-0 mt-0.5" />
           <div>
-            <p className="font-medium text-blue-800">Verificación de matrícula</p>
-            <p className="text-sm text-blue-700 mt-1">
+            <p className="font-medium text-sky-800">Verificación de matrícula</p>
+            <p className="text-sm text-sky-700 mt-1">
               Verificaremos tu matrícula con el Colegio de Escribanos en 24-48hs.
               Recibirás un email cuando tu cuenta esté verificada.
             </p>
@@ -689,10 +689,10 @@ function Step3({
       className="space-y-5"
     >
       <motion.div variants={fadeInUp}>
-        <h2 className="text-xl font-bold font-serif text-primary-900">
+        <h2 className="text-xl font-bold font-serif text-slate-800">
           Elegí tu plan
         </h2>
-        <p className="mt-1 text-primary-500">
+        <p className="mt-1 text-slate-500">
           Podés cambiar de plan en cualquier momento
         </p>
       </motion.div>
@@ -865,12 +865,12 @@ function RegisterContent() {
   return (
     <div className="min-h-screen flex">
       {/* Left side - Form */}
-      <div className="flex-1 flex flex-col justify-center px-4 sm:px-6 lg:px-8 py-12 bg-gray-50">
+      <div className="flex-1 flex flex-col justify-center px-4 sm:px-6 lg:px-8 py-12 bg-[#faf9f7]">
         <div className="w-full max-w-md mx-auto">
           {/* Back link */}
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-sm text-primary-500 hover:text-primary-700 transition-colors mb-8"
+            className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-700 transition-colors mb-8"
           >
             <ArrowLeft className="w-4 h-4" />
             Volver al inicio
@@ -897,10 +897,10 @@ function RegisterContent() {
           )}
 
           {/* Form card */}
-          <div className="bg-white rounded-2xl border border-gray-200 shadow-xl shadow-gray-200/50 p-6 sm:p-8">
+          <div className="bg-white rounded-2xl border border-slate-200 shadow-xl shadow-slate-200/50 p-6 sm:p-8">
             {/* Error */}
             {error && (
-              <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 flex items-center gap-3 text-sm text-red-700">
+              <div className="mb-6 p-4 rounded-xl bg-rose-50 border border-rose-200 flex items-center gap-3 text-sm text-rose-700">
                 <AlertCircle className="w-5 h-5 flex-shrink-0" />
                 {error}
               </div>
@@ -979,7 +979,7 @@ function RegisterContent() {
             </div>
 
             {/* Login link */}
-            <p className="mt-6 text-center text-sm text-primary-500">
+            <p className="mt-6 text-center text-sm text-slate-500">
               ¿Ya tenés cuenta?{" "}
               <Link
                 href="/login"
@@ -995,7 +995,7 @@ function RegisterContent() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
-            className="mt-8 text-center text-sm text-primary-400"
+            className="mt-8 text-center text-sm text-slate-400"
           >
             Al registrarte, aceptás nuestros{" "}
             <Link href="/terminos" className="text-amber-600 hover:underline">
@@ -1010,18 +1010,18 @@ function RegisterContent() {
       </div>
 
       {/* Right side - Visual (hidden on mobile) */}
-      <div className="hidden lg:flex lg:flex-1 bg-gradient-to-br from-primary-900 via-primary-800 to-primary-950 relative overflow-hidden">
+      <div className="hidden lg:flex lg:flex-1 bg-gradient-to-br from-slate-700 via-slate-600 to-slate-700 relative overflow-hidden">
         {/* Pattern */}
         <div
-          className="absolute inset-0 opacity-[0.03]"
+          className="absolute inset-0 opacity-[0.04]"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
           }}
         />
 
         {/* Glows */}
-        <div className="absolute top-1/4 -left-32 w-96 h-96 bg-amber-500/20 rounded-full blur-[128px]" />
-        <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-blue-500/10 rounded-full blur-[128px]" />
+        <div className="absolute top-1/4 -left-32 w-96 h-96 bg-amber-200/15 rounded-full blur-[128px]" />
+        <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-sky-200/10 rounded-full blur-[128px]" />
 
         {/* Content */}
         <div className="relative flex flex-col justify-center px-12 xl:px-20">
@@ -1034,9 +1034,9 @@ function RegisterContent() {
               <>
                 <h2 className="text-3xl xl:text-4xl font-bold font-serif text-white leading-tight">
                   Hacé crecer tu{" "}
-                  <span className="text-amber-400">estudio notarial</span>
+                  <span className="text-amber-200">estudio notarial</span>
                 </h2>
-                <p className="mt-6 text-lg text-primary-200 max-w-md">
+                <p className="mt-6 text-lg text-slate-200 max-w-md">
                   Unite a la red de escribanos más grande de Argentina.
                   Más clientes, menos trabajo administrativo.
                 </p>
@@ -1048,9 +1048,9 @@ function RegisterContent() {
                     { icon: Calendar, text: "Agenda online 24/7" },
                     { icon: Shield, text: "Perfil verificado y destacado" },
                   ].map((item) => (
-                    <div key={item.text} className="flex items-center gap-3 text-primary-100">
-                      <div className="w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center">
-                        <item.icon className="w-5 h-5 text-amber-400" />
+                    <div key={item.text} className="flex items-center gap-3 text-slate-100">
+                      <div className="w-10 h-10 rounded-lg bg-amber-200/20 flex items-center justify-center">
+                        <item.icon className="w-5 h-5 text-amber-200" />
                       </div>
                       <span>{item.text}</span>
                     </div>
@@ -1061,9 +1061,9 @@ function RegisterContent() {
               <>
                 <h2 className="text-3xl xl:text-4xl font-bold font-serif text-white leading-tight">
                   Encontrá el escribano{" "}
-                  <span className="text-amber-400">ideal</span> para vos
+                  <span className="text-amber-200">ideal</span> para vos
                 </h2>
-                <p className="mt-6 text-lg text-primary-200 max-w-md">
+                <p className="mt-6 text-lg text-slate-200 max-w-md">
                   Compará precios, leé opiniones y agendá tu consulta
                   presencial o virtual en minutos.
                 </p>
@@ -1076,8 +1076,8 @@ function RegisterContent() {
                     { value: "4.9★", label: "Satisfacción" },
                   ].map((stat) => (
                     <div key={stat.label}>
-                      <p className="text-2xl font-bold text-amber-400">{stat.value}</p>
-                      <p className="text-sm text-primary-300">{stat.label}</p>
+                      <p className="text-2xl font-bold text-amber-200">{stat.value}</p>
+                      <p className="text-sm text-slate-300">{stat.label}</p>
                     </div>
                   ))}
                 </div>
@@ -1096,12 +1096,12 @@ function RegisterContent() {
 
 function RegisterLoading() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <div className="min-h-screen flex items-center justify-center bg-[#faf9f7]">
       <div className="text-center">
         <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-amber-100 mb-4">
           <Loader2 className="w-8 h-8 text-amber-600 animate-spin" />
         </div>
-        <p className="text-sm text-primary-600 font-medium">Cargando registro...</p>
+        <p className="text-sm text-slate-600 font-medium">Cargando registro...</p>
       </div>
     </div>
   );

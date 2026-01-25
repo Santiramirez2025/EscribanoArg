@@ -5,7 +5,7 @@ import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // =============================================================================
-// VARIANTES CON CVA
+// VARIANTES CON CVA - Paleta Profesional Escribanía
 // =============================================================================
 
 const buttonVariants = cva(
@@ -23,61 +23,74 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        // Primary - Acción principal
+        // Primary - Acción principal (slate profesional)
         primary: [
-          "bg-primary-900 text-white",
-          "hover:bg-primary-800",
-          "focus-visible:ring-primary-500",
+          "bg-slate-800 text-white",
+          "hover:bg-slate-700",
+          "focus-visible:ring-slate-500",
           "shadow-md hover:shadow-lg",
         ],
-        // Accent - CTA destacado (gradiente ámbar)
+        // Accent - CTA destacado (gradiente champagne/dorado suave)
         accent: [
-          "bg-gradient-to-r from-amber-500 to-amber-600",
-          "text-white font-semibold",
-          "hover:from-amber-600 hover:to-amber-700",
-          "focus-visible:ring-amber-500",
-          "shadow-md hover:shadow-lg hover:shadow-amber-500/25",
+          "bg-gradient-to-r from-amber-400 to-amber-500",
+          "text-slate-900 font-semibold",
+          "hover:from-amber-500 hover:to-amber-600",
+          "focus-visible:ring-amber-400",
+          "shadow-md hover:shadow-lg hover:shadow-amber-400/20",
         ],
         // Secondary - Acción secundaria
         secondary: [
-          "bg-white text-primary-900",
-          "border-2 border-primary-200",
-          "hover:bg-primary-50 hover:border-primary-300",
-          "focus-visible:ring-primary-500",
+          "bg-white text-slate-800",
+          "border-2 border-slate-200",
+          "hover:bg-slate-50 hover:border-slate-300",
+          "focus-visible:ring-slate-400",
         ],
         // Outline - Borde sutil
         outline: [
-          "bg-transparent text-primary-700",
-          "border-2 border-gray-300",
-          "hover:bg-gray-50 hover:border-gray-400",
-          "focus-visible:ring-primary-500",
+          "bg-transparent text-slate-700",
+          "border-2 border-slate-300",
+          "hover:bg-slate-50 hover:border-slate-400",
+          "focus-visible:ring-slate-400",
         ],
         // Ghost - Sin fondo
         ghost: [
-          "bg-transparent text-primary-700",
-          "hover:bg-gray-100",
-          "focus-visible:ring-primary-500",
+          "bg-transparent text-slate-600",
+          "hover:bg-slate-100 hover:text-slate-800",
+          "focus-visible:ring-slate-400",
         ],
-        // Destructive - Acciones peligrosas
+        // Destructive - Acciones peligrosas (rose más suave)
         destructive: [
-          "bg-red-600 text-white",
-          "hover:bg-red-700",
-          "focus-visible:ring-red-500",
+          "bg-rose-500 text-white",
+          "hover:bg-rose-600",
+          "focus-visible:ring-rose-400",
           "shadow-md hover:shadow-lg",
         ],
         // Link - Estilo de enlace
         link: [
           "bg-transparent text-amber-600",
           "hover:text-amber-700 hover:underline",
-          "focus-visible:ring-amber-500",
+          "focus-visible:ring-amber-400",
           "p-0 h-auto",
         ],
-        // Success - Confirmación
+        // Success - Confirmación (emerald suave)
         success: [
-          "bg-emerald-600 text-white",
-          "hover:bg-emerald-700",
-          "focus-visible:ring-emerald-500",
+          "bg-emerald-500 text-white",
+          "hover:bg-emerald-600",
+          "focus-visible:ring-emerald-400",
           "shadow-md hover:shadow-lg",
+        ],
+        // Soft - Variante suave para acciones menos prominentes
+        soft: [
+          "bg-slate-100 text-slate-700",
+          "hover:bg-slate-200",
+          "focus-visible:ring-slate-400",
+        ],
+        // Accent Outline - CTA secundario dorado
+        "accent-outline": [
+          "bg-transparent text-amber-600",
+          "border-2 border-amber-300",
+          "hover:bg-amber-50 hover:border-amber-400",
+          "focus-visible:ring-amber-400",
         ],
       },
       size: {
@@ -194,7 +207,7 @@ Button.displayName = "Button";
 export { buttonVariants };
 
 // =============================================================================
-// VARIANTES PRE-CONFIGURADAS (opcional)
+// VARIANTES PRE-CONFIGURADAS
 // =============================================================================
 
 /** Botón con icono únicamente */

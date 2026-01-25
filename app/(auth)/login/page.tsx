@@ -45,11 +45,11 @@ function Logo() {
     <Link href="/" className="inline-flex items-center gap-2.5 group">
       <motion.div
         whileHover={{ scale: 1.05, rotate: 5 }}
-        className="h-12 w-12 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/20"
+        className="h-12 w-12 rounded-xl bg-gradient-to-br from-amber-400 to-amber-500 flex items-center justify-center shadow-lg shadow-amber-400/20"
       >
         <Scale className="w-6 h-6 text-white" />
       </motion.div>
-      <span className="text-2xl font-bold text-primary-900 font-serif">
+      <span className="text-2xl font-bold text-slate-800 font-serif">
         EscribanosARG
       </span>
     </Link>
@@ -71,20 +71,20 @@ function Input({
         <Icon
           className={cn(
             "absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 transition-colors",
-            error ? "text-red-400" : "text-primary-400"
+            error ? "text-rose-400" : "text-slate-400"
           )}
         />
       )}
       <input
         className={cn(
           "w-full rounded-xl border-2 bg-white",
-          "py-3.5 pr-4 text-primary-900 placeholder:text-primary-400",
+          "py-3.5 pr-4 text-slate-800 placeholder:text-slate-400",
           "focus:outline-none focus:ring-2 focus:ring-amber-400/20",
           "transition-all duration-200",
           Icon ? "pl-12" : "pl-4",
           error
-            ? "border-red-300 focus:border-red-400"
-            : "border-gray-200 focus:border-amber-400",
+            ? "border-rose-300 focus:border-rose-400"
+            : "border-slate-200 focus:border-amber-400",
           className
         )}
         {...props}
@@ -107,7 +107,7 @@ function Alert({
       className={cn(
         "flex items-center gap-3 p-4 rounded-xl text-sm",
         type === "error"
-          ? "bg-red-50 text-red-700 border border-red-200"
+          ? "bg-rose-50 text-rose-700 border border-rose-200"
           : "bg-emerald-50 text-emerald-700 border border-emerald-200"
       )}
     >
@@ -165,12 +165,12 @@ function LoginContent() {
   return (
     <div className="min-h-screen flex">
       {/* Left side - Form */}
-      <div className="flex-1 flex flex-col justify-center px-4 sm:px-6 lg:px-8 py-12 bg-gray-50">
+      <div className="flex-1 flex flex-col justify-center px-4 sm:px-6 lg:px-8 py-12 bg-[#faf9f7]">
         <div className="w-full max-w-md mx-auto">
           {/* Back link */}
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-sm text-primary-500 hover:text-primary-700 transition-colors mb-8"
+            className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-700 transition-colors mb-8"
           >
             <ArrowLeft className="w-4 h-4" />
             Volver al inicio
@@ -190,13 +190,13 @@ function LoginContent() {
             initial="hidden"
             animate="visible"
             variants={staggerContainer}
-            className="bg-white rounded-2xl border border-gray-200 shadow-xl shadow-gray-200/50 p-6 sm:p-8"
+            className="bg-white rounded-2xl border border-slate-200 shadow-xl shadow-slate-200/50 p-6 sm:p-8"
           >
             <motion.div variants={fadeInUp}>
-              <h1 className="text-2xl font-bold font-serif text-primary-900">
+              <h1 className="text-2xl font-bold font-serif text-slate-800">
                 Bienvenido de nuevo
               </h1>
-              <p className="mt-2 text-primary-500">
+              <p className="mt-2 text-slate-500">
                 Ingresá a tu cuenta para continuar
               </p>
             </motion.div>
@@ -225,7 +225,7 @@ function LoginContent() {
             >
               {/* Email */}
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-primary-700">
+                <label className="block text-sm font-medium text-slate-700">
                   Email
                 </label>
                 <Input
@@ -243,7 +243,7 @@ function LoginContent() {
               {/* Password */}
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <label className="block text-sm font-medium text-primary-700">
+                  <label className="block text-sm font-medium text-slate-700">
                     Contraseña
                   </label>
                   <Link
@@ -268,7 +268,7 @@ function LoginContent() {
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-primary-400 hover:text-primary-600 transition-colors"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
                   >
                     {showPassword ? (
                       <EyeOff className="w-5 h-5" />
@@ -302,10 +302,10 @@ function LoginContent() {
             <motion.div variants={fadeInUp} className="mt-8">
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-200" />
+                  <div className="w-full border-t border-slate-200" />
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="px-4 bg-white text-primary-400">
+                  <span className="px-4 bg-white text-slate-400">
                     ¿No tenés cuenta?
                   </span>
                 </div>
@@ -335,7 +335,7 @@ function LoginContent() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
-            className="mt-8 text-center text-sm text-primary-400"
+            className="mt-8 text-center text-sm text-slate-400"
           >
             Al continuar, aceptás nuestros{" "}
             <Link href="/terminos" className="text-amber-600 hover:underline">
@@ -350,18 +350,18 @@ function LoginContent() {
       </div>
 
       {/* Right side - Visual (hidden on mobile) */}
-      <div className="hidden lg:flex lg:flex-1 bg-gradient-to-br from-primary-900 via-primary-800 to-primary-950 relative overflow-hidden">
+      <div className="hidden lg:flex lg:flex-1 bg-gradient-to-br from-slate-700 via-slate-600 to-slate-700 relative overflow-hidden">
         {/* Pattern */}
         <div
-          className="absolute inset-0 opacity-[0.03]"
+          className="absolute inset-0 opacity-[0.04]"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
           }}
         />
 
         {/* Glows */}
-        <div className="absolute top-1/4 -left-32 w-96 h-96 bg-amber-500/20 rounded-full blur-[128px]" />
-        <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-blue-500/10 rounded-full blur-[128px]" />
+        <div className="absolute top-1/4 -left-32 w-96 h-96 bg-amber-200/15 rounded-full blur-[128px]" />
+        <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-sky-200/10 rounded-full blur-[128px]" />
 
         {/* Content */}
         <div className="relative flex flex-col justify-center px-12 xl:px-20">
@@ -373,7 +373,7 @@ function LoginContent() {
             <h2 className="text-3xl xl:text-4xl font-bold font-serif text-white leading-tight">
               Conectamos clientes con los mejores escribanos de Argentina
             </h2>
-            <p className="mt-6 text-lg text-primary-200 max-w-md">
+            <p className="mt-6 text-lg text-slate-200 max-w-md">
               Encontrá el profesional ideal para tu trámite. Compará precios,
               leé opiniones y agendá tu consulta en minutos.
             </p>
@@ -386,10 +386,10 @@ function LoginContent() {
                 { value: "4.9★", label: "Satisfacción" },
               ].map((stat) => (
                 <div key={stat.label}>
-                  <p className="text-2xl font-bold text-amber-400">
+                  <p className="text-2xl font-bold text-amber-200">
                     {stat.value}
                   </p>
-                  <p className="text-sm text-primary-300">{stat.label}</p>
+                  <p className="text-sm text-slate-300">{stat.label}</p>
                 </div>
               ))}
             </div>
@@ -406,10 +406,10 @@ function LoginContent() {
 
 function LoginLoading() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <div className="min-h-screen flex items-center justify-center bg-[#faf9f7]">
       <div className="text-center">
-        <div className="inline-flex h-12 w-12 animate-spin rounded-full border-4 border-solid border-amber-600 border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" />
-        <p className="mt-4 text-sm text-primary-500">Cargando...</p>
+        <div className="inline-flex h-12 w-12 animate-spin rounded-full border-4 border-solid border-amber-500 border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" />
+        <p className="mt-4 text-sm text-slate-500">Cargando...</p>
       </div>
     </div>
   );

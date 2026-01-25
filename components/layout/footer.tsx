@@ -82,8 +82,8 @@ function Logo() {
         whileHover={{ scale: 1.05, rotate: 5 }}
         className={cn(
           "h-10 w-10 rounded-xl flex items-center justify-center",
-          "bg-gradient-to-br from-amber-400 to-amber-600",
-          "shadow-lg shadow-amber-500/20",
+          "bg-gradient-to-br from-amber-400 to-amber-500",
+          "shadow-md shadow-amber-400/20",
           "transition-shadow duration-300"
         )}
       >
@@ -102,7 +102,7 @@ function FooterLink({ href, children }: { href: string; children: React.ReactNod
       <Link
         href={href}
         className={cn(
-          "inline-flex items-center gap-1 text-sm text-primary-300",
+          "inline-flex items-center gap-1 text-sm text-slate-400",
           "hover:text-white transition-colors duration-200",
           "group"
         )}
@@ -123,7 +123,7 @@ function FooterSection({
 }) {
   return (
     <div>
-      <h3 className="font-semibold text-white mb-4 text-sm uppercase tracking-wider">
+      <h3 className="font-semibold text-slate-200 mb-4 text-sm uppercase tracking-wider">
         {title}
       </h3>
       <ul className="space-y-3">
@@ -155,8 +155,8 @@ function SocialButton({
       whileTap={{ scale: 0.95 }}
       className={cn(
         "w-10 h-10 rounded-xl flex items-center justify-center",
-        "bg-white/5 hover:bg-white/10 border border-white/10",
-        "text-primary-300 hover:text-white",
+        "bg-slate-700/50 hover:bg-slate-700 border border-slate-600/50",
+        "text-slate-400 hover:text-white",
         "transition-colors duration-200"
       )}
       aria-label={name}
@@ -168,11 +168,11 @@ function SocialButton({
 
 function Newsletter() {
   return (
-    <div className="bg-white/5 rounded-2xl p-6 border border-white/10">
+    <div className="bg-slate-700/30 rounded-2xl p-6 border border-slate-600/30">
       <h3 className="font-semibold text-white mb-2">
         Suscribite al newsletter
       </h3>
-      <p className="text-sm text-primary-300 mb-4">
+      <p className="text-sm text-slate-400 mb-4">
         Recibí novedades y tips sobre trámites notariales.
       </p>
       <form className="flex gap-2">
@@ -181,9 +181,9 @@ function Newsletter() {
           placeholder="tu@email.com"
           className={cn(
             "flex-1 px-4 py-2.5 rounded-xl text-sm",
-            "bg-white/10 border border-white/10",
-            "text-white placeholder:text-primary-400",
-            "focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/50",
+            "bg-slate-700/50 border border-slate-600/50",
+            "text-white placeholder:text-slate-500",
+            "focus:outline-none focus:border-amber-400/50 focus:ring-1 focus:ring-amber-400/50",
             "transition-all duration-200"
           )}
         />
@@ -193,9 +193,9 @@ function Newsletter() {
           type="submit"
           className={cn(
             "px-4 py-2.5 rounded-xl font-medium text-sm",
-            "bg-gradient-to-r from-amber-500 to-amber-600 text-white",
-            "hover:from-amber-600 hover:to-amber-700",
-            "shadow-lg shadow-amber-500/25",
+            "bg-gradient-to-r from-amber-400 to-amber-500 text-slate-900",
+            "hover:from-amber-500 hover:to-amber-600",
+            "shadow-md shadow-amber-400/20",
             "transition-all duration-200"
           )}
         >
@@ -214,10 +214,10 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-primary-950 text-white relative overflow-hidden">
-      {/* Decorative elements */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-[128px] pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-primary-500/5 rounded-full blur-[128px] pointer-events-none" />
+    <footer className="bg-slate-800 text-white relative overflow-hidden">
+      {/* Decorative elements - más sutiles */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-amber-300/5 rounded-full blur-[128px] pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-sky-300/5 rounded-full blur-[128px] pointer-events-none" />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Main Footer Content */}
@@ -225,7 +225,7 @@ export function Footer() {
           {/* Brand Column */}
           <div className="col-span-2 md:col-span-6 lg:col-span-4">
             <Logo />
-            <p className="mt-4 text-primary-300 text-sm leading-relaxed max-w-xs">
+            <p className="mt-4 text-slate-400 text-sm leading-relaxed max-w-xs">
               La forma más simple de encontrar y conectar con escribanos 
               matriculados en Argentina.
             </p>
@@ -233,8 +233,8 @@ export function Footer() {
             {/* Contact Info */}
             <ul className="mt-6 space-y-3">
               {contactInfo.map((item) => (
-                <li key={item.text} className="flex items-center gap-3 text-sm text-primary-300">
-                  <item.icon className="h-4 w-4 text-amber-500" />
+                <li key={item.text} className="flex items-center gap-3 text-sm text-slate-400">
+                  <item.icon className="h-4 w-4 text-amber-400" />
                   {item.href ? (
                     <a href={item.href} className="hover:text-white transition-colors">
                       {item.text}
@@ -284,21 +284,21 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-white/10 py-6">
+        <div className="border-t border-slate-700/50 py-6">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             {/* Copyright */}
-            <p className="text-sm text-primary-400 text-center sm:text-left">
+            <p className="text-sm text-slate-500 text-center sm:text-left">
               © {currentYear} EscribanosARG. Todos los derechos reservados.
             </p>
 
             {/* Made in Argentina Badge */}
-            <div className="flex items-center gap-2 text-sm text-primary-400">
+            <div className="flex items-center gap-2 text-sm text-slate-500">
               <span>Hecho con</span>
               <motion.div
                 animate={{ scale: [1, 1.2, 1] }}
                 transition={{ duration: 1, repeat: Infinity, repeatDelay: 2 }}
               >
-                <Heart className="h-4 w-4 text-red-500 fill-red-500" />
+                <Heart className="h-4 w-4 text-rose-400 fill-rose-400" />
               </motion.div>
               <span>en Argentina 🇦🇷</span>
             </div>
@@ -309,7 +309,7 @@ export function Footer() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className="text-primary-400 hover:text-white transition-colors"
+                  className="text-slate-500 hover:text-white transition-colors"
                 >
                   {link.name.split(" ")[0]}
                 </Link>

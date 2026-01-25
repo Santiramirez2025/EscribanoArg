@@ -58,6 +58,7 @@ const menuItemVariants = {
     },
   }),
 };
+
 // =============================================================================
 // COMPONENTE LOGO
 // =============================================================================
@@ -70,8 +71,8 @@ function Logo({ scrolled = false }: { scrolled?: boolean }) {
         whileTap={{ scale: 0.95 }}
         className={cn(
           "h-10 w-10 rounded-xl flex items-center justify-center",
-          "bg-gradient-to-br from-amber-400 to-amber-600",
-          "shadow-md group-hover:shadow-lg group-hover:shadow-amber-500/25",
+          "bg-gradient-to-br from-amber-400 to-amber-500",
+          "shadow-md group-hover:shadow-lg group-hover:shadow-amber-400/20",
           "transition-shadow duration-300"
         )}
       >
@@ -80,7 +81,7 @@ function Logo({ scrolled = false }: { scrolled?: boolean }) {
       <span
         className={cn(
           "hidden sm:block text-xl font-bold font-serif transition-colors duration-300",
-          scrolled ? "text-primary-900" : "text-primary-900"
+          "text-slate-800"
         )}
       >
         EscribanosARG
@@ -110,8 +111,8 @@ function NavLink({
         className={cn(
           "text-sm font-medium transition-colors duration-200",
           isActive
-            ? "text-primary-900"
-            : "text-primary-600 group-hover:text-primary-900"
+            ? "text-slate-800"
+            : "text-slate-500 group-hover:text-slate-800"
         )}
       >
         {name}
@@ -126,7 +127,7 @@ function NavLink({
       )}
       {/* Hover indicator */}
       {!isActive && (
-        <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-amber-500/50 rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left" />
+        <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-amber-400/50 rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left" />
       )}
     </Link>
   );
@@ -168,7 +169,7 @@ function MobileMenu({
             animate="open"
             exit="closed"
             onClick={onClose}
-            className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm md:hidden"
+            className="fixed inset-0 z-40 bg-slate-900/50 backdrop-blur-sm md:hidden"
           />
 
           {/* Menu Panel */}
@@ -184,15 +185,15 @@ function MobileMenu({
             )}
           >
             {/* Header del menú */}
-            <div className="flex items-center justify-between p-4 border-b border-gray-100">
-              <span className="font-serif font-bold text-primary-900">Menú</span>
+            <div className="flex items-center justify-between p-4 border-b border-slate-100">
+              <span className="font-serif font-bold text-slate-800">Menú</span>
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={onClose}
-                className="p-2 rounded-xl hover:bg-gray-100 transition-colors"
+                className="p-2 rounded-xl hover:bg-slate-100 transition-colors"
               >
-                <X className="h-5 w-5 text-gray-600" />
+                <X className="h-5 w-5 text-slate-500" />
               </motion.button>
             </div>
 
@@ -213,8 +214,8 @@ function MobileMenu({
                       "flex items-center justify-between px-4 py-3.5 rounded-xl",
                       "text-base font-medium transition-all duration-200",
                       pathname === item.href
-                        ? "bg-amber-50 text-amber-700 border-l-4 border-amber-500"
-                        : "text-gray-700 hover:bg-gray-50 active:bg-gray-100"
+                        ? "bg-amber-50 text-amber-700 border-l-4 border-amber-400"
+                        : "text-slate-600 hover:bg-slate-50 active:bg-slate-100"
                     )}
                   >
                     {item.name}
@@ -223,7 +224,7 @@ function MobileMenu({
                         "h-4 w-4 transition-transform",
                         pathname === item.href
                           ? "text-amber-500"
-                          : "text-gray-400"
+                          : "text-slate-400"
                       )}
                     />
                   </Link>
@@ -236,16 +237,21 @@ function MobileMenu({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="p-4 border-t border-gray-100 space-y-3"
+              className="p-4 border-t border-slate-100 space-y-3"
             >
               <Link href="/login" onClick={onClose} className="block">
-                <Button variant="outline" className="w-full justify-center gap-2">
+                <Button 
+                  variant="outline" 
+                  className="w-full justify-center gap-2 border-slate-300 text-slate-700 hover:bg-slate-50"
+                >
                   <LogIn className="h-4 w-4" />
                   Iniciar Sesión
                 </Button>
               </Link>
               <Link href="/register" onClick={onClose} className="block">
-                <Button variant="accent" className="w-full justify-center gap-2">
+                <Button 
+                  className="w-full justify-center gap-2 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-slate-900 font-semibold"
+                >
                   <User className="h-4 w-4" />
                   Crear Cuenta
                 </Button>
@@ -253,8 +259,8 @@ function MobileMenu({
             </motion.div>
 
             {/* Footer info */}
-            <div className="p-4 bg-gray-50 text-center">
-              <p className="text-xs text-gray-500">
+            <div className="p-4 bg-slate-50 text-center">
+              <p className="text-xs text-slate-500">
                 ¿Sos escribano?{" "}
                 <Link
                   href="/para-escribanos"
@@ -306,8 +312,8 @@ export function Header() {
         className={cn(
           "sticky top-0 z-50 w-full transition-all duration-300",
           scrolled
-            ? "bg-white/95 backdrop-blur-lg shadow-soft-md border-b border-gray-100"
-            : "bg-white border-b border-gray-200"
+            ? "bg-white/95 backdrop-blur-lg shadow-sm border-b border-slate-200/80"
+            : "bg-white border-b border-slate-200"
         )}
       >
         <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -331,13 +337,20 @@ export function Header() {
             {/* Desktop Auth Buttons */}
             <div className="hidden md:flex md:items-center md:gap-3">
               <Link href="/login">
-                <Button variant="ghost" size="sm" className="font-medium">
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="font-medium text-slate-600 hover:text-slate-800 hover:bg-slate-100"
+                >
                   Iniciar Sesión
                 </Button>
               </Link>
               <Link href="/register">
                 <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                  <Button variant="accent" size="sm" className="font-semibold">
+                  <Button 
+                    size="sm" 
+                    className="font-semibold bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-slate-900 shadow-sm hover:shadow-md"
+                  >
                     Registrarse
                   </Button>
                 </motion.div>
@@ -351,11 +364,11 @@ export function Header() {
               onClick={() => setMobileOpen(true)}
               className={cn(
                 "md:hidden p-2.5 rounded-xl transition-colors",
-                "hover:bg-gray-100 active:bg-gray-200"
+                "hover:bg-slate-100 active:bg-slate-200"
               )}
               aria-label="Abrir menú"
             >
-              <Menu className="h-5 w-5 text-gray-700" />
+              <Menu className="h-5 w-5 text-slate-600" />
             </motion.button>
           </div>
         </nav>
