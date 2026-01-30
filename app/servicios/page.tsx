@@ -54,8 +54,14 @@ const scaleIn = {
 };
 
 // =============================================================================
-// DATOS DE SERVICIOS
+// TIPOS Y ESTRUCTURAS
 // =============================================================================
+
+interface ActoJuridico {
+  id: string;
+  nombre: string;
+  descripcion: string;
+}
 
 interface Servicio {
   id: string;
@@ -70,15 +76,215 @@ interface Servicio {
   documentos: string[];
   incluye: string[];
   popular?: boolean;
+  actosJuridicos?: ActoJuridico[];
 }
+
+// =============================================================================
+// DATOS DE ACTOS JURÍDICOS
+// =============================================================================
+
+const ACTOS_ESCRITURAS: ActoJuridico[] = [
+  {
+    id: "BOLETOS",
+    nombre: "Boletos",
+    descripcion: "Compromiso de compraventa de inmuebles",
+  },
+  {
+    id: "COMPRAVENTA",
+    nombre: "Compraventa",
+    descripcion: "Transferencia de dominio de inmuebles",
+  },
+  {
+    id: "DONACIONES_MUEBLES",
+    nombre: "Donaciones - Bienes Muebles",
+    descripcion: "Donación de bienes muebles",
+  },
+  {
+    id: "DONACIONES_INMUEBLES",
+    nombre: "Donaciones - Bienes Inmuebles",
+    descripcion: "Donación de inmuebles",
+  },
+  {
+    id: "CONJUNTO_INMOBILIARIO",
+    nombre: "Conjunto Inmobiliario",
+    descripcion: "Constitución de conjuntos inmobiliarios",
+  },
+  {
+    id: "PROPIEDAD_HORIZONTAL",
+    nombre: "Propiedad Horizontal",
+    descripcion: "Régimen de propiedad horizontal",
+  },
+  {
+    id: "HIPOTECA",
+    nombre: "Hipoteca",
+    descripcion: "Constitución de garantía hipotecaria",
+  },
+  {
+    id: "SERVIDUMBRE",
+    nombre: "Servidumbre",
+    descripcion: "Constitución de servidumbres",
+  },
+  {
+    id: "USUFRUCTO",
+    nombre: "Usufructo",
+    descripcion: "Constitución de usufructo y nuda propiedad",
+  },
+  {
+    id: "TESTAMENTOS",
+    nombre: "Testamentos",
+    descripcion: "Testamentos públicos y cerrados",
+  },
+  {
+    id: "FIDEICOMISO",
+    nombre: "Fideicomiso",
+    descripcion: "Constitución de fideicomisos",
+  },
+  {
+    id: "OTROS_DERECHOS",
+    nombre: "Otros",
+    descripcion: "Otros derechos reales",
+  },
+];
+
+const ACTOS_CERTIFICACIONES: ActoJuridico[] = [
+  {
+    id: "PERSONA_FISICA",
+    nombre: "Persona Física",
+    descripcion: "Certificación de firmas de personas físicas",
+  },
+  {
+    id: "PERSONA_JURIDICA",
+    nombre: "Persona Jurídica",
+    descripcion: "Certificación de firmas de personas jurídicas",
+  },
+  {
+    id: "FOTOCOPIAS",
+    nombre: "Certificación de Fotocopias",
+    descripcion: "Certificación de copias de documentos",
+  },
+  {
+    id: "COPIAS_FIELES",
+    nombre: "Copias Fieles",
+    descripcion: "Copias fieles de documentos originales",
+  },
+];
+
+const ACTOS_ACTAS: ActoJuridico[] = [
+  {
+    id: "CONSTATACION",
+    nombre: "Acta de Constatación",
+    descripcion: "Constatación de hechos",
+  },
+  {
+    id: "NOTIFICACION",
+    nombre: "Acta de Notificación",
+    descripcion: "Notificación de actos",
+  },
+  {
+    id: "INTIMACION",
+    nombre: "Acta de Intimación",
+    descripcion: "Intimación notarial",
+  },
+];
+
+const ACTOS_PODERES: ActoJuridico[] = [
+  {
+    id: "GENERAL",
+    nombre: "Poder General",
+    descripcion: "Poder para múltiples actos",
+  },
+  {
+    id: "ESPECIAL",
+    nombre: "Poder Especial",
+    descripcion: "Poder para un acto específico",
+  },
+];
+
+const ACTOS_AUTORIZACIONES: ActoJuridico[] = [
+  {
+    id: "TIEMPO_LIMITADO",
+    nombre: "Tiempo Limitado",
+    descripcion: "Autorización con fecha de vencimiento",
+  },
+  {
+    id: "TIEMPO_ILIMITADO",
+    nombre: "Tiempo Ilimitado",
+    descripcion: "Autorización sin fecha de vencimiento",
+  },
+];
+
+const ACTOS_CESIONES: ActoJuridico[] = [
+  {
+    id: "BOLETOS",
+    nombre: "Cesión de Boletos",
+    descripcion: "Cesión de boletos de compraventa",
+  },
+  {
+    id: "DERECHOS_HEREDITARIOS",
+    nombre: "Derechos Hereditarios",
+    descripcion: "Cesión de derechos hereditarios",
+  },
+  {
+    id: "DERECHOS_LITIGIOSOS",
+    nombre: "Derechos Litigiosos",
+    descripcion: "Cesión de derechos en litigio",
+  },
+  {
+    id: "POSESION",
+    nombre: "Posesión",
+    descripcion: "Cesión de derechos posesorios",
+  },
+  {
+    id: "FONDO_COMERCIO",
+    nombre: "Transferencia de Fondo de Comercio",
+    descripcion: "Transferencia de fondos de comercio",
+  },
+];
+
+const ACTOS_OTROS: ActoJuridico[] = [
+  {
+    id: "CONTRATOS_LOCACION",
+    nombre: "Contratos de Locación",
+    descripcion: "Redacción de contratos de alquiler",
+  },
+  {
+    id: "CONTRATOS_COMODATO",
+    nombre: "Contratos de Comodato",
+    descripcion: "Préstamo gratuito de bienes",
+  },
+  {
+    id: "CONTRATOS_MUTUO",
+    nombre: "Contratos de Mutuo",
+    descripcion: "Préstamo de dinero",
+  },
+  {
+    id: "ESTUDIO_TITULOS",
+    nombre: "Estudio de Títulos",
+    descripcion: "Análisis de antecedentes dominiales",
+  },
+  {
+    id: "SEGURIDAD_JURIDICA",
+    nombre: "Seguridad Jurídica Previa",
+    descripcion: "Asesoramiento jurídico notarial",
+  },
+  {
+    id: "OTROS_CONTRATOS",
+    nombre: "Otros Contratos",
+    descripcion: "Redacción de otros contratos",
+  },
+];
+
+// =============================================================================
+// DATOS DE SERVICIOS
+// =============================================================================
 
 const SERVICIOS: Servicio[] = [
   {
     id: "ESCRITURAS",
-    nombre: "Escrituras",
-    descripcion: "Compraventa, hipotecas y transferencias de inmuebles",
+    nombre: "Escrituras Públicas",
+    descripcion: "Actos jurídicos con validez legal: compraventas, donaciones, hipotecas y más",
     descripcionLarga:
-      "Las escrituras públicas son documentos notariales que dan fe de actos jurídicos como compraventas, hipotecas, permutas y cesiones de derechos sobre inmuebles. El escribano garantiza la legalidad y autenticidad del acto.",
+      "Las escrituras públicas son instrumentos notariales que dan fe y autenticidad a los actos jurídicos. El escribano garantiza la legalidad del acto, verifica la identidad de las partes, y asegura que se cumplan todos los requisitos legales para su validez.",
     icon: ScrollText,
     color: "text-slate-600",
     bgColor: "from-slate-500 to-slate-600",
@@ -90,6 +296,7 @@ const SERVICIOS: Servicio[] = [
       "Informe de dominio",
       "Libre deuda municipal y provincial",
       "Certificado catastral",
+      "Cedulón de rentas de la Provincia de Córdoba",
     ],
     incluye: [
       "Estudio de títulos",
@@ -97,8 +304,148 @@ const SERVICIOS: Servicio[] = [
       "Inscripción en el Registro",
       "Certificaciones",
       "Copias autenticadas",
+      "Testimonios",
     ],
     popular: true,
+    actosJuridicos: ACTOS_ESCRITURAS,
+  },
+  {
+    id: "CERTIFICACIONES",
+    nombre: "Certificaciones de Firmas",
+    descripcion: "Certificación de firmas para personas físicas y jurídicas, fotocopias y copias fieles",
+    descripcionLarga:
+      "Las certificaciones notariales garantizan la autenticidad de firmas y documentos. El escribano verifica la identidad del firmante y certifica que la firma fue puesta en su presencia, otorgando validez legal al documento.",
+    icon: FileCheck,
+    color: "text-indigo-500",
+    bgColor: "from-indigo-400 to-indigo-500",
+    precio: "Desde $8.000",
+    tiempo: "En el día",
+    documentos: ["DNI", "Documento a certificar"],
+    incluye: [
+      "Verificación de identidad",
+      "Certificación notarial",
+      "Copias certificadas",
+    ],
+    popular: true,
+    actosJuridicos: ACTOS_CERTIFICACIONES,
+  },
+  {
+    id: "ACTAS",
+    nombre: "Actas Notariales",
+    descripcion: "Constatación de hechos, notificaciones e intimaciones",
+    descripcionLarga:
+      "Las actas notariales son instrumentos públicos mediante los cuales el escribano documenta hechos que presencia o constata. Tienen plena validez probatoria y son utilizadas para preservar situaciones de hecho, notificar o intimar actos.",
+    icon: Landmark,
+    color: "text-slate-600",
+    bgColor: "from-slate-500 to-slate-600",
+    precio: "Desde $30.000",
+    tiempo: "1-3 días hábiles",
+    documentos: ["DNI del requirente", "Datos del hecho a constatar"],
+    incluye: [
+      "Constatación del hecho",
+      "Redacción del acta",
+      "Protocolo notarial",
+      "Copias certificadas",
+    ],
+    popular: true,
+    actosJuridicos: ACTOS_ACTAS,
+  },
+  {
+    id: "PODERES",
+    nombre: "Poderes",
+    descripcion: "Poderes generales y especiales para representación legal",
+    descripcionLarga:
+      "Los poderes son documentos notariales que autorizan a una persona a actuar en nombre de otra. Pueden ser generales (para múltiples actos) o especiales (para un acto específico determinado).",
+    icon: Stamp,
+    color: "text-amber-600",
+    bgColor: "from-amber-500 to-amber-600",
+    precio: "Desde $25.000",
+    tiempo: "1-3 días hábiles",
+    documentos: [
+      "DNI del poderdante",
+      "DNI del apoderado",
+      "Datos del acto a realizar",
+    ],
+    incluye: [
+      "Redacción del poder",
+      "Firma ante escribano",
+      "Copias certificadas",
+      "Legalización si corresponde",
+    ],
+    popular: true,
+    actosJuridicos: ACTOS_PODERES,
+  },
+  {
+    id: "AUTORIZACIONES",
+    nombre: "Autorizaciones (Menores)",
+    descripcion: "Autorizaciones de viaje para menores de edad",
+    descripcionLarga:
+      "Autorizaciones notariales para que menores de edad puedan viajar al exterior o dentro del país con el consentimiento de sus padres o tutores. Pueden ser por tiempo limitado o ilimitado según las necesidades.",
+    icon: ShieldCheck,
+    color: "text-teal-500",
+    bgColor: "from-teal-400 to-teal-500",
+    precio: "Desde $15.000",
+    tiempo: "En el día",
+    documentos: [
+      "DNI de padres/tutores",
+      "DNI o partida del menor",
+      "Datos del viaje",
+    ],
+    incluye: [
+      "Redacción de autorización",
+      "Firma ante escribano",
+      "Copias certificadas",
+      "Apostilla si corresponde",
+    ],
+    actosJuridicos: ACTOS_AUTORIZACIONES,
+  },
+  {
+    id: "CESIONES",
+    nombre: "Cesiones",
+    descripcion: "Cesión de boletos, derechos hereditarios, litigiosos y fondos de comercio",
+    descripcionLarga:
+      "Las cesiones son actos jurídicos mediante los cuales se transfieren derechos de una persona a otra. Incluyen cesión de boletos de compraventa, derechos hereditarios, derechos litigiosos, posesión y transferencias de fondos de comercio.",
+    icon: FileSignature,
+    color: "text-violet-500",
+    bgColor: "from-violet-400 to-violet-500",
+    precio: "Desde $80.000",
+    tiempo: "7-15 días hábiles",
+    documentos: [
+      "DNI de cedente y cesionario",
+      "Documentación del derecho a ceder",
+      "Títulos o contratos originales",
+    ],
+    incluye: [
+      "Estudio de antecedentes",
+      "Redacción del instrumento",
+      "Inscripciones registrales",
+      "Copias autenticadas",
+    ],
+    actosJuridicos: ACTOS_CESIONES,
+  },
+  {
+    id: "OTROS",
+    nombre: "Otros Servicios",
+    descripcion: "Contratos, estudio de títulos y asesoramiento jurídico notarial",
+    descripcionLarga:
+      "Servicios complementarios que incluyen redacción de contratos de locación, comodato, mutuo y otros; estudio de títulos para verificar la situación dominial; y asesoramiento jurídico notarial previo para garantizar la seguridad jurídica de los actos.",
+    icon: FileText,
+    color: "text-emerald-600",
+    bgColor: "from-emerald-500 to-emerald-600",
+    precio: "Desde $20.000",
+    tiempo: "3-10 días hábiles",
+    documentos: [
+      "DNI de las partes",
+      "Documentación según el trámite",
+      "Títulos si corresponde",
+    ],
+    incluye: [
+      "Asesoramiento profesional",
+      "Redacción de documentos",
+      "Verificaciones necesarias",
+      "Copias certificadas",
+    ],
+    actosJuridicos: ACTOS_OTROS,
   },
   {
     id: "DECLARATORIA",
@@ -128,79 +475,6 @@ const SERVICIOS: Servicio[] = [
     popular: true,
   },
   {
-    id: "PODERES",
-    nombre: "Poderes",
-    descripcion: "Poderes generales, especiales y para juicios",
-    descripcionLarga:
-      "Los poderes son documentos que autorizan a una persona a actuar en nombre de otra. Pueden ser generales (para múltiples actos) o especiales (para un acto específico), incluyendo poderes para litigar.",
-    icon: Stamp,
-    color: "text-amber-600",
-    bgColor: "from-amber-500 to-amber-600",
-    precio: "Desde $25.000",
-    tiempo: "1-3 días hábiles",
-    documentos: [
-      "DNI del poderdante",
-      "DNI del apoderado",
-      "Datos del acto a realizar",
-    ],
-    incluye: [
-      "Redacción del poder",
-      "Firma ante escribano",
-      "Copias certificadas",
-      "Legalización si corresponde",
-    ],
-    popular: true,
-  },
-  {
-    id: "TESTAMENTOS",
-    nombre: "Testamentos",
-    descripcion: "Testamentos públicos, cerrados y ológrafos",
-    descripcionLarga:
-      "El testamento es el acto jurídico por el cual una persona dispone de sus bienes para después de su muerte. El escribano asegura que se cumplan todos los requisitos legales para su validez.",
-    icon: FileText,
-    color: "text-emerald-600",
-    bgColor: "from-emerald-500 to-emerald-600",
-    precio: "Desde $45.000",
-    tiempo: "1-5 días hábiles",
-    documentos: [
-      "DNI del testador",
-      "Datos de herederos",
-      "Detalle de bienes",
-      "Testigos (si corresponde)",
-    ],
-    incluye: [
-      "Asesoramiento legal",
-      "Redacción del testamento",
-      "Firma ante escribano",
-      "Protocolización",
-      "Inscripción en Registro",
-    ],
-  },
-  {
-    id: "DONACIONES",
-    nombre: "Donaciones",
-    descripcion: "Donaciones de inmuebles y bienes entre vivos",
-    descripcionLarga:
-      "La donación es un contrato por el cual una persona transfiere gratuitamente bienes a otra. Cuando involucra inmuebles, requiere escritura pública e inscripción registral.",
-    icon: Gift,
-    color: "text-rose-500",
-    bgColor: "from-rose-400 to-rose-500",
-    precio: "Desde $120.000",
-    tiempo: "7-15 días hábiles",
-    documentos: [
-      "DNI de donante y donatario",
-      "Título de propiedad",
-      "Libre deuda",
-      "Valuación fiscal",
-    ],
-    incluye: [
-      "Estudio de títulos",
-      "Redacción de escritura",
-      "Cálculo de impuestos",
-      "Inscripción registral",
-    ],
-  },
-  {
     id: "SOCIEDADES",
     nombre: "Sociedades",
     descripcion: "Constitución de sociedades, actas y modificaciones",
@@ -226,129 +500,22 @@ const SERVICIOS: Servicio[] = [
     ],
   },
   {
-    id: "CERTIFICACIONES",
-    nombre: "Certificaciones",
-    descripcion: "Certificación de firmas, copias y documentos",
-    descripcionLarga:
-      "Servicios de certificación notarial que incluyen certificación de firmas, copias de documentos, constatación de hechos y actas de notoriedad para diversos trámites.",
-    icon: FileCheck,
-    color: "text-indigo-500",
-    bgColor: "from-indigo-400 to-indigo-500",
-    precio: "Desde $8.000",
-    tiempo: "En el día",
-    documentos: ["DNI", "Documento a certificar"],
-    incluye: [
-      "Verificación de identidad",
-      "Certificación notarial",
-      "Copias certificadas",
-    ],
-  },
-  {
-    id: "USUFRUCTO",
-    nombre: "Usufructo",
-    descripcion: "Constitución de usufructo y nuda propiedad",
-    descripcionLarga:
-      "El usufructo permite separar el uso y goce de un bien de su propiedad. Es común en planificación sucesoria para que los padres conserven el uso del inmueble mientras transfieren la propiedad.",
-    icon: Home,
-    color: "text-orange-500",
-    bgColor: "from-orange-400 to-orange-500",
-    precio: "Desde $100.000",
-    tiempo: "7-15 días hábiles",
-    documentos: [
-      "DNI de las partes",
-      "Título de propiedad",
-      "Libre deuda",
-      "Valuación",
-    ],
-    incluye: [
-      "Asesoramiento",
-      "Redacción de escritura",
-      "Inscripción registral",
-      "Copias autenticadas",
-    ],
-  },
-  {
-    id: "FIDEICOMISOS",
-    nombre: "Fideicomisos",
-    descripcion: "Constitución y administración de fideicomisos",
-    descripcionLarga:
-      "El fideicomiso es un contrato donde una persona transmite bienes a otra para que los administre en beneficio de un tercero. Usado en desarrollos inmobiliarios, garantías y planificación patrimonial.",
-    icon: Scale,
-    color: "text-violet-500",
-    bgColor: "from-violet-400 to-violet-500",
-    precio: "Desde $250.000",
-    tiempo: "15-30 días hábiles",
-    documentos: [
-      "DNI de las partes",
-      "Bienes a fideicomitir",
-      "Objeto del fideicomiso",
-      "Beneficiarios",
-    ],
-    incluye: [
-      "Redacción del contrato",
-      "Constitución del fideicomiso",
-      "Inscripciones",
-      "CUIT del fideicomiso",
-    ],
-  },
-  {
     id: "PROTOCOLIZACIONES",
-    nombre: "Protocolizaciones",
-    descripcion: "Protocolización de documentos y actas",
+    nombre: "Protocolizaciones, Legalizaciones y Apostillas",
+    descripcion: "Protocolización de documentos, legalizaciones y apostillas",
     descripcionLarga:
-      "La protocolización incorpora un documento al protocolo notarial, dándole fecha cierta y autenticidad. Se usa para documentos privados, actas judiciales y documentos extranjeros.",
+      "La protocolización incorpora un documento al protocolo notarial, dándole fecha cierta y autenticidad. Las legalizaciones certifican la autenticidad de firmas de funcionarios públicos. La apostilla permite que documentos públicos sean reconocidos en países firmantes del Convenio de La Haya.",
     icon: FileSignature,
     color: "text-rose-500",
     bgColor: "from-rose-400 to-rose-500",
     precio: "Desde $20.000",
     tiempo: "1-5 días hábiles",
-    documentos: ["Documento a protocolizar", "DNI del solicitante"],
+    documentos: ["Documento a protocolizar/legalizar", "DNI del solicitante"],
     incluye: [
       "Incorporación al protocolo",
       "Escritura de protocolización",
       "Copias autenticadas",
-    ],
-  },
-  {
-    id: "AUTORIZACIONES",
-    nombre: "Autorizaciones",
-    descripcion: "Autorizaciones de viaje y actos para menores",
-    descripcionLarga:
-      "Autorizaciones notariales para que menores de edad puedan viajar al exterior, realizar actos jurídicos o trámites específicos con el consentimiento de sus padres o tutores.",
-    icon: ShieldCheck,
-    color: "text-teal-500",
-    bgColor: "from-teal-400 to-teal-500",
-    precio: "Desde $15.000",
-    tiempo: "En el día",
-    documentos: [
-      "DNI de padres/tutores",
-      "DNI o partida del menor",
-      "Datos del viaje/acto",
-    ],
-    incluye: [
-      "Redacción de autorización",
-      "Firma ante escribano",
-      "Copias certificadas",
       "Apostilla si corresponde",
-    ],
-  },
-  {
-    id: "ACTAS",
-    nombre: "Actas Notariales",
-    descripcion: "Constatación de hechos, notificaciones y requerimientos",
-    descripcionLarga:
-      "Las actas notariales documentan hechos que el escribano presencia o constata. Incluyen constataciones, notificaciones, protestos, sorteos y cualquier hecho que requiera fe pública.",
-    icon: Landmark,
-    color: "text-slate-600",
-    bgColor: "from-slate-500 to-slate-600",
-    precio: "Desde $30.000",
-    tiempo: "1-3 días hábiles",
-    documentos: ["DNI del requirente", "Datos del hecho a constatar"],
-    incluye: [
-      "Constatación del hecho",
-      "Redacción del acta",
-      "Protocolo notarial",
-      "Copias certificadas",
     ],
   },
 ];
@@ -470,6 +637,7 @@ function ServicioCard({ servicio }: { servicio: Servicio }) {
 
 function ServicioDetalle({ servicio }: { servicio: Servicio }) {
   const [expanded, setExpanded] = useState(false);
+  const [selectedActo, setSelectedActo] = useState<string>("");
 
   return (
     <motion.div
@@ -536,6 +704,27 @@ function ServicioDetalle({ servicio }: { servicio: Servicio }) {
                 {servicio.descripcionLarga}
               </p>
 
+              {/* Dropdown de Actos Jurídicos (si aplica) */}
+              {servicio.actosJuridicos && servicio.actosJuridicos.length > 0 && (
+                <div className="mt-6">
+                  <label className="block text-sm font-semibold text-slate-800 mb-2">
+                    Acto jurídico a realizar
+                  </label>
+                  <select
+                    value={selectedActo}
+                    onChange={(e) => setSelectedActo(e.target.value)}
+                    className="w-full px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                  >
+                    <option value="">Seleccione el tipo de acto</option>
+                    {servicio.actosJuridicos.map((acto) => (
+                      <option key={acto.id} value={acto.id}>
+                        {acto.nombre} - {acto.descripcion}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
+
               <div className="mt-6 grid sm:grid-cols-2 gap-6">
                 {/* Documentos necesarios */}
                 <div>
@@ -578,7 +767,12 @@ function ServicioDetalle({ servicio }: { servicio: Servicio }) {
 
               {/* CTA */}
               <div className="mt-6 pt-4 border-t border-slate-100 flex flex-col sm:flex-row gap-3">
-                <Link href={`/buscar?servicio=${servicio.id}`} className="flex-1">
+                <Link
+                  href={`/buscar?servicio=${servicio.id}${
+                    selectedActo ? `&acto=${selectedActo}` : ""
+                  }`}
+                  className="flex-1"
+                >
                   <Button variant="accent" className="w-full">
                     <Search className="w-4 h-4 mr-2" />
                     Buscar escribanos

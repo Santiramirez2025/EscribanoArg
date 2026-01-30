@@ -3,6 +3,7 @@
 import { Suspense } from "react";
 import { useState, useEffect, useCallback } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Search,
@@ -42,7 +43,7 @@ interface Escribano {
   calificacion: number;
   totalReviews: number;
   precioConsulta: number | null;
-  modalidades: ("presencial" | "virtual" | "domicilio")[];
+  modalidades: ("presencial" | "virtual")[];
   servicios: string[];
   verificado: boolean;
   destacado: boolean;
@@ -53,8 +54,6 @@ interface Filtros {
   servicio: string;
   ubicacion: string;
   modalidad: string;
-  precioMin: string;
-  precioMax: string;
   calificacionMin: string;
   disponibilidad: string;
   ordenar: string;
@@ -77,18 +76,17 @@ const SERVICIOS_OPTIONS = [
   { value: "CERTIFICACIONES", label: "Certificaciones" },
 ];
 
+// MODALIDAD: Solo Presencial y Virtual (sin "A domicilio")
 const MODALIDAD_OPTIONS = [
   { value: "", label: "Todas las modalidades" },
   { value: "presencial", label: "Presencial" },
   { value: "virtual", label: "Virtual (Zoom/Meet)" },
-  { value: "domicilio", label: "A domicilio" },
 ];
 
+// ORDENAR: Sin opciones de precio
 const ORDENAR_OPTIONS = [
   { value: "relevancia", label: "Más relevantes" },
   { value: "calificacion", label: "Mejor calificados" },
-  { value: "precio_asc", label: "Menor precio" },
-  { value: "precio_desc", label: "Mayor precio" },
   { value: "cercania", label: "Más cercanos" },
 ];
 
@@ -138,7 +136,7 @@ const MOCK_ESCRIBANOS: Escribano[] = [
     calificacion: 4.8,
     totalReviews: 203,
     precioConsulta: 18000,
-    modalidades: ["presencial", "virtual", "domicilio"],
+    modalidades: ["presencial", "virtual"],
     servicios: ["ESCRITURAS", "SOCIEDADES", "PODERES"],
     verificado: true,
     destacado: true,
@@ -489,13 +487,17 @@ function EscribanoCard({
 
           {/* CTA */}
           <div className="flex sm:flex-col gap-2 sm:justify-center">
-            <Button variant="accent" size="md" className="flex-1 sm:flex-none">
-              Ver perfil
-              <ChevronRight className="w-4 h-4" />
-            </Button>
-            <Button variant="outline" size="md" className="flex-1 sm:flex-none">
-              Agendar
-            </Button>
+            <Link href={`/escribano/${escribano.id}`}>
+              <Button variant="accent" size="md" className="flex-1 sm:flex-none w-full">
+                Ver perfil
+                <ChevronRight className="w-4 h-4" />
+              </Button>
+            </Link>
+            <Link href={`/agendar/${escribano.id}`}>
+              <Button variant="outline" size="md" className="flex-1 sm:flex-none w-full">
+                Agendar
+              </Button>
+            </Link>
           </div>
         </div>
       </motion.div>
@@ -594,13 +596,15 @@ function EscribanoCard({
               {formatPrecioARS(escribano.precioConsulta)}
             </p>
           </div>
-          <Button
-            variant="accent"
-            size="sm"
-            className="opacity-0 group-hover:opacity-100 transition-opacity"
-          >
-            Ver más
-          </Button>
+          <Link href={`/escribano/${escribano.id}`}>
+            <Button
+              variant="accent"
+              size="sm"
+              className="opacity-0 group-hover:opacity-100 transition-opacity"
+            >
+              Ver más
+            </Button>
+          </Link>
         </div>
       </div>
     </motion.div>
@@ -730,7 +734,7 @@ function MobileFiltersDrawer({
               </div>
             </div>
 
-            {/* Filters Content */}
+            {/* Filters Content - SIN RANGO DE PRECIOS */}
             <div className="p-4 space-y-5">
               <FilterSelect
                 label="Servicio"
@@ -758,23 +762,6 @@ function MobileFiltersDrawer({
                 value={filtros.calificacionMin}
                 onChange={(v) => setFiltros({ ...filtros, calificacionMin: v })}
               />
-
-              <div className="grid grid-cols-2 gap-3">
-                <FilterInput
-                  label="Precio mín."
-                  value={filtros.precioMin}
-                  onChange={(v) => setFiltros({ ...filtros, precioMin: v })}
-                  placeholder="$0"
-                  type="number"
-                />
-                <FilterInput
-                  label="Precio máx."
-                  value={filtros.precioMax}
-                  onChange={(v) => setFiltros({ ...filtros, precioMax: v })}
-                  placeholder="$999.999"
-                  type="number"
-                />
-              </div>
             </div>
 
             {/* Footer */}
@@ -787,8 +774,6 @@ function MobileFiltersDrawer({
                     servicio: "",
                     ubicacion: "",
                     modalidad: "",
-                    precioMin: "",
-                    precioMax: "",
                     calificacionMin: "",
                     disponibilidad: "",
                     ordenar: "relevancia",
@@ -816,7 +801,7 @@ function MobileFiltersDrawer({
 }
 
 // =============================================================================
-// SIDEBAR FILTERS (Desktop)
+// SIDEBAR FILTERS (Desktop) - SIN RANGO DE PRECIOS
 // =============================================================================
 
 function SidebarFilters({
@@ -865,28 +850,6 @@ function SidebarFilters({
           onChange={(v) => setFiltros({ ...filtros, calificacionMin: v })}
         />
 
-        <div>
-          <label className="text-sm font-medium text-slate-700 mb-2 block">
-            Rango de precios
-          </label>
-          <div className="grid grid-cols-2 gap-2">
-            <input
-              type="number"
-              value={filtros.precioMin}
-              onChange={(e) => setFiltros({ ...filtros, precioMin: e.target.value })}
-              placeholder="Mín"
-              className="w-full rounded-xl border-2 border-slate-200 bg-white px-3 py-2.5 text-sm focus:border-amber-400 focus:outline-none"
-            />
-            <input
-              type="number"
-              value={filtros.precioMax}
-              onChange={(e) => setFiltros({ ...filtros, precioMax: e.target.value })}
-              placeholder="Máx"
-              className="w-full rounded-xl border-2 border-slate-200 bg-white px-3 py-2.5 text-sm focus:border-amber-400 focus:outline-none"
-            />
-          </div>
-        </div>
-
         <Button
           variant="ghost"
           size="sm"
@@ -896,8 +859,6 @@ function SidebarFilters({
               servicio: "",
               ubicacion: "",
               modalidad: "",
-              precioMin: "",
-              precioMax: "",
               calificacionMin: "",
               disponibilidad: "",
               ordenar: "relevancia",
@@ -913,14 +874,14 @@ function SidebarFilters({
 }
 
 // =============================================================================
-// COMPONENTE DE CONTENIDO (usa useSearchParams - debe estar en Suspense)
+// COMPONENTE DE CONTENIDO
 // =============================================================================
 
 function BuscarContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // Estados
+  // Estados - SIN precioMin/precioMax
   const [loading, setLoading] = useState(true);
   const [escribanos, setEscribanos] = useState<Escribano[]>([]);
   const [viewMode, setViewMode] = useState<ViewMode>("list");
@@ -929,8 +890,6 @@ function BuscarContent() {
     servicio: searchParams.get("servicio") || "",
     ubicacion: searchParams.get("ubicacion") || "",
     modalidad: searchParams.get("modalidad") || "",
-    precioMin: searchParams.get("precioMin") || "",
-    precioMax: searchParams.get("precioMax") || "",
     calificacionMin: searchParams.get("calificacionMin") || "",
     disponibilidad: searchParams.get("disponibilidad") || "",
     ordenar: searchParams.get("ordenar") || "relevancia",
@@ -957,8 +916,6 @@ function BuscarContent() {
       servicio: "",
       ubicacion: "",
       modalidad: "",
-      precioMin: "",
-      precioMax: "",
       calificacionMin: "",
       disponibilidad: "",
       ordenar: "relevancia",
@@ -967,7 +924,7 @@ function BuscarContent() {
 
   return (
     <main className="pb-20 lg:pb-0">
-      {/* Hero compacto - Slate profesional */}
+      {/* Hero compacto */}
       <section className="bg-gradient-to-br from-slate-700 via-slate-600 to-slate-700 text-white py-8 sm:py-12">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -1024,7 +981,7 @@ function BuscarContent() {
           />
 
           <div className="flex items-center gap-3">
-            {/* Ordenar */}
+            {/* Ordenar - SIN opciones de precio */}
             <div className="flex items-center gap-2">
               <ArrowUpDown className="w-4 h-4 text-slate-500" />
               <select
@@ -1160,7 +1117,7 @@ function BuscarPageLoading() {
         <div className="grid lg:grid-cols-4 gap-6 lg:gap-8">
           <div className="hidden lg:block">
             <div className="bg-white rounded-2xl border border-slate-200 p-5 space-y-4">
-              {[...Array(5)].map((_, i) => (
+              {[...Array(4)].map((_, i) => (
                 <div key={i} className="h-20 bg-slate-100 rounded-xl animate-pulse" />
               ))}
             </div>
@@ -1177,7 +1134,7 @@ function BuscarPageLoading() {
 }
 
 // =============================================================================
-// PÁGINA PRINCIPAL (con Suspense)
+// PÁGINA PRINCIPAL
 // =============================================================================
 
 export default function BuscarPage() {
