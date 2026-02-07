@@ -38,7 +38,7 @@ const fadeInUp = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] as const },
+    transition: { duration: 0.6, ease: "easeOut" as const },
   },
 };
 
@@ -58,7 +58,7 @@ const scaleIn = {
   visible: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as const },
+    transition: { duration: 0.5, ease: "easeOut" as const },
   },
 };
 
@@ -221,7 +221,7 @@ function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-[92vh] flex items-center overflow-hidden">
+    <section className="relative min-h-[85vh] sm:min-h-[92vh] flex items-center overflow-hidden">
       {/* Background profesional - azul marino institucional */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary-900 via-primary-800 to-primary-900" />
 
@@ -237,7 +237,7 @@ function HeroSection() {
       <div className="absolute top-1/4 -left-32 w-96 h-96 bg-accent-300/10 rounded-full blur-[140px]" />
       <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-primary-400/10 rounded-full blur-[140px]" />
 
-      <div className="container relative mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
+      <div className="container relative mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-32">
         <motion.div
           variants={staggerContainer}
           initial="hidden"
@@ -245,17 +245,17 @@ function HeroSection() {
           className="max-w-4xl mx-auto"
         >
           {/* Badge más profesional */}
-          <motion.div variants={fadeInUp} className="text-center mb-8">
-            <span className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-semibold bg-white/95 text-primary-800 border border-primary-200/50 shadow-lg backdrop-blur-sm">
-              <MapPin className="w-4 h-4 text-primary-600" />
+          <motion.div variants={fadeInUp} className="text-center mb-6 sm:mb-8">
+            <span className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold bg-white/95 text-primary-800 border border-primary-200/50 shadow-lg backdrop-blur-sm">
+              <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary-600" />
               Argentina 🇦🇷 
             </span>
           </motion.div>
 
-          {/* Título más profesional */}
+          {/* Título más profesional - optimizado mobile */}
           <motion.h1
             variants={fadeInUp}
-            className="text-center font-serif text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-[1.1] tracking-tight"
+            className="text-center font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-[1.15] sm:leading-[1.1] tracking-tight px-2"
           >
             Encontrá el escribano{" "}
             <span className="relative inline-block">
@@ -266,7 +266,7 @@ function HeroSection() {
                 initial={{ width: 0 }}
                 animate={{ width: "100%" }}
                 transition={{ delay: 0.9, duration: 0.7, ease: "easeOut" }}
-                className="absolute bottom-2 left-0 h-3 bg-accent-400/25 rounded"
+                className="absolute bottom-1 sm:bottom-2 left-0 h-2 sm:h-3 bg-accent-400/25 rounded"
               />
             </span>{" "}
             para tu trámite
@@ -275,18 +275,18 @@ function HeroSection() {
           {/* Subtítulo optimizado */}
           <motion.p
             variants={fadeInUp}
-            className="mt-6 text-center text-lg sm:text-xl text-primary-100 max-w-2xl mx-auto leading-relaxed"
+            className="mt-4 sm:mt-6 text-center text-base sm:text-lg md:text-xl text-primary-100 max-w-2xl mx-auto leading-relaxed px-4"
           >
             Compará precios, leé opiniones y agendá tu consulta presencial o
             virtual. Así de simple.
           </motion.p>
 
-          {/* Buscador rediseñado profesional */}
-          <motion.div variants={fadeInUp} className="mt-12 max-w-3xl mx-auto">
-            <div className="bg-white/95 backdrop-blur-lg rounded-3xl p-3 border border-white/40 shadow-2xl">
-              <div className="flex flex-col sm:flex-row gap-3">
+          {/* Buscador rediseñado profesional - optimizado mobile */}
+          <motion.div variants={fadeInUp} className="mt-8 sm:mt-12 max-w-3xl mx-auto px-2">
+            <div className="bg-white/95 backdrop-blur-lg rounded-2xl sm:rounded-3xl p-2.5 sm:p-3 border border-white/40 shadow-2xl">
+              <div className="flex flex-col gap-2.5 sm:gap-3">
                 {/* Select servicio */}
-                <div className="flex-1 relative">
+                <div className="relative">
                   <label htmlFor="servicio-select" className="sr-only">
                     Tipo de servicio
                   </label>
@@ -298,7 +298,7 @@ function HeroSection() {
                       setError("");
                     }}
                     aria-label="Seleccionar tipo de servicio"
-                    className="w-full appearance-none bg-gray-50 rounded-xl px-5 py-4 pr-12 text-primary-900 font-medium text-[15px] border-2 border-gray-200 focus:border-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-600/20 transition-all"
+                    className="w-full appearance-none bg-gray-50 rounded-xl px-4 sm:px-5 py-3.5 sm:py-4 pr-10 sm:pr-12 text-primary-900 font-medium text-sm sm:text-[15px] border-2 border-gray-200 focus:border-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-600/20 transition-all"
                   >
                     <option value="">¿Qué trámite necesitás?</option>
                     {SERVICIOS.map((s) => (
@@ -308,18 +308,18 @@ function HeroSection() {
                     ))}
                   </select>
                   <ChevronDown
-                    className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none"
+                    className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-gray-400 pointer-events-none"
                     aria-hidden="true"
                   />
                 </div>
 
                 {/* Input ubicación */}
-                <div className="flex-1 relative">
+                <div className="relative">
                   <label htmlFor="ubicacion-input" className="sr-only">
                     Ubicación
                   </label>
                   <MapPin
-                    className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
+                    className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-gray-400"
                     aria-hidden="true"
                   />
                   <input
@@ -332,7 +332,7 @@ function HeroSection() {
                       setError("");
                     }}
                     aria-label="Ingresar ubicación"
-                    className="w-full bg-gray-50 rounded-xl pl-12 pr-5 py-4 text-primary-900 placeholder:text-gray-400 font-medium text-[15px] border-2 border-gray-200 focus:border-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-600/20 transition-all"
+                    className="w-full bg-gray-50 rounded-xl pl-10 sm:pl-12 pr-4 sm:pr-5 py-3.5 sm:py-4 text-primary-900 placeholder:text-gray-400 font-medium text-sm sm:text-[15px] border-2 border-gray-200 focus:border-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-600/20 transition-all"
                   />
                 </div>
 
@@ -340,12 +340,13 @@ function HeroSection() {
                 <Link
                   href={`/buscar${selectedServicio ? `?servicio=${selectedServicio}` : ""}`}
                   onClick={handleSearch}
+                  className="w-full"
                 >
                   <Button
                     size="lg"
-                    className="w-full sm:w-auto whitespace-nowrap h-14 px-8 bg-primary-900 hover:bg-primary-800 text-white font-semibold shadow-lg hover:shadow-xl transition-all border border-primary-800/20"
+                    className="w-full h-12 sm:h-14 px-6 sm:px-8 bg-primary-900 hover:bg-primary-800 text-white font-semibold shadow-lg hover:shadow-xl transition-all border border-primary-800/20 text-sm sm:text-base"
                   >
-                    <Search className="w-5 h-5" />
+                    <Search className="w-4 h-4 sm:w-5 sm:h-5" />
                     <span className="ml-2">Buscar</span>
                   </Button>
                 </Link>
@@ -357,17 +358,17 @@ function HeroSection() {
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="mt-4 p-4 bg-white/95 backdrop-blur-sm border border-error-light rounded-xl text-error font-medium text-sm text-center shadow-lg"
+                className="mt-3 sm:mt-4 p-3 sm:p-4 bg-white/95 backdrop-blur-sm border border-error-light rounded-xl text-error font-medium text-xs sm:text-sm text-center shadow-lg"
               >
                 {error}
               </motion.div>
             )}
           </motion.div>
 
-          {/* Stats rediseñados profesionales */}
+          {/* Stats rediseñados profesionales - optimizado mobile */}
           <motion.div
             variants={fadeInUp}
-            className="mt-16 grid grid-cols-3 gap-6 sm:gap-8 max-w-2xl mx-auto"
+            className="mt-12 sm:mt-16 grid grid-cols-3 gap-4 sm:gap-6 md:gap-8 max-w-2xl mx-auto px-4"
           >
             {STATS.map((stat, i) => (
               <motion.div
@@ -377,13 +378,13 @@ function HeroSection() {
                 transition={{ delay: 1 + i * 0.1 }}
                 className="text-center"
               >
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 mb-3">
-                  <stat.icon className="w-6 h-6 text-accent-300" />
+                <div className="inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 mb-2 sm:mb-3">
+                  <stat.icon className="w-5 h-5 sm:w-6 sm:h-6 text-accent-300" />
                 </div>
-                <p className="text-3xl sm:text-4xl font-bold text-white">
+                <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">
                   {stat.value}
                 </p>
-                <p className="text-sm sm:text-base text-primary-200 mt-1 font-medium">{stat.label}</p>
+                <p className="text-xs sm:text-sm md:text-base text-primary-200 mt-0.5 sm:mt-1 font-medium">{stat.label}</p>
               </motion.div>
             ))}
           </motion.div>
@@ -410,7 +411,7 @@ function HeroSection() {
 
 function ServiciosSection() {
   return (
-    <section className="py-24 sm:py-32 bg-white">
+    <section className="py-16 sm:py-24 lg:py-32 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial="hidden"
@@ -418,30 +419,30 @@ function ServiciosSection() {
           viewport={{ once: true, margin: "-100px" }}
           variants={staggerContainer}
         >
-          <motion.div variants={fadeInUp} className="text-center max-w-3xl mx-auto">
-            <span className="inline-block px-4 py-2 rounded-full text-sm font-semibold bg-primary-50 text-primary-700 border border-primary-200/60 mb-4">
+          <motion.div variants={fadeInUp} className="text-center max-w-3xl mx-auto px-4">
+            <span className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold bg-primary-50 text-primary-700 border border-primary-200/60 mb-3 sm:mb-4">
               Servicios Notariales
             </span>
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-primary-900 tracking-tight">
+            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary-900 tracking-tight">
               ¿Qué trámite necesitás hacer?
             </h2>
-            <p className="mt-6 text-gray-600 text-lg sm:text-xl leading-relaxed">
+            <p className="mt-4 sm:mt-6 text-gray-600 text-base sm:text-lg md:text-xl leading-relaxed">
               Encontrá escribanos especializados en cada servicio
             </p>
           </motion.div>
 
           <motion.div
             variants={staggerContainer}
-            className="mt-14 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5"
+            className="mt-10 sm:mt-14 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-5"
           >
             {SERVICIOS.map((servicio) => (
               <motion.div key={servicio.id} variants={scaleIn}>
                 <Link href={`/buscar?servicio=${servicio.id}`}>
                   <div className="card-professional h-full cursor-pointer group transition-all duration-300 hover:-translate-y-1">
-                    <div className="p-6 text-center">
+                    <div className="p-4 sm:p-6 text-center">
                       <div
                         className={cn(
-                          "w-16 h-16 mx-auto rounded-2xl",
+                          "w-12 h-12 sm:w-16 sm:h-16 mx-auto rounded-xl sm:rounded-2xl",
                           "bg-gradient-to-br",
                           servicio.color,
                           "flex items-center justify-center",
@@ -449,12 +450,12 @@ function ServiciosSection() {
                           "border border-white/20"
                         )}
                       >
-                        <servicio.icon className="w-8 h-8 text-white" strokeWidth={2.5} />
+                        <servicio.icon className="w-6 h-6 sm:w-8 sm:h-8 text-white" strokeWidth={2.5} />
                       </div>
-                      <h3 className="mt-5 font-semibold text-primary-900 group-hover:text-primary-700 transition-colors text-[15px]">
+                      <h3 className="mt-3 sm:mt-5 font-semibold text-primary-900 group-hover:text-primary-700 transition-colors text-sm sm:text-[15px]">
                         {servicio.nombre}
                       </h3>
-                      <p className="mt-2 text-sm text-gray-500 leading-snug">
+                      <p className="mt-1 sm:mt-2 text-xs sm:text-sm text-gray-500 leading-snug">
                         {servicio.descripcion}
                       </p>
                     </div>
@@ -464,12 +465,12 @@ function ServiciosSection() {
             ))}
           </motion.div>
 
-          <motion.div variants={fadeInUp} className="mt-12 text-center">
+          <motion.div variants={fadeInUp} className="mt-8 sm:mt-12 text-center">
             <Link href="/servicios">
               <Button
                 variant="outline"
                 size="lg"
-                className="border-2 border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-primary-600 hover:text-primary-700 font-semibold px-8"
+                className="border-2 border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-primary-600 hover:text-primary-700 font-semibold px-6 sm:px-8 text-sm sm:text-base"
               >
                 Ver todos los servicios
                 <ArrowRight className="w-4 h-4 ml-2" />
@@ -484,7 +485,7 @@ function ServiciosSection() {
 
 function BeneficiosSection() {
   return (
-    <section className="py-24 sm:py-32 bg-gradient-to-b from-gray-50 to-white">
+    <section className="py-16 sm:py-24 lg:py-32 bg-gradient-to-b from-gray-50 to-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial="hidden"
@@ -492,25 +493,25 @@ function BeneficiosSection() {
           viewport={{ once: true, margin: "-100px" }}
           variants={staggerContainer}
         >
-          <motion.div variants={fadeInUp} className="text-center max-w-3xl mx-auto">
-            <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-primary-50 text-primary-700 border border-primary-200/60">
+          <motion.div variants={fadeInUp} className="text-center max-w-3xl mx-auto px-4">
+            <span className="inline-flex items-center px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold bg-primary-50 text-primary-700 border border-primary-200/60">
               Por qué EscribanosARG
             </span>
-            <h2 className="mt-6 font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-primary-900 tracking-tight">
+            <h2 className="mt-4 sm:mt-6 font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary-900 tracking-tight">
               La forma más simple de encontrar un escribano
             </h2>
           </motion.div>
 
           <motion.div
             variants={staggerContainer}
-            className="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
+            className="mt-10 sm:mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"
           >
             {BENEFICIOS.map((beneficio) => (
               <motion.div key={beneficio.title} variants={fadeInUp}>
-                <div className="h-full bg-white rounded-2xl border-2 border-gray-200 shadow-sm hover:shadow-lg hover:border-primary-300 transition-all duration-300 p-8 group">
+                <div className="h-full bg-white rounded-2xl border-2 border-gray-200 shadow-sm hover:shadow-lg hover:border-primary-300 transition-all duration-300 p-6 sm:p-8 group">
                   <div
                     className={cn(
-                      "w-14 h-14 rounded-xl",
+                      "w-12 h-12 sm:w-14 sm:h-14 rounded-xl",
                       "bg-gradient-to-br",
                       beneficio.gradient,
                       "flex items-center justify-center",
@@ -519,12 +520,12 @@ function BeneficiosSection() {
                       "group-hover:scale-110 transition-transform duration-300"
                     )}
                   >
-                    <beneficio.icon className={cn("w-7 h-7", beneficio.iconColor)} strokeWidth={2.5} />
+                    <beneficio.icon className={cn("w-6 h-6 sm:w-7 sm:h-7", beneficio.iconColor)} strokeWidth={2.5} />
                   </div>
-                  <h3 className="mt-6 text-lg font-bold text-primary-900">
+                  <h3 className="mt-4 sm:mt-6 text-base sm:text-lg font-bold text-primary-900">
                     {beneficio.title}
                   </h3>
-                  <p className="mt-3 text-gray-600 leading-relaxed">{beneficio.description}</p>
+                  <p className="mt-2 sm:mt-3 text-sm sm:text-base text-gray-600 leading-relaxed">{beneficio.description}</p>
                 </div>
               </motion.div>
             ))}
@@ -537,7 +538,7 @@ function BeneficiosSection() {
 
 function ComoFuncionaSection() {
   return (
-    <section className="py-24 sm:py-32 bg-white">
+    <section className="py-16 sm:py-24 lg:py-32 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial="hidden"
@@ -545,47 +546,47 @@ function ComoFuncionaSection() {
           viewport={{ once: true, margin: "-100px" }}
           variants={staggerContainer}
         >
-          <motion.div variants={fadeInUp} className="text-center max-w-3xl mx-auto">
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-primary-900 tracking-tight">
+          <motion.div variants={fadeInUp} className="text-center max-w-3xl mx-auto px-4">
+            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary-900 tracking-tight">
               Tan simple como pedir un Uber
             </h2>
-            <p className="mt-6 text-gray-600 text-lg sm:text-xl leading-relaxed">
+            <p className="mt-4 sm:mt-6 text-gray-600 text-base sm:text-lg md:text-xl leading-relaxed">
               En 3 pasos tenés tu consulta agendada
             </p>
           </motion.div>
 
-          <motion.div variants={staggerContainer} className="mt-20 max-w-5xl mx-auto">
-            <div className="grid md:grid-cols-3 gap-10 relative">
-              {/* Línea conectora más profesional */}
+          <motion.div variants={staggerContainer} className="mt-12 sm:mt-20 max-w-5xl mx-auto">
+            <div className="grid md:grid-cols-3 gap-8 sm:gap-10 relative">
+              {/* Línea conectora más profesional - oculta en mobile */}
               <div className="hidden md:block absolute top-16 left-[16%] right-[16%] h-[2px] bg-gradient-to-r from-primary-200 via-primary-400 to-primary-200" />
 
               {PASOS.map((paso, index) => (
                 <motion.div key={paso.numero} variants={scaleIn} className="relative text-center">
                   {/* Círculo de número más profesional */}
-                  <div className="relative z-10 mx-auto w-28 h-28 bg-gradient-to-br from-primary-700 to-primary-800 border-4 border-primary-200 rounded-3xl shadow-lg flex items-center justify-center group hover:scale-105 transition-transform duration-300">
-                    <paso.icon className="w-12 h-12 text-white" strokeWidth={2.5} />
+                  <div className="relative z-10 mx-auto w-24 h-24 sm:w-28 sm:h-28 bg-gradient-to-br from-primary-700 to-primary-800 border-4 border-primary-200 rounded-2xl sm:rounded-3xl shadow-lg flex items-center justify-center group hover:scale-105 transition-transform duration-300">
+                    <paso.icon className="w-10 h-10 sm:w-12 sm:h-12 text-white" strokeWidth={2.5} />
                   </div>
                   
                   {/* Badge de número */}
-                  <div className="absolute -top-3 -right-3 z-20 w-10 h-10 bg-accent-500 text-white font-bold rounded-full flex items-center justify-center text-lg shadow-lg border-2 border-white">
+                  <div className="absolute -top-2 -right-2 sm:-top-3 sm:-right-3 z-20 w-8 h-8 sm:w-10 sm:h-10 bg-accent-500 text-white font-bold rounded-full flex items-center justify-center text-base sm:text-lg shadow-lg border-2 border-white">
                     {paso.numero}
                   </div>
 
-                  <h3 className="mt-8 text-xl font-bold text-primary-900">{paso.titulo}</h3>
-                  <p className="mt-3 text-gray-600 leading-relaxed">{paso.descripcion}</p>
+                  <h3 className="mt-6 sm:mt-8 text-lg sm:text-xl font-bold text-primary-900">{paso.titulo}</h3>
+                  <p className="mt-2 sm:mt-3 text-sm sm:text-base text-gray-600 leading-relaxed px-2">{paso.descripcion}</p>
                 </motion.div>
               ))}
             </div>
           </motion.div>
 
-          <motion.div variants={fadeInUp} className="mt-16 text-center">
+          <motion.div variants={fadeInUp} className="mt-12 sm:mt-16 text-center">
             <Link href="/buscar">
               <Button
                 size="lg"
-                className="bg-primary-900 hover:bg-primary-800 text-white font-semibold shadow-lg hover:shadow-xl px-8 border border-primary-800/20"
+                className="bg-primary-900 hover:bg-primary-800 text-white font-semibold shadow-lg hover:shadow-xl px-6 sm:px-8 border border-primary-800/20 text-sm sm:text-base"
               >
                 Buscar escribano ahora
-                <ArrowRight className="w-5 h-5 ml-2" />
+                <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
               </Button>
             </Link>
           </motion.div>
@@ -597,7 +598,7 @@ function ComoFuncionaSection() {
 
 function CTAEscribanosSection() {
   return (
-    <section className="py-24 sm:py-32 bg-gradient-to-br from-primary-900 via-primary-800 to-primary-900 relative overflow-hidden">
+    <section className="py-16 sm:py-24 lg:py-32 bg-gradient-to-br from-primary-900 via-primary-800 to-primary-900 relative overflow-hidden">
       {/* Glows profesionales */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent-400/8 rounded-full blur-[140px]" />
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-primary-600/10 rounded-full blur-[140px]" />
@@ -610,17 +611,17 @@ function CTAEscribanosSection() {
           variants={staggerContainer}
           className="max-w-5xl mx-auto"
         >
-          <motion.div variants={fadeInUp} className="text-center">
-            <span className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-semibold bg-white/95 text-primary-800 border border-primary-200/50 shadow-lg backdrop-blur-sm">
-              <Sparkles className="w-4 h-4 text-accent-600" />
+          <motion.div variants={fadeInUp} className="text-center px-4">
+            <span className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold bg-white/95 text-primary-800 border border-primary-200/50 shadow-lg backdrop-blur-sm">
+              <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-accent-600" />
               Para Escribanos
             </span>
 
-            <h2 className="mt-8 font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight">
+            <h2 className="mt-6 sm:mt-8 font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight">
               Hacé crecer tu estudio con nosotros
             </h2>
 
-            <p className="mt-6 text-lg sm:text-xl text-primary-100 max-w-2xl mx-auto leading-relaxed">
+            <p className="mt-4 sm:mt-6 text-base sm:text-lg md:text-xl text-primary-100 max-w-2xl mx-auto leading-relaxed">
               Aumentá tu visibilidad, conseguí más clientes y gestioná tu agenda de
               forma eficiente. Los primeros 30 días son gratis.
             </p>
@@ -629,18 +630,18 @@ function CTAEscribanosSection() {
           {/* Features grid más profesional */}
           <motion.div
             variants={staggerContainer}
-            className="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-4"
+            className="mt-10 sm:mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4"
           >
             {CTA_FEATURES.map((feature) => (
               <motion.div
                 key={feature}
                 variants={fadeInUp}
-                className="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-xl px-6 py-4 border border-white/20 hover:bg-white/15 transition-colors duration-300"
+                className="flex items-center gap-2.5 sm:gap-3 bg-white/10 backdrop-blur-sm rounded-xl px-4 sm:px-6 py-3 sm:py-4 border border-white/20 hover:bg-white/15 transition-colors duration-300"
               >
-                <div className="w-6 h-6 rounded-full bg-accent-400/30 flex items-center justify-center flex-shrink-0">
-                  <CheckCircle2 className="w-4 h-4 text-accent-300" strokeWidth={2.5} />
+                <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-accent-400/30 flex items-center justify-center flex-shrink-0">
+                  <CheckCircle2 className="w-3 h-3 sm:w-4 sm:h-4 text-accent-300" strokeWidth={2.5} />
                 </div>
-                <span className="text-white font-medium text-[15px]">{feature}</span>
+                <span className="text-white font-medium text-sm sm:text-[15px]">{feature}</span>
               </motion.div>
             ))}
           </motion.div>
@@ -648,22 +649,22 @@ function CTAEscribanosSection() {
           {/* CTAs profesionales */}
           <motion.div
             variants={fadeInUp}
-            className="mt-14 flex flex-col sm:flex-row items-center justify-center gap-4"
+            className="mt-10 sm:mt-14 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 px-4"
           >
-            <Link href="/register?role=escribano">
+            <Link href="/register?role=escribano" className="w-full sm:w-auto">
               <Button
                 size="lg"
-                className="bg-white hover:bg-gray-50 text-primary-900 font-bold shadow-xl hover:shadow-2xl px-8 border-2 border-white/20"
+                className="w-full sm:w-auto bg-white hover:bg-gray-50 text-primary-900 font-bold shadow-xl hover:shadow-2xl px-6 sm:px-8 border-2 border-white/20 text-sm sm:text-base"
               >
                 Registrarme gratis
-                <ArrowRight className="w-5 h-5 ml-2" />
+                <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
               </Button>
             </Link>
-            <Link href="/precios">
+            <Link href="/precios" className="w-full sm:w-auto">
               <Button
                 variant="ghost"
                 size="lg"
-                className="text-white hover:bg-white/10 border-2 border-white/30 hover:border-white/50 font-semibold px-8"
+                className="w-full sm:w-auto text-white hover:bg-white/10 border-2 border-white/30 hover:border-white/50 font-semibold px-6 sm:px-8 text-sm sm:text-base"
               >
                 Ver planes y precios
               </Button>
