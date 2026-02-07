@@ -37,26 +37,50 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 // =============================================================================
-// ANIMACIONES
+// ANIMACIONES PROFESIONALES
 // =============================================================================
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { 
+      duration: 0.3,
+      ease: "easeOut" as const
+    } 
+  },
 };
 
 const staggerContainer = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.1 },
+    transition: { staggerChildren: 0.08, delayChildren: 0.1 },
   },
 };
 
 const scaleIn = {
-  hidden: { opacity: 0, scale: 0.95 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.4 } },
+  hidden: { opacity: 0, scale: 0.98 },
+  visible: { 
+    opacity: 1, 
+    scale: 1, 
+    transition: { duration: 0.2 } 
+  },
 };
+
+// =============================================================================
+// FUNCIÓN HELPER PARA FORMATEAR PRECIOS
+// =============================================================================
+
+function formatPrice(pesos: number): string {
+  return new Intl.NumberFormat('es-AR', {
+    style: 'currency',
+    currency: 'ARS',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(pesos);
+}
 
 // =============================================================================
 // DATOS
@@ -98,106 +122,101 @@ const FUNCIONALIDADES = [
     icon: Globe,
     title: "Perfil profesional",
     description: "Página personalizada con tus servicios, precios, horarios y ubicación. Aparecés en Google.",
-    color: "from-slate-500 to-slate-600",
+    iconColor: "text-primary-700",
+    iconBg: "bg-primary-100",
   },
   {
     icon: Calendar,
     title: "Agenda online",
     description: "Calendario sincronizable con Google Calendar. Bloqueo de horarios y recordatorios automáticos.",
-    color: "from-stone-500 to-stone-600",
+    iconColor: "text-blue-700",
+    iconBg: "bg-blue-100",
   },
   {
     icon: MessageSquare,
     title: "Chat integrado",
     description: "Comunicación directa con clientes. Respuestas rápidas y seguimiento de consultas.",
-    color: "from-emerald-500 to-emerald-600",
+    iconColor: "text-emerald-700",
+    iconBg: "bg-emerald-100",
   },
   {
     icon: Bell,
     title: "Notificaciones",
     description: "Alertas de nuevas reservas, mensajes y recordatorios por email, WhatsApp y app.",
-    color: "from-amber-500 to-amber-600",
+    iconColor: "text-amber-700",
+    iconBg: "bg-amber-100",
   },
   {
     icon: BarChart3,
     title: "Estadísticas",
     description: "Dashboard con métricas de visitas, conversión, calificaciones y rendimiento.",
-    color: "from-rose-400 to-rose-500",
+    iconColor: "text-rose-700",
+    iconBg: "bg-rose-100",
   },
   {
     icon: Smartphone,
     title: "App móvil",
     description: "Gestioná tu agenda y respondé consultas desde cualquier lugar con la app.",
-    color: "from-sky-500 to-sky-600",
+    iconColor: "text-sky-700",
+    iconBg: "bg-sky-100",
   },
 ];
 
 const PLANES = [
   {
-    id: "starter",
-    nombre: "Starter",
-    precio: "Gratis",
-    precioAnual: "Gratis",
-    descripcion: "Ideal para comenzar y probar la plataforma",
+    id: "BASICO",
+    nombre: "Básico",
+    precio: 29900,
+    precioAnual: 299000,
+    descripcion: "Perfecto para empezar",
     popular: false,
     features: [
-      "Perfil básico",
-      "Hasta 10 reservas/mes",
-      "Agenda online",
+      "Perfil profesional completo",
+      "Hasta 50 consultas/mes",
+      "Agenda online integrada",
+      "WhatsApp automático",
       "Notificaciones por email",
-      "Soporte por email",
+      "Estadísticas básicas",
     ],
-    limitaciones: [
-      "Sin badge verificado",
-      "Sin estadísticas",
-      "Sin posicionamiento destacado",
-    ],
-    cta: "Comenzar gratis",
-    ctaVariant: "outline" as const,
+    cta: "Comenzar con Básico",
   },
   {
-    id: "profesional",
-    nombre: "Profesional",
-    precio: "$29.900",
-    precioAnual: "$24.900",
-    periodo: "/mes",
-    descripcion: "Todo lo que necesitás para crecer",
+    id: "NOTARIO",
+    nombre: "Notario",
+    precio: 59900,
+    precioAnual: 599000,
+    descripcion: "Máxima visibilidad",
     popular: true,
     features: [
-      "Perfil completo y verificado",
-      "Reservas ilimitadas",
-      "Agenda avanzada con sync",
-      "Notificaciones WhatsApp + email",
-      "Chat con clientes",
-      "Estadísticas completas",
-      "Posicionamiento prioritario",
-      "Soporte prioritario",
+      "Todo del Básico",
+      "Consultas ilimitadas",
+      "Posicionamiento destacado",
+      "Badge verificado premium",
+      "Videoconferencia integrada",
+      "Estadísticas avanzadas",
+      "Chat en vivo con clientes",
+      "Sin comisión por reserva",
     ],
-    limitaciones: [],
-    cta: "Empezar prueba gratis",
-    ctaVariant: "accent" as const,
+    cta: "Empezar con Notario",
   },
   {
-    id: "estudio",
-    nombre: "Estudio",
-    precio: "$49.900",
-    precioAnual: "$41.900",
-    periodo: "/mes",
-    descripcion: "Para estudios con múltiples escribanos",
+    id: "NOTARIO_PRO",
+    nombre: "Notario Pro",
+    precio: 99900,
+    precioAnual: 999000,
+    descripcion: "Para estudios jurídicos",
     popular: false,
     features: [
-      "Todo lo de Profesional",
+      "Todo del Notario",
       "Hasta 5 escribanos",
       "Gestión centralizada",
-      "Reportes por escribano",
-      "Marca personalizada",
-      "API de integración",
+      "Branding personalizado",
+      "Subdominio propio",
       "Account manager dedicado",
-      "Onboarding personalizado",
+      "Prioridad en soporte",
+      "API de integración",
     ],
-    limitaciones: [],
     cta: "Contactar ventas",
-    ctaVariant: "secondary" as const,
   },
 ];
 
@@ -258,7 +277,7 @@ const PASOS = [
 const FAQS = [
   {
     pregunta: "¿Cuánto cuesta registrarse?",
-    respuesta: "El registro es 100% gratuito. Podés usar el plan Starter sin costo para probar la plataforma. Los planes pagos tienen 30 días de prueba gratis sin compromiso.",
+    respuesta: "El registro es 100% gratuito. Tenés 15 días de prueba gratis en cualquier plan sin necesidad de ingresar tarjeta de crédito.",
   },
   {
     pregunta: "¿Cómo verifican mi matrícula?",
@@ -266,11 +285,11 @@ const FAQS = [
   },
   {
     pregunta: "¿Puedo cancelar en cualquier momento?",
-    respuesta: "Sí, podés cancelar tu suscripción en cualquier momento sin penalidades. Tu perfil seguirá activo con las funcionalidades del plan gratuito.",
+    respuesta: "Sí, podés cancelar tu suscripción en cualquier momento sin penalidades ni cargos adicionales.",
   },
   {
     pregunta: "¿Cobran comisión por cada cliente?",
-    respuesta: "No cobramos comisiones por transacción. Pagás una suscripción mensual fija y todos los clientes que conseguís son 100% tuyos.",
+    respuesta: "No cobramos comisiones por transacción. Pagás una suscripción mensual o anual fija y todos los clientes que conseguís son 100% tuyos.",
   },
   {
     pregunta: "¿Qué pasa con los clientes que ya tengo?",
@@ -297,21 +316,20 @@ function BeneficioCard({ beneficio, index }: { beneficio: typeof BENEFICIOS[0]; 
   return (
     <motion.div
       variants={scaleIn}
-      whileHover={{ y: -4 }}
-      className="relative bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl hover:border-slate-300 transition-all duration-300 overflow-hidden group"
+      className="relative bg-white rounded-2xl border border-gray-200/60 shadow-sm hover:shadow-lg hover:border-gray-300 transition-all duration-200 overflow-hidden group"
     >
       <div className="p-6">
         <div className="flex items-start justify-between">
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-100 to-amber-200 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-            <beneficio.icon className="w-6 h-6 text-amber-600" />
+          <div className="w-12 h-12 rounded-xl bg-primary-100 flex items-center justify-center group-hover:scale-105 transition-transform duration-200">
+            <beneficio.icon className="w-6 h-6 text-primary-700" strokeWidth={2.5} />
           </div>
           <div className="text-right">
-            <p className="text-2xl font-bold text-amber-600">{beneficio.stat}</p>
-            <p className="text-xs text-slate-500">{beneficio.statLabel}</p>
+            <p className="text-2xl font-bold text-primary-700 tracking-tight">{beneficio.stat}</p>
+            <p className="text-xs text-gray-600 font-medium mt-0.5">{beneficio.statLabel}</p>
           </div>
         </div>
-        <h3 className="mt-4 text-lg font-semibold text-slate-800">{beneficio.title}</h3>
-        <p className="mt-2 text-sm text-slate-600">{beneficio.description}</p>
+        <h3 className="mt-5 text-lg font-semibold text-gray-900 tracking-tight">{beneficio.title}</h3>
+        <p className="mt-2 text-[15px] text-gray-600 font-medium leading-relaxed">{beneficio.description}</p>
       </div>
     </motion.div>
   );
@@ -321,19 +339,17 @@ function FuncionalidadCard({ func }: { func: typeof FUNCIONALIDADES[0] }) {
   return (
     <motion.div
       variants={fadeInUp}
-      whileHover={{ y: -2 }}
-      className="flex items-start gap-4 p-5 rounded-2xl bg-white border border-slate-200 hover:border-slate-300 hover:shadow-md transition-all duration-300"
+      className="flex items-start gap-4 p-6 rounded-2xl bg-white border border-gray-200/60 hover:border-gray-300 hover:shadow-md transition-all duration-200"
     >
       <div className={cn(
-        "w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0",
-        "bg-gradient-to-br",
-        func.color
+        "w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0",
+        func.iconBg
       )}>
-        <func.icon className="w-5 h-5 text-white" />
+        <func.icon className={cn("w-6 h-6", func.iconColor)} strokeWidth={2.5} />
       </div>
       <div>
-        <h3 className="font-semibold text-slate-800">{func.title}</h3>
-        <p className="mt-1 text-sm text-slate-600">{func.description}</p>
+        <h3 className="font-semibold text-gray-900 tracking-tight">{func.title}</h3>
+        <p className="mt-1.5 text-[15px] text-gray-600 font-medium leading-relaxed">{func.description}</p>
       </div>
     </motion.div>
   );
@@ -341,44 +357,53 @@ function FuncionalidadCard({ func }: { func: typeof FUNCIONALIDADES[0] }) {
 
 function PlanCard({ plan, anual }: { plan: typeof PLANES[0]; anual: boolean }) {
   const precio = anual ? plan.precioAnual : plan.precio;
+  const precioMensual = anual ? Math.round(plan.precioAnual / 12) : plan.precio;
+  
+  const ahorroAnual = (plan.precio * 12) - plan.precioAnual;
+  const porcentajeAhorro = Math.round((ahorroAnual / (plan.precio * 12)) * 100);
 
   return (
     <motion.div
       variants={scaleIn}
       className={cn(
-        "relative rounded-2xl border-2 overflow-hidden transition-all duration-300",
+        "relative rounded-2xl overflow-hidden transition-all duration-200",
         plan.popular
-          ? "border-amber-400 shadow-xl shadow-amber-400/10 scale-105"
-          : "border-slate-200 bg-white hover:border-slate-300 hover:shadow-lg"
+          ? "border-2 border-primary-700 shadow-lg shadow-primary-900/10 scale-105"
+          : "border border-gray-200/60 bg-white hover:border-gray-300 hover:shadow-md"
       )}
     >
       {/* Popular badge */}
       {plan.popular && (
-        <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-amber-400 to-amber-500 text-slate-900 text-center py-2 text-sm font-semibold">
-          <Sparkles className="w-4 h-4 inline mr-1" />
-          Más popular
+        <div className="absolute top-0 left-0 right-0 bg-primary-900 text-white text-center py-2.5 text-sm font-semibold">
+          <Sparkles className="w-4 h-4 inline mr-1.5" strokeWidth={2.5} />
+          Más elegido
         </div>
       )}
 
-      <div className={cn("p-6", plan.popular && "pt-12")}>
+      <div className={cn("p-6", plan.popular && "pt-14")}>
         {/* Header */}
         <div>
-          <h3 className="text-xl font-bold text-slate-800">{plan.nombre}</h3>
-          <p className="mt-1 text-sm text-slate-500">{plan.descripcion}</p>
+          <h3 className="text-xl font-bold text-gray-900 tracking-tight">{plan.nombre}</h3>
+          <p className="mt-1.5 text-sm text-gray-600 font-medium">{plan.descripcion}</p>
         </div>
 
         {/* Precio */}
         <div className="mt-6">
           <div className="flex items-baseline gap-1">
-            <span className="text-4xl font-bold text-slate-800">{precio}</span>
-            {plan.periodo && (
-              <span className="text-slate-500">{plan.periodo}</span>
-            )}
+            <span className="text-4xl font-bold text-gray-900 tracking-tight">
+              {formatPrice(precioMensual)}
+            </span>
+            <span className="text-gray-600 font-medium">/mes</span>
           </div>
-          {anual && plan.precio !== "Gratis" && (
-            <p className="mt-1 text-sm text-emerald-600">
-              Ahorrás 2 meses al año
-            </p>
+          {anual && (
+            <div className="mt-2.5 space-y-1">
+              <p className="text-sm text-success font-semibold">
+                Ahorrás {formatPrice(ahorroAnual)} al año (-{porcentajeAhorro}%)
+              </p>
+              <p className="text-xs text-gray-600 font-medium">
+                Facturado anualmente: {formatPrice(precio)}
+              </p>
+            </div>
           )}
         </div>
 
@@ -386,24 +411,33 @@ function PlanCard({ plan, anual }: { plan: typeof PLANES[0]; anual: boolean }) {
         <ul className="mt-6 space-y-3">
           {plan.features.map((feature, i) => (
             <li key={i} className="flex items-start gap-3 text-sm">
-              <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0" />
-              <span className="text-slate-700">{feature}</span>
-            </li>
-          ))}
-          {plan.limitaciones.map((limit, i) => (
-            <li key={i} className="flex items-start gap-3 text-sm text-slate-400">
-              <span className="w-5 h-5 flex items-center justify-center flex-shrink-0">—</span>
-              <span>{limit}</span>
+              <CheckCircle2 className="w-5 h-5 text-success flex-shrink-0" strokeWidth={2.5} />
+              <span className="text-gray-700 font-medium">{feature}</span>
             </li>
           ))}
         </ul>
 
+        {/* Trial badge */}
+        <div className="mt-6 px-4 py-3 rounded-xl bg-blue-50 border border-blue-200/60 text-center">
+          <p className="text-sm text-blue-900 font-semibold">
+            15 días gratis · Sin tarjeta requerida
+          </p>
+        </div>
+
         {/* CTA */}
-        <div className="mt-8">
+        <div className="mt-6">
           <Link href={`/register?role=escribano&plan=${plan.id}`}>
-            <Button variant={plan.ctaVariant} size="lg" className="w-full">
+            <Button 
+              size="lg" 
+              className={cn(
+                "w-full font-semibold shadow-md h-12",
+                plan.popular 
+                  ? "bg-primary-900 hover:bg-primary-800 text-white border border-primary-800/20 hover:shadow-lg hover:shadow-primary-900/20"
+                  : "bg-white hover:bg-gray-50 text-gray-900 border-2 border-gray-300 hover:border-gray-400"
+              )}
+            >
               {plan.cta}
-              <ArrowRight className="w-4 h-4 ml-2" />
+              <ArrowRight className="w-4 h-4 ml-2" strokeWidth={2.5} />
             </Button>
           </Link>
         </div>
@@ -418,42 +452,42 @@ function TestimonioCard({ testimonio }: { testimonio: typeof TESTIMONIOS[0] }) {
   return (
     <motion.div
       variants={fadeInUp}
-      className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 h-full flex flex-col"
+      className="bg-white rounded-2xl border border-gray-200/60 shadow-sm p-6 h-full flex flex-col hover:shadow-md transition-shadow"
     >
       {/* Quote icon */}
-      <Quote className="w-8 h-8 text-amber-200 mb-4" />
+      <Quote className="w-8 h-8 text-primary-200 mb-4" strokeWidth={2} />
 
       {/* Texto */}
-      <p className="text-slate-700 leading-relaxed flex-1">
+      <p className="text-[15px] text-gray-700 leading-relaxed flex-1 font-medium">
         "{testimonio.texto}"
       </p>
 
       {/* Métricas */}
-      <div className="mt-4 flex gap-4">
+      <div className="mt-5 flex gap-4">
         {Object.entries(testimonio.metricas).map(([key, value]) => (
           <div key={key} className="text-center">
-            <p className="text-lg font-bold text-amber-600">{value}</p>
-            <p className="text-xs text-slate-500 capitalize">{key}</p>
+            <p className="text-lg font-bold text-primary-700">{value}</p>
+            <p className="text-xs text-gray-600 capitalize font-medium">{key}</p>
           </div>
         ))}
       </div>
 
       {/* Author */}
-      <div className="mt-6 pt-4 border-t border-slate-100 flex items-center gap-3">
+      <div className="mt-6 pt-5 border-t border-gray-100 flex items-center gap-3">
         {testimonio.foto ? (
           <img src={testimonio.foto} alt={testimonio.nombre} className="w-12 h-12 rounded-full" />
         ) : (
-          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center">
-            <span className="text-sm font-bold text-slate-500">{initials}</span>
+          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary-100 to-primary-200 flex items-center justify-center border border-primary-300">
+            <span className="text-sm font-bold text-primary-900">{initials}</span>
           </div>
         )}
         <div>
-          <p className="font-semibold text-slate-800">{testimonio.nombre}</p>
-          <p className="text-sm text-slate-500">{testimonio.cargo}</p>
+          <p className="font-semibold text-gray-900 tracking-tight">{testimonio.nombre}</p>
+          <p className="text-sm text-gray-600 font-medium">{testimonio.cargo}</p>
         </div>
-        <div className="ml-auto flex">
+        <div className="ml-auto flex gap-0.5">
           {[...Array(testimonio.rating)].map((_, i) => (
-            <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+            <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" strokeWidth={1.5} />
           ))}
         </div>
       </div>
@@ -465,33 +499,38 @@ function FAQItem({ faq, index }: { faq: typeof FAQS[0]; index: number }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <motion.div variants={fadeInUp} className="border-b border-slate-200 last:border-0">
+    <motion.div variants={fadeInUp} className="border-b border-gray-200 last:border-0">
       <button
         onClick={() => setOpen(!open)}
-        className="w-full py-5 flex items-center gap-4 text-left"
+        className="w-full py-5 px-2 flex items-start gap-4 text-left hover:bg-gray-50 transition-colors rounded-lg"
       >
-        <span className="flex-shrink-0 w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center text-sm font-semibold text-amber-700">
+        <span className="flex-shrink-0 w-8 h-8 rounded-full bg-primary-100 flex items-center justify-center text-sm font-semibold text-primary-900">
           {index + 1}
         </span>
-        <span className="flex-1 font-semibold text-slate-800">{faq.pregunta}</span>
-        <motion.div animate={{ rotate: open ? 180 : 0 }}>
-          <ChevronDown className="w-5 h-5 text-slate-400" />
+        <div className="flex-1">
+          <h3 className="font-semibold text-gray-900 pr-8 tracking-tight">{faq.pregunta}</h3>
+          <AnimatePresence>
+            {open && (
+              <motion.p
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="mt-3 text-[15px] text-gray-600 leading-relaxed font-medium"
+              >
+                {faq.respuesta}
+              </motion.p>
+            )}
+          </AnimatePresence>
+        </div>
+        <motion.div 
+          animate={{ rotate: open ? 180 : 0 }} 
+          transition={{ duration: 0.2 }}
+          className="flex-shrink-0"
+        >
+          <ChevronDown className="w-5 h-5 text-gray-400" strokeWidth={2} />
         </motion.div>
       </button>
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            className="overflow-hidden"
-          >
-            <p className="pb-5 pl-12 text-slate-600 leading-relaxed">
-              {faq.respuesta}
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </motion.div>
   );
 }
@@ -502,20 +541,8 @@ function FAQItem({ faq, index }: { faq: typeof FAQS[0]; index: number }) {
 
 function HeroSection() {
   return (
-    <section className="relative bg-gradient-to-br from-slate-700 via-slate-600 to-slate-700 text-white overflow-hidden">
-      {/* Pattern */}
-      <div
-        className="absolute inset-0 opacity-[0.04]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-        }}
-      />
-
-      {/* Glows */}
-      <div className="absolute top-1/4 -left-32 w-96 h-96 bg-amber-200/15 rounded-full blur-[128px]" />
-      <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-sky-200/10 rounded-full blur-[128px]" />
-
-      <div className="container relative mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 lg:py-32">
+    <section className="relative bg-white border-b border-gray-200/60">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
           <motion.div
@@ -525,25 +552,22 @@ function HeroSection() {
           >
             <motion.span
               variants={fadeInUp}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-white/10 border border-white/20"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold bg-primary-50 border border-primary-200/60 text-primary-900"
             >
-              <Award className="w-4 h-4 text-amber-300" />
-              Primeros 30 días gratis
+              <Award className="w-4 h-4 text-primary-700" strokeWidth={2.5} />
+              Primeros 15 días gratis
             </motion.span>
 
             <motion.h1
               variants={fadeInUp}
-              className="mt-6 text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold font-serif leading-tight"
+              className="mt-6 text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 tracking-tight leading-tight"
             >
-              Hacé crecer tu{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-300">
-                estudio notarial
-              </span>
+              Hacé crecer tu estudio notarial
             </motion.h1>
 
             <motion.p
               variants={fadeInUp}
-              className="mt-6 text-lg sm:text-xl text-slate-200 max-w-xl"
+              className="mt-5 text-lg sm:text-xl text-gray-600 font-medium max-w-xl"
             >
               Unite a la plataforma líder de Argentina. Más visibilidad, más clientes, 
               menos trabajo administrativo. Sin comisiones por transacción.
@@ -556,8 +580,8 @@ function HeroSection() {
             >
               {STATS.map((stat) => (
                 <div key={stat.label} className="text-center sm:text-left">
-                  <p className="text-2xl sm:text-3xl font-bold text-amber-200">{stat.value}</p>
-                  <p className="text-xs sm:text-sm text-slate-300">{stat.label}</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-primary-700 tracking-tight">{stat.value}</p>
+                  <p className="text-xs sm:text-sm text-gray-600 font-medium mt-0.5">{stat.label}</p>
                 </div>
               ))}
             </motion.div>
@@ -568,20 +592,28 @@ function HeroSection() {
               className="mt-10 flex flex-col sm:flex-row gap-4"
             >
               <Link href="/register?role=escribano">
-                <Button variant="accent" size="xl" className="w-full sm:w-auto">
+                <Button 
+                  size="lg"
+                  className={cn(
+                    "w-full sm:w-auto font-semibold shadow-md",
+                    "bg-primary-900 hover:bg-primary-800 text-white",
+                    "border border-primary-800/20",
+                    "hover:shadow-lg hover:shadow-primary-900/20"
+                  )}
+                >
                   Comenzar gratis
-                  <ArrowRight className="w-5 h-5 ml-2" />
+                  <ArrowRight className="w-5 h-5 ml-2" strokeWidth={2.5} />
                 </Button>
               </Link>
               <Button
-                variant="ghost"
-                size="xl"
-                className="text-white hover:bg-white/10 border border-white/20"
+                variant="outline"
+                size="lg"
+                className="w-full sm:w-auto font-semibold border-gray-300"
                 onClick={() => {
                   document.getElementById("como-funciona")?.scrollIntoView({ behavior: "smooth" });
                 }}
               >
-                <Play className="w-5 h-5 mr-2" />
+                <Play className="w-5 h-5 mr-2" strokeWidth={2.5} />
                 Ver cómo funciona
               </Button>
             </motion.div>
@@ -589,14 +621,14 @@ function HeroSection() {
             {/* Trust badges */}
             <motion.div
               variants={fadeInUp}
-              className="mt-10 flex items-center gap-6 text-sm text-slate-300"
+              className="mt-8 flex flex-wrap items-center gap-6 text-sm text-gray-600 font-medium"
             >
               <span className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                <CheckCircle2 className="w-4 h-4 text-success" strokeWidth={2.5} />
                 Sin tarjeta requerida
               </span>
               <span className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                <CheckCircle2 className="w-4 h-4 text-success" strokeWidth={2.5} />
                 Cancelá cuando quieras
               </span>
             </motion.div>
@@ -606,33 +638,33 @@ function HeroSection() {
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
+            transition={{ delay: 0.3, duration: 0.4 }}
             className="hidden lg:block relative"
           >
             <div className="relative">
               {/* Main dashboard card */}
-              <div className="bg-white rounded-2xl shadow-2xl p-6 transform rotate-2">
+              <div className="bg-white rounded-2xl shadow-xl border border-gray-200/60 p-6 transform rotate-2">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 to-amber-500 flex items-center justify-center">
-                    <BarChart3 className="w-5 h-5 text-white" />
+                  <div className="w-10 h-10 rounded-xl bg-primary-100 flex items-center justify-center">
+                    <BarChart3 className="w-5 h-5 text-primary-700" strokeWidth={2.5} />
                   </div>
                   <div>
-                    <p className="font-semibold text-slate-800">Tu Dashboard</p>
-                    <p className="text-xs text-slate-500">Enero 2025</p>
+                    <p className="font-semibold text-gray-900 tracking-tight">Tu Dashboard</p>
+                    <p className="text-xs text-gray-600 font-medium">Enero 2025</p>
                   </div>
                 </div>
                 <div className="grid grid-cols-3 gap-3">
-                  <div className="bg-emerald-50 rounded-xl p-3 text-center">
-                    <p className="text-2xl font-bold text-emerald-600">47</p>
-                    <p className="text-xs text-emerald-700">Consultas</p>
+                  <div className="bg-emerald-50 rounded-xl p-3 text-center border border-emerald-200/60">
+                    <p className="text-2xl font-bold text-emerald-700 tracking-tight">47</p>
+                    <p className="text-xs text-emerald-700 font-medium">Consultas</p>
                   </div>
-                  <div className="bg-amber-50 rounded-xl p-3 text-center">
-                    <p className="text-2xl font-bold text-amber-600">4.9</p>
-                    <p className="text-xs text-amber-700">Rating</p>
+                  <div className="bg-amber-50 rounded-xl p-3 text-center border border-amber-200/60">
+                    <p className="text-2xl font-bold text-amber-700 tracking-tight">4.9</p>
+                    <p className="text-xs text-amber-700 font-medium">Rating</p>
                   </div>
-                  <div className="bg-sky-50 rounded-xl p-3 text-center">
-                    <p className="text-2xl font-bold text-sky-600">89%</p>
-                    <p className="text-xs text-sky-700">Conversión</p>
+                  <div className="bg-sky-50 rounded-xl p-3 text-center border border-sky-200/60">
+                    <p className="text-2xl font-bold text-sky-700 tracking-tight">89%</p>
+                    <p className="text-xs text-sky-700 font-medium">Conversión</p>
                   </div>
                 </div>
               </div>
@@ -642,15 +674,15 @@ function HeroSection() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8 }}
-                className="absolute -left-8 top-1/3 bg-white rounded-xl shadow-lg p-4 transform -rotate-3"
+                className="absolute -left-8 top-1/3 bg-white rounded-xl shadow-lg border border-gray-200/60 p-4 transform -rotate-3"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center">
-                    <Bell className="w-5 h-5 text-emerald-600" />
+                    <Bell className="w-5 h-5 text-emerald-600" strokeWidth={2.5} />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-slate-800">Nueva reserva</p>
-                    <p className="text-xs text-slate-500">Juan P. - Escritura</p>
+                    <p className="text-sm font-semibold text-gray-900 tracking-tight">Nueva reserva</p>
+                    <p className="text-xs text-gray-600 font-medium">Juan P. - Escritura</p>
                   </div>
                 </div>
               </motion.div>
@@ -660,15 +692,15 @@ function HeroSection() {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1 }}
-                className="absolute -right-4 bottom-1/4 bg-white rounded-xl shadow-lg p-4 transform rotate-3"
+                className="absolute -right-4 bottom-1/4 bg-white rounded-xl shadow-lg border border-gray-200/60 p-4 transform rotate-3"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-stone-100 flex items-center justify-center">
-                    <Calendar className="w-5 h-5 text-stone-600" />
+                  <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+                    <Calendar className="w-5 h-5 text-blue-600" strokeWidth={2.5} />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-slate-800">Mañana 10:00</p>
-                    <p className="text-xs text-slate-500">3 turnos confirmados</p>
+                    <p className="text-sm font-semibold text-gray-900 tracking-tight">Mañana 10:00</p>
+                    <p className="text-xs text-gray-600 font-medium">3 turnos confirmados</p>
                   </div>
                 </div>
               </motion.div>
@@ -682,7 +714,7 @@ function HeroSection() {
 
 function BeneficiosSection() {
   return (
-    <section className="py-20 sm:py-28 bg-[#faf9f7]">
+    <section className="py-16 sm:py-20 bg-gray-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial="hidden"
@@ -691,13 +723,13 @@ function BeneficiosSection() {
           variants={staggerContainer}
         >
           <motion.div variants={fadeInUp} className="text-center max-w-2xl mx-auto">
-            <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800">
+            <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold bg-primary-50 text-primary-900 border border-primary-200/60">
               ¿Por qué elegirnos?
             </span>
-            <h2 className="mt-4 text-2xl sm:text-3xl lg:text-4xl font-bold font-serif text-slate-800">
+            <h2 className="mt-4 text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight">
               Todo lo que necesitás para crecer
             </h2>
-            <p className="mt-4 text-slate-600">
+            <p className="mt-4 text-lg text-gray-600 font-medium">
               Herramientas diseñadas específicamente para escribanos argentinos
             </p>
           </motion.div>
@@ -718,7 +750,7 @@ function BeneficiosSection() {
 
 function FuncionalidadesSection() {
   return (
-    <section className="py-20 sm:py-28 bg-white">
+    <section className="py-16 sm:py-20 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial="hidden"
@@ -727,10 +759,10 @@ function FuncionalidadesSection() {
           variants={staggerContainer}
         >
           <motion.div variants={fadeInUp} className="text-center max-w-2xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-serif text-slate-800">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight">
               Funcionalidades que simplifican tu trabajo
             </h2>
-            <p className="mt-4 text-slate-600">
+            <p className="mt-4 text-lg text-gray-600 font-medium">
               Automatizá tareas administrativas y enfocate en lo que mejor sabés hacer
             </p>
           </motion.div>
@@ -751,7 +783,7 @@ function FuncionalidadesSection() {
 
 function ComoFuncionaSection() {
   return (
-    <section id="como-funciona" className="py-20 sm:py-28 bg-[#faf9f7] scroll-mt-20">
+    <section id="como-funciona" className="py-16 sm:py-20 bg-gray-50 scroll-mt-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial="hidden"
@@ -760,13 +792,13 @@ function ComoFuncionaSection() {
           variants={staggerContainer}
         >
           <motion.div variants={fadeInUp} className="text-center max-w-2xl mx-auto">
-            <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">
+            <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold bg-blue-50 text-blue-900 border border-blue-200/60">
               Proceso simple
             </span>
-            <h2 className="mt-4 text-2xl sm:text-3xl lg:text-4xl font-bold font-serif text-slate-800">
+            <h2 className="mt-4 text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight">
               Empezá en 4 simples pasos
             </h2>
-            <p className="mt-4 text-slate-600">
+            <p className="mt-4 text-lg text-gray-600 font-medium">
               En menos de 48 horas podés estar recibiendo tus primeros clientes
             </p>
           </motion.div>
@@ -779,18 +811,18 @@ function ComoFuncionaSection() {
               <motion.div key={paso.numero} variants={fadeInUp} className="relative">
                 {/* Línea conectora */}
                 {index < PASOS.length - 1 && (
-                  <div className="hidden lg:block absolute top-8 left-[60%] w-full h-0.5 bg-gradient-to-r from-amber-400 to-amber-300" />
+                  <div className="hidden lg:block absolute top-8 left-[60%] w-full h-0.5 bg-gradient-to-r from-primary-400 to-primary-300" />
                 )}
 
                 <div className="relative z-10 text-center">
-                  <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-amber-100 to-amber-200 border-2 border-amber-300 shadow-md flex items-center justify-center">
-                    <paso.icon className="w-7 h-7 text-amber-700" />
+                  <div className="w-16 h-16 mx-auto rounded-2xl bg-primary-100 border-2 border-primary-300 shadow-sm flex items-center justify-center">
+                    <paso.icon className="w-7 h-7 text-primary-700" strokeWidth={2.5} />
                   </div>
-                  <span className="inline-block mt-4 px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-600">
+                  <span className="inline-block mt-4 px-3 py-1 rounded-full text-xs font-bold bg-gray-100 text-gray-700 border border-gray-200">
                     Paso {paso.numero}
                   </span>
-                  <h3 className="mt-3 text-lg font-semibold text-slate-800">{paso.titulo}</h3>
-                  <p className="mt-2 text-sm text-slate-600">{paso.descripcion}</p>
+                  <h3 className="mt-3 text-lg font-semibold text-gray-900 tracking-tight">{paso.titulo}</h3>
+                  <p className="mt-2 text-[15px] text-gray-600 font-medium">{paso.descripcion}</p>
                 </div>
               </motion.div>
             ))}
@@ -798,9 +830,17 @@ function ComoFuncionaSection() {
 
           <motion.div variants={fadeInUp} className="mt-12 text-center">
             <Link href="/register?role=escribano">
-              <Button variant="accent" size="lg">
+              <Button 
+                size="lg"
+                className={cn(
+                  "font-semibold shadow-md",
+                  "bg-primary-900 hover:bg-primary-800 text-white",
+                  "border border-primary-800/20",
+                  "hover:shadow-lg hover:shadow-primary-900/20"
+                )}
+              >
                 Comenzar ahora
-                <ArrowRight className="w-5 h-5 ml-2" />
+                <ArrowRight className="w-5 h-5 ml-2" strokeWidth={2.5} />
               </Button>
             </Link>
           </motion.div>
@@ -811,10 +851,10 @@ function ComoFuncionaSection() {
 }
 
 function PreciosSection() {
-  const [anual, setAnual] = useState(true);
+  const [anual, setAnual] = useState(false);
 
   return (
-    <section id="precios" className="py-20 sm:py-28 bg-white scroll-mt-20">
+    <section id="precios" className="py-16 sm:py-20 bg-white scroll-mt-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial="hidden"
@@ -823,25 +863,25 @@ function PreciosSection() {
           variants={staggerContainer}
         >
           <motion.div variants={fadeInUp} className="text-center max-w-2xl mx-auto">
-            <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">
+            <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-900 border border-emerald-200/60">
               Precios transparentes
             </span>
-            <h2 className="mt-4 text-2xl sm:text-3xl lg:text-4xl font-bold font-serif text-slate-800">
+            <h2 className="mt-4 text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight">
               Elegí el plan que mejor se adapte
             </h2>
-            <p className="mt-4 text-slate-600">
-              Sin comisiones ocultas. Cancelá cuando quieras.
+            <p className="mt-4 text-lg text-gray-600 font-medium">
+              Sin comisiones ocultas. Cancelá cuando quieras. 15 días de prueba gratis.
             </p>
 
             {/* Toggle mensual/anual */}
-            <div className="mt-8 inline-flex items-center gap-3 bg-slate-100 rounded-full p-1">
+            <div className="mt-8 inline-flex items-center gap-3 bg-gray-100 rounded-full p-1 border border-gray-200">
               <button
                 onClick={() => setAnual(false)}
                 className={cn(
-                  "px-4 py-2 rounded-full text-sm font-medium transition-all",
+                  "px-4 py-2.5 rounded-full text-sm font-semibold transition-all",
                   !anual
-                    ? "bg-white text-slate-800 shadow-sm"
-                    : "text-slate-600 hover:text-slate-800"
+                    ? "bg-white text-gray-900 shadow-sm"
+                    : "text-gray-600 hover:text-gray-900"
                 )}
               >
                 Mensual
@@ -849,15 +889,15 @@ function PreciosSection() {
               <button
                 onClick={() => setAnual(true)}
                 className={cn(
-                  "px-4 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-2",
+                  "px-4 py-2.5 rounded-full text-sm font-semibold transition-all flex items-center gap-2",
                   anual
-                    ? "bg-white text-slate-800 shadow-sm"
-                    : "text-slate-600 hover:text-slate-800"
+                    ? "bg-white text-gray-900 shadow-sm"
+                    : "text-gray-600 hover:text-gray-900"
                 )}
               >
                 Anual
-                <span className="px-2 py-0.5 rounded-full text-xs bg-emerald-100 text-emerald-700">
-                  -17%
+                <span className="px-2 py-0.5 rounded-full text-xs bg-emerald-100 text-emerald-700 font-bold">
+                  -16%
                 </span>
               </button>
             </div>
@@ -865,7 +905,7 @@ function PreciosSection() {
 
           <motion.div
             variants={staggerContainer}
-            className="mt-12 grid md:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto items-start"
+            className="mt-12 grid md:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto items-start"
           >
             {PLANES.map((plan) => (
               <PlanCard key={plan.id} plan={plan} anual={anual} />
@@ -874,10 +914,10 @@ function PreciosSection() {
 
           {/* Garantía */}
           <motion.div variants={fadeInUp} className="mt-12 text-center">
-            <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-emerald-50 border border-emerald-200">
-              <Shield className="w-5 h-5 text-emerald-600" />
-              <span className="text-sm text-emerald-800">
-                <strong>Garantía de satisfacción:</strong> 30 días de prueba gratis, sin compromiso
+            <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-emerald-50 border border-emerald-200/60">
+              <Shield className="w-5 h-5 text-emerald-600" strokeWidth={2.5} />
+              <span className="text-sm text-emerald-900 font-medium">
+                <strong>Garantía de satisfacción:</strong> 15 días de prueba gratis, sin compromiso
               </span>
             </div>
           </motion.div>
@@ -889,7 +929,7 @@ function PreciosSection() {
 
 function TestimoniosSection() {
   return (
-    <section className="py-20 sm:py-28 bg-[#faf9f7]">
+    <section className="py-16 sm:py-20 bg-gray-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial="hidden"
@@ -898,10 +938,10 @@ function TestimoniosSection() {
           variants={staggerContainer}
         >
           <motion.div variants={fadeInUp} className="text-center max-w-2xl mx-auto">
-            <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800">
+            <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold bg-amber-50 text-amber-900 border border-amber-200/60">
               Testimonios
             </span>
-            <h2 className="mt-4 text-2xl sm:text-3xl lg:text-4xl font-bold font-serif text-slate-800">
+            <h2 className="mt-4 text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight">
               Lo que dicen nuestros escribanos
             </h2>
           </motion.div>
@@ -922,7 +962,7 @@ function TestimoniosSection() {
 
 function FAQSection() {
   return (
-    <section className="py-20 sm:py-28 bg-white">
+    <section className="py-16 sm:py-20 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial="hidden"
@@ -932,24 +972,26 @@ function FAQSection() {
           className="max-w-3xl mx-auto"
         >
           <motion.div variants={fadeInUp} className="text-center">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-serif text-slate-800">
-              Preguntas frecuentes
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight">
+              Preguntas Frecuentes
             </h2>
           </motion.div>
 
           <motion.div
             variants={staggerContainer}
-            className="mt-10 bg-[#faf9f7] rounded-2xl border border-slate-200 overflow-hidden"
+            className="mt-10 bg-gray-50 rounded-2xl border border-gray-200/60 overflow-hidden shadow-sm"
           >
-            {FAQS.map((faq, i) => (
-              <FAQItem key={i} faq={faq} index={i} />
-            ))}
+            <div className="divide-y divide-gray-200">
+              {FAQS.map((faq, i) => (
+                <FAQItem key={i} faq={faq} index={i} />
+              ))}
+            </div>
           </motion.div>
 
           <motion.div variants={fadeInUp} className="mt-8 text-center">
-            <p className="text-slate-600">
+            <p className="text-gray-600 font-medium">
               ¿Tenés más preguntas?{" "}
-              <Link href="/contacto" className="text-amber-600 font-medium hover:underline">
+              <Link href="/contacto" className="text-primary-700 font-semibold hover:underline">
                 Contactanos
               </Link>
             </p>
@@ -962,12 +1004,8 @@ function FAQSection() {
 
 function CTAFinalSection() {
   return (
-    <section className="py-20 sm:py-28 bg-slate-800 text-white relative overflow-hidden">
-      {/* Glows */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-amber-300/10 rounded-full blur-[128px]" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-sky-300/10 rounded-full blur-[128px]" />
-
-      <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-16 sm:py-20 bg-white border-t border-gray-200/60">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -977,20 +1015,20 @@ function CTAFinalSection() {
         >
           <motion.div
             variants={fadeInUp}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-white/10 border border-white/20 mb-6"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold bg-primary-50 border border-primary-200/60 text-primary-900 mb-6"
           >
-            <Sparkles className="w-4 h-4 text-amber-300" />
+            <Sparkles className="w-4 h-4 text-primary-700" strokeWidth={2.5} />
             Unite hoy y comenzá gratis
           </motion.div>
 
           <motion.h2
             variants={fadeInUp}
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold font-serif"
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 tracking-tight"
           >
             ¿Listo para hacer crecer tu estudio?
           </motion.h2>
 
-          <motion.p variants={fadeInUp} className="mt-6 text-lg text-slate-300 max-w-2xl mx-auto">
+          <motion.p variants={fadeInUp} className="mt-5 text-lg text-gray-600 font-medium max-w-2xl mx-auto">
             Más de 500 escribanos ya confían en nosotros. 
             Registrate gratis y empezá a recibir clientes en menos de 48 horas.
           </motion.p>
@@ -1000,14 +1038,26 @@ function CTAFinalSection() {
             className="mt-10 flex flex-col sm:flex-row gap-4 justify-center"
           >
             <Link href="/register?role=escribano">
-              <Button variant="accent" size="xl">
+              <Button 
+                size="lg"
+                className={cn(
+                  "w-full sm:w-auto font-semibold shadow-md",
+                  "bg-primary-900 hover:bg-primary-800 text-white",
+                  "border border-primary-800/20",
+                  "hover:shadow-lg hover:shadow-primary-900/20"
+                )}
+              >
                 Crear mi perfil gratis
-                <ArrowRight className="w-5 h-5 ml-2" />
+                <ArrowRight className="w-5 h-5 ml-2" strokeWidth={2.5} />
               </Button>
             </Link>
             <Link href="/contacto">
-              <Button variant="ghost" size="xl" className="text-white hover:bg-white/10 border border-white/20">
-                <HeadphonesIcon className="w-5 h-5 mr-2" />
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="w-full sm:w-auto font-semibold border-gray-300"
+              >
+                <HeadphonesIcon className="w-5 h-5 mr-2" strokeWidth={2.5} />
                 Hablar con un asesor
               </Button>
             </Link>
@@ -1015,18 +1065,18 @@ function CTAFinalSection() {
 
           <motion.div
             variants={fadeInUp}
-            className="mt-10 flex flex-wrap items-center justify-center gap-6 text-sm text-slate-400"
+            className="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm text-gray-600 font-medium"
           >
             <span className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+              <CheckCircle2 className="w-4 h-4 text-success" strokeWidth={2.5} />
               Sin tarjeta de crédito
             </span>
             <span className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-              30 días gratis
+              <CheckCircle2 className="w-4 h-4 text-success" strokeWidth={2.5} />
+              15 días gratis
             </span>
             <span className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+              <CheckCircle2 className="w-4 h-4 text-success" strokeWidth={2.5} />
               Cancelá cuando quieras
             </span>
           </motion.div>

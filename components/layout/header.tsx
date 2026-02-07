@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Scale, ChevronRight, User, LogIn } from "lucide-react";
+import { Menu, X, Scale, ChevronRight, User, LogIn, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -20,7 +20,7 @@ const navigation = [
 ];
 
 // =============================================================================
-// ANIMACIONES
+// ANIMACIONES OPTIMIZADAS (reducidas para mayor profesionalismo)
 // =============================================================================
 
 const menuVariants = {
@@ -28,16 +28,16 @@ const menuVariants = {
     x: "100%",
     transition: {
       type: "spring" as const,
-      stiffness: 400,
-      damping: 40,
+      stiffness: 380,
+      damping: 35,
     },
   },
   open: {
     x: 0,
     transition: {
       type: "spring" as const,
-      stiffness: 400,
-      damping: 40,
+      stiffness: 380,
+      damping: 35,
     },
   },
 };
@@ -53,88 +53,104 @@ const menuItemVariants = {
     x: 0,
     opacity: 1,
     transition: {
-      delay: i * 0.1,
-      duration: 0.3,
+      delay: i * 0.08,
+      duration: 0.25,
     },
   }),
 };
 
 // =============================================================================
-// COMPONENTE LOGO
+// COMPONENTE LOGO - REDISEÑADO PROFESIONAL
 // =============================================================================
 
 function Logo({ scrolled = false }: { scrolled?: boolean }) {
   return (
-    <Link href="/" className="flex items-center gap-2.5 group">
-      <motion.div
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
+    <Link href="/" className="flex items-center gap-3 group">
+      <div
         className={cn(
-          "h-10 w-10 rounded-xl flex items-center justify-center",
-          "bg-gradient-to-br from-amber-400 to-amber-500",
-          "shadow-md group-hover:shadow-lg group-hover:shadow-amber-400/20",
-          "transition-shadow duration-300"
+          "rounded-2xl flex items-center justify-center transition-all duration-200",
+          "bg-gradient-to-br from-primary-700 to-primary-800",
+          "shadow-sm border border-primary-600/20",
+          scrolled ? "h-11 w-11" : "h-12 w-12"
         )}
       >
-        <Scale className="h-5 w-5 text-white" />
-      </motion.div>
-      <span
-        className={cn(
-          "hidden sm:block text-xl font-bold font-serif transition-colors duration-300",
-          "text-slate-800"
-        )}
-      >
-        EscribanosARG
-      </span>
+        <Scale 
+          className={cn(
+            "text-white transition-all duration-200",
+            scrolled ? "h-5 w-5" : "h-6 w-6"
+          )} 
+          strokeWidth={2.5} 
+        />
+      </div>
+      <div className="flex flex-col">
+        <span className={cn(
+          "font-semibold tracking-tight text-primary-900 transition-all duration-200",
+          scrolled ? "text-lg" : "text-lg lg:text-xl"
+        )}>
+          EscribanosARG
+        </span>
+        <span className="hidden sm:block text-[10px] lg:text-xs text-gray-500 font-medium tracking-wide uppercase">
+          Escribanía Digital
+        </span>
+      </div>
     </Link>
   );
 }
 
 // =============================================================================
-// COMPONENTE NAV LINK
+// BADGE DE CONFIANZA - NUEVO ELEMENTO
+// =============================================================================
+
+function TrustBadge() {
+  return (
+    <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 bg-green-50 border border-success-light rounded-full">
+      <Shield className="h-3.5 w-3.5 text-success" strokeWidth={2.5} />
+      <span className="text-xs font-medium text-success-dark">
+        +500 escribanos verificados
+      </span>
+    </div>
+  );
+}
+
+// =============================================================================
+// COMPONENTE NAV LINK - OPTIMIZADO
 // =============================================================================
 
 function NavLink({
   href,
   name,
   isActive,
-  scrolled,
 }: {
   href: string;
   name: string;
   isActive: boolean;
-  scrolled: boolean;
 }) {
   return (
     <Link href={href} className="relative group">
       <span
         className={cn(
-          "text-sm font-medium transition-colors duration-200",
+          "text-[15px] font-medium tracking-tight transition-colors duration-150",
           isActive
-            ? "text-slate-800"
-            : "text-slate-500 group-hover:text-slate-800"
+            ? "text-primary-900 font-semibold"
+            : "text-gray-600 group-hover:text-primary-900"
         )}
       >
         {name}
       </span>
-      {/* Indicador activo */}
+      {/* Indicador activo profesional */}
       {isActive && (
         <motion.div
           layoutId="nav-indicator"
-          className="absolute -bottom-1 left-0 right-0 h-0.5 bg-amber-500 rounded-full"
-          transition={{ type: "spring", stiffness: 500, damping: 30 }}
+          className="absolute -bottom-2 left-0 right-0 h-[3px] bg-primary-700 rounded-full"
+          transition={{ type: "spring", stiffness: 380, damping: 30 }}
         />
-      )}
-      {/* Hover indicator */}
-      {!isActive && (
-        <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-amber-400/50 rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left" />
       )}
     </Link>
   );
 }
 
 // =============================================================================
-// COMPONENTE MOBILE MENU
+// COMPONENTE MOBILE MENU - REDISEÑADO PROFESIONAL
 // =============================================================================
 
 function MobileMenu({
@@ -162,14 +178,14 @@ function MobileMenu({
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Overlay */}
+          {/* Overlay más oscuro para mayor seriedad */}
           <motion.div
             variants={overlayVariants}
             initial="closed"
             animate="open"
             exit="closed"
             onClick={onClose}
-            className="fixed inset-0 z-40 bg-slate-900/50 backdrop-blur-sm md:hidden"
+            className="fixed inset-0 z-40 bg-gray-900/60 backdrop-blur-sm md:hidden"
           />
 
           {/* Menu Panel */}
@@ -184,21 +200,25 @@ function MobileMenu({
               "flex flex-col"
             )}
           >
-            {/* Header del menú */}
-            <div className="flex items-center justify-between p-4 border-b border-slate-100">
-              <span className="font-serif font-bold text-slate-800">Menú</span>
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
+            {/* Header del menú - más profesional */}
+            <div className="flex items-center justify-between px-6 py-5 border-b border-gray-200">
+              <div className="flex items-center gap-2.5">
+                <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-primary-700 to-primary-800 flex items-center justify-center shadow-sm">
+                  <Scale className="h-4.5 w-4.5 text-white" strokeWidth={2.5} />
+                </div>
+                <span className="font-semibold text-primary-900">EscribanosARG</span>
+              </div>
+              <button
                 onClick={onClose}
-                className="p-2 rounded-xl hover:bg-slate-100 transition-colors"
+                className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+                aria-label="Cerrar menú"
               >
-                <X className="h-5 w-5 text-slate-500" />
-              </motion.button>
+                <X className="h-5 w-5 text-gray-500" />
+              </button>
             </div>
 
-            {/* Navigation Links */}
-            <nav className="flex-1 p-4 space-y-1">
+            {/* Navigation Links - espaciado optimizado */}
+            <nav className="flex-1 p-6 space-y-2">
               {navigation.map((item, i) => (
                 <motion.div
                   key={item.name}
@@ -211,11 +231,11 @@ function MobileMenu({
                     href={item.href}
                     onClick={onClose}
                     className={cn(
-                      "flex items-center justify-between px-4 py-3.5 rounded-xl",
-                      "text-base font-medium transition-all duration-200",
+                      "flex items-center justify-between px-4 py-4 rounded-xl",
+                      "text-[15px] font-medium transition-all duration-150",
                       pathname === item.href
-                        ? "bg-amber-50 text-amber-700 border-l-4 border-amber-400"
-                        : "text-slate-600 hover:bg-slate-50 active:bg-slate-100"
+                        ? "bg-primary-50 text-primary-700 border-l-4 border-primary-700"
+                        : "text-gray-700 hover:bg-gray-50 active:bg-gray-100"
                     )}
                   >
                     {item.name}
@@ -223,8 +243,8 @@ function MobileMenu({
                       className={cn(
                         "h-4 w-4 transition-transform",
                         pathname === item.href
-                          ? "text-amber-500"
-                          : "text-slate-400"
+                          ? "text-primary-700"
+                          : "text-gray-400"
                       )}
                     />
                   </Link>
@@ -232,17 +252,17 @@ function MobileMenu({
               ))}
             </nav>
 
-            {/* Auth Buttons */}
+            {/* Auth Buttons - rediseñados profesionales */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="p-4 border-t border-slate-100 space-y-3"
+              transition={{ delay: 0.2 }}
+              className="p-6 border-t border-gray-200 space-y-3"
             >
               <Link href="/login" onClick={onClose} className="block">
                 <Button 
                   variant="outline" 
-                  className="w-full justify-center gap-2 border-slate-300 text-slate-700 hover:bg-slate-50"
+                  className="w-full justify-center gap-2 border-gray-300 text-gray-700 hover:bg-gray-50 h-12 font-medium"
                 >
                   <LogIn className="h-4 w-4" />
                   Iniciar Sesión
@@ -250,7 +270,7 @@ function MobileMenu({
               </Link>
               <Link href="/register" onClick={onClose} className="block">
                 <Button 
-                  className="w-full justify-center gap-2 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-slate-900 font-semibold"
+                  className="w-full justify-center gap-2 bg-primary-900 hover:bg-primary-800 text-white font-semibold h-12 shadow-md border border-primary-800/20 hover:shadow-lg hover:shadow-primary-900/20"
                 >
                   <User className="h-4 w-4" />
                   Crear Cuenta
@@ -258,14 +278,14 @@ function MobileMenu({
               </Link>
             </motion.div>
 
-            {/* Footer info */}
-            <div className="p-4 bg-slate-50 text-center">
-              <p className="text-xs text-slate-500">
+            {/* Footer info - más discreto */}
+            <div className="px-6 py-4 bg-gray-50 border-t border-gray-100">
+              <p className="text-xs text-gray-500 text-center">
                 ¿Sos escribano?{" "}
                 <Link
                   href="/para-escribanos"
                   onClick={onClose}
-                  className="text-amber-600 font-medium hover:underline"
+                  className="text-primary-600 font-medium hover:underline"
                 >
                   Unite a la plataforma
                 </Link>
@@ -279,7 +299,7 @@ function MobileMenu({
 }
 
 // =============================================================================
-// COMPONENTE HEADER PRINCIPAL
+// COMPONENTE HEADER PRINCIPAL - OPTIMIZADO PROFESIONAL
 // =============================================================================
 
 export function Header() {
@@ -305,74 +325,82 @@ export function Header() {
 
   return (
     <>
-      <motion.header
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+      <header
         className={cn(
-          "sticky top-0 z-50 w-full transition-all duration-300",
+          "sticky top-0 z-50 w-full transition-all duration-200",
           scrolled
-            ? "bg-white/95 backdrop-blur-lg shadow-sm border-b border-slate-200/80"
-            : "bg-white border-b border-slate-200"
+            ? "bg-white/98 backdrop-blur-md shadow-sm border-b border-gray-200/60"
+            : "bg-white border-b border-gray-100"
         )}
       >
         <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
+          <div className={cn(
+            "flex items-center justify-between transition-all duration-200",
+            scrolled ? "h-20" : "h-20 lg:h-24"
+          )}>
             {/* Logo */}
             <Logo scrolled={scrolled} />
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex md:items-center md:gap-8">
+            <div className="hidden md:flex md:items-center md:gap-8 lg:gap-10">
               {navigation.map((item) => (
                 <NavLink
                   key={item.name}
                   href={item.href}
                   name={item.name}
                   isActive={pathname === item.href}
-                  scrolled={scrolled}
                 />
               ))}
             </div>
 
-            {/* Desktop Auth Buttons */}
-            <div className="hidden md:flex md:items-center md:gap-3">
-              <Link href="/login">
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
-                  className="font-medium text-slate-600 hover:text-slate-800 hover:bg-slate-100"
-                >
-                  Iniciar Sesión
-                </Button>
-              </Link>
-              <Link href="/register">
-                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+            {/* Desktop Right Section */}
+            <div className="hidden md:flex md:items-center md:gap-4 lg:gap-6">
+              {/* Trust Badge */}
+              <TrustBadge />
+
+              {/* Auth Buttons */}
+              <div className="flex items-center gap-3">
+                <Link href="/login">
                   <Button 
-                    size="sm" 
-                    className="font-semibold bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-slate-900 shadow-sm hover:shadow-md"
+                    variant="ghost" 
+                    size="sm"
+                    className="font-medium text-gray-700 hover:text-primary-900 hover:bg-gray-50 px-5"
+                  >
+                    Iniciar Sesión
+                  </Button>
+                </Link>
+                <Link href="/register">
+                  <Button 
+                    size="sm"
+                    className={cn(
+                      "font-semibold px-6 shadow-md",
+                      "bg-primary-900 hover:bg-primary-800",
+                      "text-white",
+                      "border border-primary-800/20",
+                      "transition-all duration-200",
+                      "hover:shadow-lg hover:shadow-primary-900/20"
+                    )}
                   >
                     Registrarse
                   </Button>
-                </motion.div>
-              </Link>
+                </Link>
+              </div>
             </div>
 
             {/* Mobile Menu Button */}
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+            <button
               onClick={() => setMobileOpen(true)}
               className={cn(
                 "md:hidden p-2.5 rounded-xl transition-colors",
-                "hover:bg-slate-100 active:bg-slate-200"
+                "hover:bg-gray-100 active:bg-gray-200"
               )}
               aria-label="Abrir menú"
             >
-              <Menu className="h-5 w-5 text-slate-600" />
-            </motion.button>
+              <Menu className="h-5 w-5 text-gray-600" />
+            </button>
           </div>
         </nav>
-      </motion.header>
+      </header>
 
       {/* Mobile Menu */}
       <MobileMenu

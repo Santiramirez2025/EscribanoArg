@@ -1,3 +1,5 @@
+// prisma/schema.prisma
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -7,6 +9,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// =============================================================================
+// USUARIOS Y AUTENTICACIÓN
+// =============================================================================
+
 model User {
   id            String    @id @default(cuid())
   email         String    @unique
@@ -14,14 +20,18 @@ model User {
   name          String
   phone         String?
   image         String?
-  password      String?
+  password      String
   role          Role      @default(CLIENTE)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
-  escribano Escribano?
-  consultas Consulta[]
-  reviews   Review[]
+  escribano     Escribano?
+  consultas     Consulta[]
+  reviews       Review[]
+  notifications Notification[]
+
+  @@index([email])
+  @@index([role])
 }
 
 enum Role {
@@ -29,6 +39,10 @@ enum Role {
   ESCRIBANO
   ADMIN
 }
+
+// =============================================================================
+// ESCRIBANOS
+// =============================================================================
 
 model Escribano {
   id     String @id @default(cuid())
@@ -40,21 +54,22 @@ model Escribano {
   experiencia Int     @default(0)
   foto        String?
   ubicacion   String
-  direccion   String?
+  direccion   String
 
   atencionPresencial Boolean @default(true)
   atencionVirtual    Boolean @default(true)
   whatsappNumber     String?
 
-  plan         PlanType   @default(PRUEBA)
+  plan         PlanType   @default(BASICO)
   planExpiraEn DateTime?
   estadoPago   EstadoPago @default(ACTIVO)
 
-  calificacion Float @default(0)
-  totalReviews Int   @default(0)
+  calificacion Float   @default(0)
+  totalReviews Int     @default(0)
   verificado   Boolean @default(false)
   activo       Boolean @default(true)
 
+  // Precios por servicio
   precioEscrituras      Decimal? @db.Decimal(12, 2)
   precioDeclaratoria    Decimal? @db.Decimal(12, 2)
   precioPoderes         Decimal? @db.Decimal(12, 2)
@@ -70,15 +85,21 @@ model Escribano {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  consultas Consulta[]
-  reviews   Review[]
+  consultas        Consulta[]
+  reviews          Review[]
+  subscriptions    Subscription[]
+  disponibilidades Disponibilidad[]
+  bloqueos         BloqueHorario[]
 
+  @@index([userId])
+  @@index([matricula])
   @@index([ubicacion])
   @@index([calificacion])
+  @@index([activo])
+  @@index([verificado])
 }
 
 enum PlanType {
-  PRUEBA
   BASICO
   NOTARIO
   NOTARIO_PRO
@@ -91,17 +112,123 @@ enum EstadoPago {
   CANCELADO
 }
 
+// =============================================================================
+// SISTEMA DE PAGOS Y SUSCRIPCIONES
+// =============================================================================
+
+model Subscription {
+  id          String    @id @default(cuid())
+  escribanoId String
+  escribano   Escribano @relation(fields: [escribanoId], references: [id], onDelete: Cascade)
+
+  mercadoPagoSubscriptionId String? @unique
+  mercadoPagoPreapprovalId  String? @unique
+
+  status      SubscriptionStatus @default(PENDING)
+  currentPlan PlanType
+  amount      Decimal            @db.Decimal(10, 2)
+  currency    String             @default("ARS")
+
+  startDate       DateTime
+  endDate         DateTime
+  nextBillingDate DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  payments Payment[]
+
+  @@index([escribanoId])
+  @@index([status])
+  @@index([nextBillingDate])
+}
+
+enum SubscriptionStatus {
+  PENDING
+  ACTIVE
+  PAST_DUE
+  CANCELLED
+  EXPIRED
+}
+
+model Payment {
+  id             String       @id @default(cuid())
+  subscriptionId String
+  subscription   Subscription @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+
+  mercadoPagoPaymentId String?       @unique
+  amount               Decimal       @db.Decimal(10, 2)
+  status               PaymentStatus @default(PENDING)
+  paymentMethod        String?
+
+  paidAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([subscriptionId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+enum PaymentStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CANCELLED
+  REFUNDED
+}
+
+// =============================================================================
+// DISPONIBILIDAD Y AGENDA
+// =============================================================================
+
+model Disponibilidad {
+  id          String    @id @default(cuid())
+  escribanoId String
+  escribano   Escribano @relation(fields: [escribanoId], references: [id], onDelete: Cascade)
+
+  diaSemana  Int
+  horaInicio String
+  horaFin    String
+  activo     Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([escribanoId, diaSemana, horaInicio])
+  @@index([escribanoId])
+  @@index([activo])
+}
+
+model BloqueHorario {
+  id          String    @id @default(cuid())
+  escribanoId String
+  escribano   Escribano @relation(fields: [escribanoId], references: [id], onDelete: Cascade)
+
+  fecha      DateTime @db.Date
+  horaInicio String
+  horaFin    String
+  motivo     String?
+
+  createdAt DateTime @default(now())
+
+  @@index([escribanoId, fecha])
+}
+
+// =============================================================================
+// CONSULTAS Y CITAS
+// =============================================================================
+
 model Consulta {
-  id          String   @id @default(cuid())
+  id          String    @id @default(cuid())
   clienteId   String
-  cliente     User     @relation(fields: [clienteId], references: [id])
+  cliente     User      @relation(fields: [clienteId], references: [id])
   escribanoId String
   escribano   Escribano @relation(fields: [escribanoId], references: [id])
 
   servicio  TipoServicio
   modalidad Modalidad
   fecha     DateTime
-  duracion  Int      @default(60)
+  duracion  Int            @default(60)
   detalles  String?
   estado    EstadoConsulta @default(PENDIENTE)
 
@@ -112,6 +239,8 @@ model Consulta {
 
   @@index([clienteId])
   @@index([escribanoId])
+  @@index([fecha])
+  @@index([estado])
 }
 
 enum TipoServicio {
@@ -143,20 +272,60 @@ enum EstadoConsulta {
   RECHAZADA
 }
 
+// =============================================================================
+// REVIEWS Y CALIFICACIONES
+// =============================================================================
+
 model Review {
-  id           String    @id @default(cuid())
-  clienteId    String
-  cliente      User      @relation(fields: [clienteId], references: [id])
-  escribanoId  String
-  escribano    Escribano @relation(fields: [escribanoId], references: [id])
-  consultaId   String    @unique
-  consulta     Consulta  @relation(fields: [consultaId], references: [id])
-  calificacion Int       @default(5)
+  id          String    @id @default(cuid())
+  clienteId   String
+  cliente     User      @relation(fields: [clienteId], references: [id])
+  escribanoId String
+  escribano   Escribano @relation(fields: [escribanoId], references: [id])
+  consultaId  String    @unique
+  consulta    Consulta  @relation(fields: [consultaId], references: [id])
+
+  calificacion Int     @default(5)
   comentario   String?
   respuesta    String?
-  visible      Boolean   @default(true)
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  visible      Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([escribanoId])
+  @@index([calificacion])
+  @@index([createdAt])
+}
+
+// =============================================================================
+// NOTIFICACIONES
+// =============================================================================
+
+model Notification {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  type    NotificationType
+  title   String
+  message String
+  read    Boolean          @default(false)
+  link    String?
+
+  createdAt DateTime @default(now())
+
+  @@index([userId, read])
+  @@index([createdAt])
+}
+
+enum NotificationType {
+  CONSULTA_NUEVA
+  CONSULTA_CONFIRMADA
+  CONSULTA_CANCELADA
+  REVIEW_NUEVA
+  PAGO_EXITOSO
+  PAGO_RECHAZADO
+  PLAN_EXPIRA_PRONTO
+  SISTEMA
 }

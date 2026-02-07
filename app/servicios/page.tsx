@@ -25,6 +25,9 @@ import {
   Search,
   HelpCircle,
   Sparkles,
+  Award,
+  TrendingUp,
+  Shield,
 } from "lucide-react";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
@@ -32,25 +35,36 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 // =============================================================================
-// ANIMACIONES
+// ANIMACIONES PROFESIONALES
 // =============================================================================
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { 
+      duration: 0.3,
+      ease: "easeOut" as const
+    } 
+  },
 };
 
 const staggerContainer = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.1 },
+    transition: { staggerChildren: 0.08, delayChildren: 0.1 },
   },
 };
 
 const scaleIn = {
-  hidden: { opacity: 0, scale: 0.95 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.4 } },
+  hidden: { opacity: 0, scale: 0.98 },
+  visible: { 
+    opacity: 1, 
+    scale: 1, 
+    transition: { duration: 0.2 } 
+  },
 };
 
 // =============================================================================
@@ -69,8 +83,8 @@ interface Servicio {
   descripcion: string;
   descripcionLarga: string;
   icon: React.ElementType;
-  color: string;
-  bgColor: string;
+  iconColor: string;
+  iconBg: string;
   precio: string;
   tiempo: string;
   documentos: string[];
@@ -275,7 +289,7 @@ const ACTOS_OTROS: ActoJuridico[] = [
 ];
 
 // =============================================================================
-// DATOS DE SERVICIOS
+// DATOS DE SERVICIOS - REDISEÑADOS CON COLORES PROFESIONALES
 // =============================================================================
 
 const SERVICIOS: Servicio[] = [
@@ -286,8 +300,8 @@ const SERVICIOS: Servicio[] = [
     descripcionLarga:
       "Las escrituras públicas son instrumentos notariales que dan fe y autenticidad a los actos jurídicos. El escribano garantiza la legalidad del acto, verifica la identidad de las partes, y asegura que se cumplan todos los requisitos legales para su validez.",
     icon: ScrollText,
-    color: "text-slate-600",
-    bgColor: "from-slate-500 to-slate-600",
+    iconColor: "text-primary-700",
+    iconBg: "bg-primary-100",
     precio: "Desde $150.000",
     tiempo: "7-15 días hábiles",
     documentos: [
@@ -316,8 +330,8 @@ const SERVICIOS: Servicio[] = [
     descripcionLarga:
       "Las certificaciones notariales garantizan la autenticidad de firmas y documentos. El escribano verifica la identidad del firmante y certifica que la firma fue puesta en su presencia, otorgando validez legal al documento.",
     icon: FileCheck,
-    color: "text-indigo-500",
-    bgColor: "from-indigo-400 to-indigo-500",
+    iconColor: "text-blue-700",
+    iconBg: "bg-blue-100",
     precio: "Desde $8.000",
     tiempo: "En el día",
     documentos: ["DNI", "Documento a certificar"],
@@ -336,8 +350,8 @@ const SERVICIOS: Servicio[] = [
     descripcionLarga:
       "Las actas notariales son instrumentos públicos mediante los cuales el escribano documenta hechos que presencia o constata. Tienen plena validez probatoria y son utilizadas para preservar situaciones de hecho, notificar o intimar actos.",
     icon: Landmark,
-    color: "text-slate-600",
-    bgColor: "from-slate-500 to-slate-600",
+    iconColor: "text-slate-700",
+    iconBg: "bg-slate-100",
     precio: "Desde $30.000",
     tiempo: "1-3 días hábiles",
     documentos: ["DNI del requirente", "Datos del hecho a constatar"],
@@ -357,8 +371,8 @@ const SERVICIOS: Servicio[] = [
     descripcionLarga:
       "Los poderes son documentos notariales que autorizan a una persona a actuar en nombre de otra. Pueden ser generales (para múltiples actos) o especiales (para un acto específico determinado).",
     icon: Stamp,
-    color: "text-amber-600",
-    bgColor: "from-amber-500 to-amber-600",
+    iconColor: "text-amber-700",
+    iconBg: "bg-amber-100",
     precio: "Desde $25.000",
     tiempo: "1-3 días hábiles",
     documentos: [
@@ -382,8 +396,8 @@ const SERVICIOS: Servicio[] = [
     descripcionLarga:
       "Autorizaciones notariales para que menores de edad puedan viajar al exterior o dentro del país con el consentimiento de sus padres o tutores. Pueden ser por tiempo limitado o ilimitado según las necesidades.",
     icon: ShieldCheck,
-    color: "text-teal-500",
-    bgColor: "from-teal-400 to-teal-500",
+    iconColor: "text-teal-700",
+    iconBg: "bg-teal-100",
     precio: "Desde $15.000",
     tiempo: "En el día",
     documentos: [
@@ -406,8 +420,8 @@ const SERVICIOS: Servicio[] = [
     descripcionLarga:
       "Las cesiones son actos jurídicos mediante los cuales se transfieren derechos de una persona a otra. Incluyen cesión de boletos de compraventa, derechos hereditarios, derechos litigiosos, posesión y transferencias de fondos de comercio.",
     icon: FileSignature,
-    color: "text-violet-500",
-    bgColor: "from-violet-400 to-violet-500",
+    iconColor: "text-violet-700",
+    iconBg: "bg-violet-100",
     precio: "Desde $80.000",
     tiempo: "7-15 días hábiles",
     documentos: [
@@ -430,8 +444,8 @@ const SERVICIOS: Servicio[] = [
     descripcionLarga:
       "Servicios complementarios que incluyen redacción de contratos de locación, comodato, mutuo y otros; estudio de títulos para verificar la situación dominial; y asesoramiento jurídico notarial previo para garantizar la seguridad jurídica de los actos.",
     icon: FileText,
-    color: "text-emerald-600",
-    bgColor: "from-emerald-500 to-emerald-600",
+    iconColor: "text-emerald-700",
+    iconBg: "bg-emerald-100",
     precio: "Desde $20.000",
     tiempo: "3-10 días hábiles",
     documentos: [
@@ -454,8 +468,8 @@ const SERVICIOS: Servicio[] = [
     descripcionLarga:
       "El trámite sucesorio permite la transmisión legal de bienes de una persona fallecida a sus herederos. Incluye la declaratoria de herederos, inventario de bienes y adjudicación de la herencia.",
     icon: Users,
-    color: "text-stone-600",
-    bgColor: "from-stone-500 to-stone-600",
+    iconColor: "text-stone-700",
+    iconBg: "bg-stone-100",
     precio: "Desde $200.000",
     tiempo: "3-6 meses",
     documentos: [
@@ -481,8 +495,8 @@ const SERVICIOS: Servicio[] = [
     descripcionLarga:
       "Asesoramiento y constitución de sociedades comerciales (SRL, SA, SAS), redacción de estatutos, actas de asamblea, modificaciones de contrato social y disoluciones.",
     icon: Building2,
-    color: "text-sky-600",
-    bgColor: "from-sky-500 to-sky-600",
+    iconColor: "text-sky-700",
+    iconBg: "bg-sky-100",
     precio: "Desde $80.000",
     tiempo: "15-30 días hábiles",
     documentos: [
@@ -506,8 +520,8 @@ const SERVICIOS: Servicio[] = [
     descripcionLarga:
       "La protocolización incorpora un documento al protocolo notarial, dándole fecha cierta y autenticidad. Las legalizaciones certifican la autenticidad de firmas de funcionarios públicos. La apostilla permite que documentos públicos sean reconocidos en países firmantes del Convenio de La Haya.",
     icon: FileSignature,
-    color: "text-rose-500",
-    bgColor: "from-rose-400 to-rose-500",
+    iconColor: "text-rose-700",
+    iconBg: "bg-rose-100",
     precio: "Desde $20.000",
     tiempo: "1-5 días hábiles",
     documentos: ["Documento a protocolizar/legalizar", "DNI del solicitante"],
@@ -570,66 +584,62 @@ function ServicioCard({ servicio }: { servicio: Servicio }) {
   return (
     <motion.div variants={scaleIn}>
       <Link href={`/buscar?servicio=${servicio.id}`}>
-        <motion.div
-          whileHover={{ y: -4, scale: 1.01 }}
+        <div
           className={cn(
-            "group relative bg-white rounded-2xl border border-slate-200",
-            "shadow-sm hover:shadow-xl hover:border-slate-300 transition-all duration-300",
+            "group relative bg-white rounded-2xl border border-gray-200/60",
+            "shadow-sm hover:shadow-lg hover:border-gray-300 transition-all duration-200",
             "overflow-hidden h-full"
           )}
         >
           {/* Popular badge */}
           {servicio.popular && (
-            <div className="absolute top-3 right-3 z-10">
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-700">
-                <Sparkles className="w-3 h-3" />
+            <div className="absolute top-4 right-4 z-10">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200/60">
+                <Sparkles className="w-3.5 h-3.5" strokeWidth={2.5} />
                 Popular
               </span>
             </div>
           )}
 
           <div className="p-6">
-            {/* Icon */}
-            <motion.div
-              whileHover={{ scale: 1.1, rotate: 3 }}
+            {/* Icon profesional */}
+            <div
               className={cn(
                 "w-14 h-14 rounded-2xl flex items-center justify-center",
-                "bg-gradient-to-br shadow-md",
-                servicio.bgColor,
-                "group-hover:shadow-lg transition-shadow duration-300"
+                "transition-all duration-200",
+                servicio.iconBg,
+                "group-hover:scale-105"
               )}
             >
-              <servicio.icon className="w-7 h-7 text-white" />
-            </motion.div>
+              <servicio.icon className={cn("w-7 h-7", servicio.iconColor)} strokeWidth={2.5} />
+            </div>
 
             {/* Content */}
-            <h3 className="mt-4 text-lg font-semibold text-slate-800 group-hover:text-amber-600 transition-colors">
+            <h3 className="mt-5 text-lg font-semibold text-gray-900 tracking-tight group-hover:text-primary-900 transition-colors">
               {servicio.nombre}
             </h3>
-            <p className="mt-2 text-sm text-slate-600 line-clamp-2">
+            <p className="mt-2 text-[15px] text-gray-600 line-clamp-2 font-medium leading-relaxed">
               {servicio.descripcion}
             </p>
 
             {/* Meta */}
-            <div className="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between">
-              <div className="flex items-center gap-3 text-xs text-slate-500">
-                <span className="flex items-center gap-1">
-                  <Clock className="w-3.5 h-3.5" />
-                  {servicio.tiempo}
-                </span>
+            <div className="mt-5 pt-4 border-t border-gray-100 flex items-center justify-between">
+              <div className="flex items-center gap-2 text-sm text-gray-600">
+                <Clock className="w-4 h-4 text-gray-400" strokeWidth={2} />
+                <span className="font-medium">{servicio.tiempo}</span>
               </div>
-              <span className="text-sm font-semibold text-slate-800">
+              <span className="text-sm font-semibold text-gray-900">
                 {servicio.precio}
               </span>
             </div>
 
             {/* Hover CTA */}
-            <div className="mt-4 flex items-center text-sm font-medium text-amber-600 opacity-0 group-hover:opacity-100 transition-opacity">
+            <div className="mt-4 flex items-center text-sm font-semibold text-primary-700 opacity-0 group-hover:opacity-100 transition-opacity">
               Ver escribanos
-              <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+              <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" strokeWidth={2.5} />
             </div>
           </div>
-        </motion.div>
+        </div>
       </Link>
     </motion.div>
   );
@@ -642,49 +652,49 @@ function ServicioDetalle({ servicio }: { servicio: Servicio }) {
   return (
     <motion.div
       variants={fadeInUp}
-      className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden"
+      className="bg-white rounded-2xl border border-gray-200/60 shadow-sm overflow-hidden hover:shadow-md transition-shadow"
     >
       {/* Header - Clickeable */}
       <button
         onClick={() => setExpanded(!expanded)}
-        className="w-full p-6 flex items-start gap-4 text-left hover:bg-slate-50 transition-colors"
+        className="w-full p-6 flex items-start gap-4 text-left hover:bg-gray-50 transition-colors"
       >
         <div
           className={cn(
             "w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0",
-            "bg-gradient-to-br",
-            servicio.bgColor
+            servicio.iconBg
           )}
         >
-          <servicio.icon className="w-6 h-6 text-white" />
+          <servicio.icon className={cn("w-6 h-6", servicio.iconColor)} strokeWidth={2.5} />
         </div>
 
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2">
-            <h3 className="text-lg font-semibold text-slate-800">
+          <div className="flex items-center gap-2 flex-wrap">
+            <h3 className="text-lg font-semibold text-gray-900 tracking-tight">
               {servicio.nombre}
             </h3>
             {servicio.popular && (
-              <span className="px-2 py-0.5 text-xs font-medium bg-amber-100 text-amber-700 rounded-full">
+              <span className="px-2.5 py-1 text-xs font-semibold bg-amber-50 text-amber-700 rounded-full border border-amber-200/60">
                 Popular
               </span>
             )}
           </div>
-          <p className="mt-1 text-sm text-slate-600">{servicio.descripcion}</p>
-          <div className="mt-2 flex flex-wrap gap-3 text-xs text-slate-500">
-            <span className="flex items-center gap-1">
-              <Clock className="w-3.5 h-3.5" />
-              {servicio.tiempo}
+          <p className="mt-1.5 text-[15px] text-gray-600 font-medium">{servicio.descripcion}</p>
+          <div className="mt-3 flex flex-wrap gap-4 text-sm text-gray-600">
+            <span className="flex items-center gap-1.5">
+              <Clock className="w-4 h-4 text-gray-400" strokeWidth={2} />
+              <span className="font-medium">{servicio.tiempo}</span>
             </span>
-            <span className="font-medium text-slate-800">{servicio.precio}</span>
+            <span className="font-semibold text-gray-900">{servicio.precio}</span>
           </div>
         </div>
 
         <motion.div
           animate={{ rotate: expanded ? 180 : 0 }}
+          transition={{ duration: 0.2 }}
           className="flex-shrink-0 p-2"
         >
-          <ChevronDown className="w-5 h-5 text-slate-400" />
+          <ChevronDown className="w-5 h-5 text-gray-400" strokeWidth={2} />
         </motion.div>
       </button>
 
@@ -695,25 +705,29 @@ function ServicioDetalle({ servicio }: { servicio: Servicio }) {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.25 }}
             className="overflow-hidden"
           >
-            <div className="px-6 pb-6 pt-2 border-t border-slate-100">
+            <div className="px-6 pb-6 pt-2 border-t border-gray-100">
               {/* Descripción larga */}
-              <p className="text-sm text-slate-600 leading-relaxed">
+              <p className="text-[15px] text-gray-600 leading-relaxed font-medium">
                 {servicio.descripcionLarga}
               </p>
 
               {/* Dropdown de Actos Jurídicos (si aplica) */}
               {servicio.actosJuridicos && servicio.actosJuridicos.length > 0 && (
                 <div className="mt-6">
-                  <label className="block text-sm font-semibold text-slate-800 mb-2">
+                  <label className="block text-sm font-semibold text-gray-900 mb-2 tracking-tight">
                     Acto jurídico a realizar
                   </label>
                   <select
                     value={selectedActo}
                     onChange={(e) => setSelectedActo(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                    className={cn(
+                      "w-full px-4 py-3 rounded-xl border border-gray-300 text-[15px]",
+                      "focus:outline-none focus:ring-2 focus:ring-primary-700/20 focus:border-primary-700",
+                      "transition-all duration-150 font-medium text-gray-900 bg-white shadow-sm"
+                    )}
                   >
                     <option value="">Seleccione el tipo de acto</option>
                     {servicio.actosJuridicos.map((acto) => (
@@ -728,17 +742,17 @@ function ServicioDetalle({ servicio }: { servicio: Servicio }) {
               <div className="mt-6 grid sm:grid-cols-2 gap-6">
                 {/* Documentos necesarios */}
                 <div>
-                  <h4 className="text-sm font-semibold text-slate-800 flex items-center gap-2 mb-3">
-                    <FileWarning className="w-4 h-4 text-amber-500" />
+                  <h4 className="text-sm font-semibold text-gray-900 flex items-center gap-2 mb-4 tracking-tight">
+                    <FileWarning className="w-4.5 h-4.5 text-amber-600" strokeWidth={2.5} />
                     Documentación necesaria
                   </h4>
-                  <ul className="space-y-2">
+                  <ul className="space-y-2.5">
                     {servicio.documentos.map((doc, i) => (
                       <li
                         key={i}
-                        className="flex items-start gap-2 text-sm text-slate-600"
+                        className="flex items-start gap-2.5 text-[15px] text-gray-600 font-medium"
                       >
-                        <span className="w-1.5 h-1.5 rounded-full bg-slate-300 mt-2 flex-shrink-0" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-gray-400 mt-2 flex-shrink-0" />
                         {doc}
                       </li>
                     ))}
@@ -747,17 +761,17 @@ function ServicioDetalle({ servicio }: { servicio: Servicio }) {
 
                 {/* Qué incluye */}
                 <div>
-                  <h4 className="text-sm font-semibold text-slate-800 flex items-center gap-2 mb-3">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+                  <h4 className="text-sm font-semibold text-gray-900 flex items-center gap-2 mb-4 tracking-tight">
+                    <CheckCircle2 className="w-4.5 h-4.5 text-success" strokeWidth={2.5} />
                     El servicio incluye
                   </h4>
-                  <ul className="space-y-2">
+                  <ul className="space-y-2.5">
                     {servicio.incluye.map((item, i) => (
                       <li
                         key={i}
-                        className="flex items-start gap-2 text-sm text-slate-600"
+                        className="flex items-start gap-2.5 text-[15px] text-gray-600 font-medium"
                       >
-                        <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
+                        <CheckCircle2 className="w-4.5 h-4.5 text-success flex-shrink-0 mt-0.5" strokeWidth={2.5} />
                         {item}
                       </li>
                     ))}
@@ -766,19 +780,29 @@ function ServicioDetalle({ servicio }: { servicio: Servicio }) {
               </div>
 
               {/* CTA */}
-              <div className="mt-6 pt-4 border-t border-slate-100 flex flex-col sm:flex-row gap-3">
+              <div className="mt-6 pt-5 border-t border-gray-100 flex flex-col sm:flex-row gap-3">
                 <Link
                   href={`/buscar?servicio=${servicio.id}${
                     selectedActo ? `&acto=${selectedActo}` : ""
                   }`}
                   className="flex-1"
                 >
-                  <Button variant="accent" className="w-full">
-                    <Search className="w-4 h-4 mr-2" />
+                  <Button 
+                    className={cn(
+                      "w-full font-semibold shadow-md",
+                      "bg-primary-900 hover:bg-primary-800 text-white",
+                      "border border-primary-800/20 h-11",
+                      "hover:shadow-lg hover:shadow-primary-900/20"
+                    )}
+                  >
+                    <Search className="w-4 h-4 mr-2" strokeWidth={2.5} />
                     Buscar escribanos
                   </Button>
                 </Link>
-                <Button variant="outline" className="flex-1 sm:flex-none">
+                <Button 
+                  variant="outline" 
+                  className="flex-1 sm:flex-none font-semibold h-11 border-gray-300"
+                >
                   Solicitar presupuesto
                 </Button>
               </div>
@@ -796,32 +820,37 @@ function FAQItem({ faq, index }: { faq: FAQ; index: number }) {
   return (
     <motion.div
       variants={fadeInUp}
-      className="border-b border-slate-200 last:border-0"
+      className="border-b border-gray-200 last:border-0"
     >
       <button
         onClick={() => setOpen(!open)}
-        className="w-full py-5 flex items-start gap-4 text-left"
+        className="w-full py-5 flex items-start gap-4 text-left hover:bg-gray-50 transition-colors rounded-lg px-2"
       >
-        <span className="flex-shrink-0 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-sm font-semibold text-slate-600">
+        <span className="flex-shrink-0 w-8 h-8 rounded-full bg-primary-100 flex items-center justify-center text-sm font-semibold text-primary-900">
           {index + 1}
         </span>
         <div className="flex-1">
-          <h3 className="font-semibold text-slate-800 pr-8">{faq.pregunta}</h3>
+          <h3 className="font-semibold text-gray-900 pr-8 tracking-tight">{faq.pregunta}</h3>
           <AnimatePresence>
             {open && (
               <motion.p
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: "auto", opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
-                className="mt-3 text-sm text-slate-600 leading-relaxed"
+                transition={{ duration: 0.2 }}
+                className="mt-3 text-[15px] text-gray-600 leading-relaxed font-medium"
               >
                 {faq.respuesta}
               </motion.p>
             )}
           </AnimatePresence>
         </div>
-        <motion.div animate={{ rotate: open ? 180 : 0 }} className="flex-shrink-0">
-          <ChevronDown className="w-5 h-5 text-slate-400" />
+        <motion.div 
+          animate={{ rotate: open ? 180 : 0 }} 
+          transition={{ duration: 0.2 }}
+          className="flex-shrink-0"
+        >
+          <ChevronDown className="w-5 h-5 text-gray-400" strokeWidth={2} />
         </motion.div>
       </button>
     </motion.div>
@@ -834,63 +863,60 @@ function FAQItem({ faq, index }: { faq: FAQ; index: number }) {
 
 function HeroSection() {
   return (
-    <section className="relative bg-gradient-to-br from-slate-700 via-slate-600 to-slate-700 text-white overflow-hidden">
-      {/* Pattern */}
-      <div
-        className="absolute inset-0 opacity-[0.04]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-        }}
-      />
-
-      {/* Glows */}
-      <div className="absolute top-1/3 -left-32 w-96 h-96 bg-amber-200/15 rounded-full blur-[128px]" />
-      <div className="absolute bottom-1/3 -right-32 w-96 h-96 bg-sky-200/10 rounded-full blur-[128px]" />
-
-      <div className="container relative mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+    <section className="relative bg-white border-b border-gray-200/60">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
         <motion.div
           initial="hidden"
           animate="visible"
           variants={staggerContainer}
-          className="max-w-3xl mx-auto text-center"
+          className="max-w-4xl mx-auto"
         >
-          <motion.span
-            variants={fadeInUp}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-white/10 border border-white/20"
-          >
-            <Scale className="w-4 h-4" />
-            Servicios Notariales
-          </motion.span>
+          {/* Badge */}
+          <motion.div variants={fadeInUp} className="text-center mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-50 border border-primary-200/60 rounded-full">
+              <Scale className="w-4 h-4 text-primary-700" strokeWidth={2.5} />
+              <span className="text-sm font-semibold text-primary-900 tracking-tight">
+                Servicios Notariales
+              </span>
+            </div>
+          </motion.div>
 
+          {/* Título */}
           <motion.h1
             variants={fadeInUp}
-            className="mt-6 text-3xl sm:text-4xl lg:text-5xl font-bold font-serif"
+            className="text-center text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 tracking-tight"
           >
-            Todos los trámites que{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-300">
-              necesitás
-            </span>
+            Todos los trámites que necesitás
           </motion.h1>
 
           <motion.p
             variants={fadeInUp}
-            className="mt-6 text-lg text-slate-200 max-w-2xl mx-auto"
+            className="mt-5 text-center text-lg text-gray-600 font-medium max-w-3xl mx-auto"
           >
             Desde escrituras y sucesiones hasta poderes y certificaciones. 
             Encontrá el escribano ideal para cada trámite notarial.
           </motion.p>
 
+          {/* CTAs */}
           <motion.div variants={fadeInUp} className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/buscar">
-              <Button variant="accent" size="lg">
-                <Search className="w-5 h-5 mr-2" />
+              <Button 
+                size="lg"
+                className={cn(
+                  "font-semibold shadow-md",
+                  "bg-primary-900 hover:bg-primary-800 text-white",
+                  "border border-primary-800/20",
+                  "hover:shadow-lg hover:shadow-primary-900/20"
+                )}
+              >
+                <Search className="w-5 h-5 mr-2" strokeWidth={2.5} />
                 Buscar escribano
               </Button>
             </Link>
             <Button
-              variant="ghost"
+              variant="outline"
               size="lg"
-              className="text-white hover:bg-white/10 border border-white/20"
+              className="font-semibold border-gray-300"
               onClick={() => {
                 document.getElementById("servicios-lista")?.scrollIntoView({
                   behavior: "smooth",
@@ -898,8 +924,29 @@ function HeroSection() {
               }}
             >
               Ver todos los servicios
-              <ChevronDown className="w-5 h-5 ml-2" />
+              <ChevronDown className="w-5 h-5 ml-2" strokeWidth={2.5} />
             </Button>
+          </motion.div>
+
+          {/* Stats */}
+          <motion.div 
+            variants={fadeInUp}
+            className="mt-12 grid grid-cols-3 gap-6"
+          >
+            {[
+              { icon: Award, label: "Verificados", value: "100%" },
+              { icon: Shield, label: "Seguro", value: "Legal" },
+              { icon: TrendingUp, label: "Respuesta", value: "<24h" },
+            ].map((stat) => (
+              <div 
+                key={stat.label}
+                className="text-center p-4 rounded-xl bg-gray-50 border border-gray-200/60"
+              >
+                <stat.icon className="h-5 w-5 text-primary-700 mx-auto mb-2" strokeWidth={2.5} />
+                <div className="text-sm font-semibold text-gray-900">{stat.value}</div>
+                <div className="text-xs text-gray-600 mt-0.5 font-medium">{stat.label}</div>
+              </div>
+            ))}
           </motion.div>
         </motion.div>
       </div>
@@ -911,7 +958,7 @@ function ServiciosPopularesSection() {
   const serviciosPopulares = SERVICIOS.filter((s) => s.popular);
 
   return (
-    <section className="py-16 sm:py-24 bg-[#faf9f7]">
+    <section className="py-16 sm:py-20 bg-gray-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial="hidden"
@@ -920,13 +967,13 @@ function ServiciosPopularesSection() {
           variants={staggerContainer}
         >
           <motion.div variants={fadeInUp} className="text-center max-w-2xl mx-auto">
-            <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800">
+            <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200/60">
               Más solicitados
             </span>
-            <h2 className="mt-4 text-2xl sm:text-3xl font-bold font-serif text-slate-800">
-              Servicios populares
+            <h2 className="mt-4 text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight">
+              Servicios Populares
             </h2>
-            <p className="mt-3 text-slate-600">
+            <p className="mt-4 text-lg text-gray-600 font-medium">
               Los trámites notariales más comunes que realizan nuestros escribanos
             </p>
           </motion.div>
@@ -947,7 +994,7 @@ function ServiciosPopularesSection() {
 
 function TodosLosServiciosSection() {
   return (
-    <section id="servicios-lista" className="py-16 sm:py-24 bg-white scroll-mt-20">
+    <section id="servicios-lista" className="py-16 sm:py-20 bg-white scroll-mt-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial="hidden"
@@ -956,10 +1003,10 @@ function TodosLosServiciosSection() {
           variants={staggerContainer}
         >
           <motion.div variants={fadeInUp} className="text-center max-w-2xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl font-bold font-serif text-slate-800">
-              Todos los servicios
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight">
+              Todos los Servicios
             </h2>
-            <p className="mt-3 text-slate-600">
+            <p className="mt-4 text-lg text-gray-600 font-medium">
               Explorá en detalle cada servicio notarial disponible
             </p>
           </motion.div>
@@ -980,7 +1027,7 @@ function TodosLosServiciosSection() {
 
 function FAQSection() {
   return (
-    <section className="py-16 sm:py-24 bg-[#faf9f7]">
+    <section className="py-16 sm:py-20 bg-gray-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial="hidden"
@@ -990,32 +1037,44 @@ function FAQSection() {
           className="max-w-3xl mx-auto"
         >
           <motion.div variants={fadeInUp} className="text-center">
-            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">
-              <HelpCircle className="w-3.5 h-3.5" />
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200/60">
+              <HelpCircle className="w-3.5 h-3.5" strokeWidth={2.5} />
               Preguntas frecuentes
             </span>
-            <h2 className="mt-4 text-2xl sm:text-3xl font-bold font-serif text-slate-800">
-              Dudas comunes sobre servicios notariales
+            <h2 className="mt-4 text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight">
+              Dudas Comunes
             </h2>
+            <p className="mt-4 text-lg text-gray-600 font-medium">
+              Respondemos las consultas más frecuentes sobre servicios notariales
+            </p>
           </motion.div>
 
           <motion.div
             variants={staggerContainer}
-            className="mt-10 bg-white rounded-2xl border border-slate-200 shadow-sm divide-y divide-slate-200 overflow-hidden"
+            className="mt-10 bg-white rounded-2xl border border-gray-200/60 shadow-sm overflow-hidden"
           >
-            {FAQS.map((faq, i) => (
-              <FAQItem key={i} faq={faq} index={i} />
-            ))}
+            <div className="divide-y divide-gray-200">
+              {FAQS.map((faq, i) => (
+                <FAQItem key={i} faq={faq} index={i} />
+              ))}
+            </div>
           </motion.div>
 
           <motion.div variants={fadeInUp} className="mt-8 text-center">
-            <p className="text-slate-600 mb-4">
+            <p className="text-gray-600 mb-4 font-medium">
               ¿Tenés otra consulta? Contactá directamente a un escribano.
             </p>
             <Link href="/buscar">
-              <Button variant="accent">
+              <Button 
+                className={cn(
+                  "font-semibold shadow-md",
+                  "bg-primary-900 hover:bg-primary-800 text-white",
+                  "border border-primary-800/20",
+                  "hover:shadow-lg hover:shadow-primary-900/20"
+                )}
+              >
                 Buscar escribano
-                <ArrowRight className="w-4 h-4 ml-2" />
+                <ArrowRight className="w-4 h-4 ml-2" strokeWidth={2.5} />
               </Button>
             </Link>
           </motion.div>
@@ -1027,12 +1086,8 @@ function FAQSection() {
 
 function CTASection() {
   return (
-    <section className="py-16 sm:py-24 bg-slate-800 relative overflow-hidden">
-      {/* Glows */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-amber-300/10 rounded-full blur-[128px]" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-sky-300/10 rounded-full blur-[128px]" />
-
-      <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-16 sm:py-20 bg-white border-t border-gray-200/60">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -1042,11 +1097,11 @@ function CTASection() {
         >
           <motion.h2
             variants={fadeInUp}
-            className="text-2xl sm:text-3xl lg:text-4xl font-bold font-serif text-white"
+            className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight"
           >
             ¿Listo para comenzar tu trámite?
           </motion.h2>
-          <motion.p variants={fadeInUp} className="mt-4 text-lg text-slate-300">
+          <motion.p variants={fadeInUp} className="mt-4 text-lg text-gray-600 font-medium">
             Encontrá el escribano ideal en minutos. Compará precios, leé opiniones 
             y agendá tu consulta presencial o virtual.
           </motion.p>
@@ -1056,19 +1111,27 @@ function CTASection() {
             className="mt-8 flex flex-col sm:flex-row gap-4 justify-center"
           >
             <Link href="/buscar">
-              <Button variant="accent" size="lg">
-                <Search className="w-5 h-5 mr-2" />
+              <Button 
+                size="lg"
+                className={cn(
+                  "font-semibold shadow-md",
+                  "bg-primary-900 hover:bg-primary-800 text-white",
+                  "border border-primary-800/20",
+                  "hover:shadow-lg hover:shadow-primary-900/20"
+                )}
+              >
+                <Search className="w-5 h-5 mr-2" strokeWidth={2.5} />
                 Buscar escribano
               </Button>
             </Link>
             <Link href="/para-escribanos">
               <Button
-                variant="ghost"
+                variant="outline"
                 size="lg"
-                className="text-white hover:bg-white/10 border border-white/20"
+                className="font-semibold border-gray-300"
               >
                 Soy escribano
-                <ArrowRight className="w-5 h-5 ml-2" />
+                <ArrowRight className="w-5 h-5 ml-2" strokeWidth={2.5} />
               </Button>
             </Link>
           </motion.div>

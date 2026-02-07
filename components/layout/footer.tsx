@@ -4,16 +4,17 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { 
   Scale, 
-  Heart, 
+  Shield,
   Instagram, 
   Linkedin, 
   Twitter,
   Mail,
   MapPin,
   Phone,
-  ArrowUpRight,
-  ChevronRight
+  ArrowRight,
+  CheckCircle2
 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 // =============================================================================
@@ -65,10 +66,10 @@ const socialLinks = [
   { name: "Twitter", icon: Twitter, href: "https://twitter.com/escribanosarg" },
 ];
 
-const contactInfo = [
-  { icon: Mail, text: "hola@escribanosarg.com", href: "mailto:hola@escribanosarg.com" },
-  { icon: Phone, text: "+54 9 351 123-4567", href: "tel:+5493511234567" },
-  { icon: MapPin, text: "Villa María, Córdoba", href: null },
+const trustStats = [
+  { value: "+500", label: "Escribanos" },
+  { value: "+10K", label: "Consultas" },
+  { value: "24/7", label: "Disponible" },
 ];
 
 // =============================================================================
@@ -77,21 +78,28 @@ const contactInfo = [
 
 function Logo() {
   return (
-    <Link href="/" className="inline-flex items-center gap-2.5 group">
-      <motion.div
-        whileHover={{ scale: 1.05, rotate: 5 }}
+    <Link href="/" className="inline-flex items-center gap-3 group">
+      <div
         className={cn(
-          "h-10 w-10 rounded-xl flex items-center justify-center",
-          "bg-gradient-to-br from-amber-400 to-amber-500",
-          "shadow-md shadow-amber-400/20",
-          "transition-shadow duration-300"
+          "rounded-2xl flex items-center justify-center transition-all duration-200",
+          "bg-gradient-to-br from-primary-700 to-primary-800",
+          "shadow-sm border border-primary-600/20",
+          "h-12 w-12"
         )}
       >
-        <Scale className="h-5 w-5 text-white" />
-      </motion.div>
-      <span className="text-xl font-bold font-serif text-white">
-        EscribanosARG
-      </span>
+        <Scale 
+          className="h-6 w-6 text-white" 
+          strokeWidth={2.5} 
+        />
+      </div>
+      <div className="flex flex-col">
+        <span className="text-xl font-semibold tracking-tight text-gray-900">
+          EscribanosARG
+        </span>
+        <span className="text-xs text-gray-500 font-medium tracking-wide uppercase">
+          Escribanía Digital
+        </span>
+      </div>
     </Link>
   );
 }
@@ -102,13 +110,12 @@ function FooterLink({ href, children }: { href: string; children: React.ReactNod
       <Link
         href={href}
         className={cn(
-          "inline-flex items-center gap-1 text-sm text-slate-400",
-          "hover:text-white transition-colors duration-200",
-          "group"
+          "text-[15px] font-medium text-gray-600",
+          "hover:text-primary-900 transition-colors duration-150",
+          "inline-block"
         )}
       >
-        <span>{children}</span>
-        <ChevronRight className="h-3 w-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" />
+        {children}
       </Link>
     </li>
   );
@@ -123,10 +130,10 @@ function FooterSection({
 }) {
   return (
     <div>
-      <h3 className="font-semibold text-slate-200 mb-4 text-sm uppercase tracking-wider">
+      <h3 className="font-semibold text-gray-900 mb-5 text-sm tracking-tight">
         {title}
       </h3>
-      <ul className="space-y-3">
+      <ul className="space-y-3.5">
         {links.map((link) => (
           <FooterLink key={link.name} href={link.href}>
             {link.name}
@@ -147,61 +154,130 @@ function SocialButton({
   name: string;
 }) {
   return (
-    <motion.a
+    <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      whileHover={{ scale: 1.1, y: -2 }}
-      whileTap={{ scale: 0.95 }}
       className={cn(
-        "w-10 h-10 rounded-xl flex items-center justify-center",
-        "bg-slate-700/50 hover:bg-slate-700 border border-slate-600/50",
-        "text-slate-400 hover:text-white",
-        "transition-colors duration-200"
+        "w-11 h-11 rounded-xl flex items-center justify-center",
+        "bg-gray-50 hover:bg-gray-100 border border-gray-200",
+        "text-gray-600 hover:text-primary-900",
+        "transition-all duration-150",
+        "hover:border-gray-300"
       )}
       aria-label={name}
     >
-      <Icon className="h-4 w-4" />
-    </motion.a>
+      <Icon className="h-4.5 w-4.5" strokeWidth={2} />
+    </a>
+  );
+}
+
+function TrustBadge() {
+  return (
+    <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 border border-green-200/60 rounded-full">
+      <Shield className="h-4 w-4 text-success" strokeWidth={2.5} />
+      <span className="text-sm font-medium text-success-dark">
+        Plataforma Verificada
+      </span>
+    </div>
   );
 }
 
 function Newsletter() {
   return (
-    <div className="bg-slate-700/30 rounded-2xl p-6 border border-slate-600/30">
-      <h3 className="font-semibold text-white mb-2">
-        Suscribite al newsletter
-      </h3>
-      <p className="text-sm text-slate-400 mb-4">
-        Recibí novedades y tips sobre trámites notariales.
-      </p>
-      <form className="flex gap-2">
+    <div className="bg-gray-50 rounded-2xl p-8 border border-gray-200/60">
+      <div className="flex items-start gap-3 mb-4">
+        <div className="h-10 w-10 rounded-xl bg-primary-100 flex items-center justify-center flex-shrink-0">
+          <Mail className="h-5 w-5 text-primary-700" strokeWidth={2.5} />
+        </div>
+        <div>
+          <h3 className="font-semibold text-gray-900 text-lg tracking-tight">
+            Newsletter
+          </h3>
+          <p className="text-[15px] text-gray-600 mt-1">
+            Novedades y recursos legales
+          </p>
+        </div>
+      </div>
+      
+      <form className="space-y-3 mt-5">
         <input
           type="email"
           placeholder="tu@email.com"
           className={cn(
-            "flex-1 px-4 py-2.5 rounded-xl text-sm",
-            "bg-slate-700/50 border border-slate-600/50",
-            "text-white placeholder:text-slate-500",
-            "focus:outline-none focus:border-amber-400/50 focus:ring-1 focus:ring-amber-400/50",
-            "transition-all duration-200"
+            "w-full px-4 py-3 rounded-xl text-[15px]",
+            "bg-white border border-gray-300",
+            "text-gray-900 placeholder:text-gray-500",
+            "focus:outline-none focus:border-primary-700 focus:ring-1 focus:ring-primary-700",
+            "transition-all duration-150"
           )}
         />
-        <motion.button
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
+        <Button 
           type="submit"
           className={cn(
-            "px-4 py-2.5 rounded-xl font-medium text-sm",
-            "bg-gradient-to-r from-amber-400 to-amber-500 text-slate-900",
-            "hover:from-amber-500 hover:to-amber-600",
-            "shadow-md shadow-amber-400/20",
-            "transition-all duration-200"
+            "w-full justify-center gap-2 font-semibold shadow-md",
+            "bg-primary-900 hover:bg-primary-800 text-white",
+            "border border-primary-800/20 h-11",
+            "hover:shadow-lg hover:shadow-primary-900/20"
           )}
         >
-          <ArrowUpRight className="h-4 w-4" />
-        </motion.button>
+          Suscribirse
+          <ArrowRight className="h-4 w-4" strokeWidth={2.5} />
+        </Button>
       </form>
+
+      <p className="text-xs text-gray-500 mt-4 leading-relaxed">
+        Al suscribirte aceptás nuestra política de privacidad
+      </p>
+    </div>
+  );
+}
+
+function ContactInfo() {
+  const contacts = [
+    { icon: Mail, text: "hola@escribanosarg.com", href: "mailto:hola@escribanosarg.com" },
+    { icon: Phone, text: "+54 9 351 123-4567", href: "tel:+5493511234567" },
+    { icon: MapPin, text: "Villa María, Córdoba", href: null },
+  ];
+
+  return (
+    <div className="space-y-3">
+      {contacts.map((item) => (
+        <div key={item.text} className="flex items-center gap-3">
+          <div className="h-9 w-9 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0">
+            <item.icon className="h-4 w-4 text-gray-600" strokeWidth={2} />
+          </div>
+          {item.href ? (
+            <a 
+              href={item.href} 
+              className="text-[15px] font-medium text-gray-600 hover:text-primary-900 transition-colors"
+            >
+              {item.text}
+            </a>
+          ) : (
+            <span className="text-[15px] font-medium text-gray-600">
+              {item.text}
+            </span>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function TrustStats() {
+  return (
+    <div className="grid grid-cols-3 gap-4">
+      {trustStats.map((stat) => (
+        <div key={stat.label} className="text-center">
+          <div className="font-bold text-2xl text-primary-900 tracking-tight">
+            {stat.value}
+          </div>
+          <div className="text-xs text-gray-500 font-medium mt-1">
+            {stat.label}
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
@@ -214,106 +290,98 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-slate-800 text-white relative overflow-hidden">
-      {/* Decorative elements - más sutiles */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-amber-300/5 rounded-full blur-[128px] pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-sky-300/5 rounded-full blur-[128px] pointer-events-none" />
-
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
+    <footer className="bg-white border-t border-gray-200/60">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        
         {/* Main Footer Content */}
-        <div className="py-16 grid grid-cols-2 md:grid-cols-6 lg:grid-cols-12 gap-8 lg:gap-12">
-          {/* Brand Column */}
-          <div className="col-span-2 md:col-span-6 lg:col-span-4">
-            <Logo />
-            <p className="mt-4 text-slate-400 text-sm leading-relaxed max-w-xs">
-              La forma más simple de encontrar y conectar con escribanos 
-              matriculados en Argentina.
-            </p>
+        <div className="py-16 lg:py-20">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+            
+            {/* Brand Column - Profesional */}
+            <div className="lg:col-span-4 space-y-6">
+              <Logo />
+              
+              <p className="text-[15px] text-gray-600 leading-relaxed max-w-sm font-medium">
+                La forma más simple y segura de encontrar escribanos matriculados en toda Argentina.
+              </p>
 
-            {/* Contact Info */}
-            <ul className="mt-6 space-y-3">
-              {contactInfo.map((item) => (
-                <li key={item.text} className="flex items-center gap-3 text-sm text-slate-400">
-                  <item.icon className="h-4 w-4 text-amber-400" />
-                  {item.href ? (
-                    <a href={item.href} className="hover:text-white transition-colors">
-                      {item.text}
-                    </a>
-                  ) : (
-                    <span>{item.text}</span>
-                  )}
-                </li>
-              ))}
-            </ul>
+              <TrustBadge />
 
-            {/* Social Links */}
-            <div className="mt-6 flex gap-3">
-              {socialLinks.map((social) => (
-                <SocialButton
-                  key={social.name}
-                  href={social.href}
-                  icon={social.icon}
-                  name={social.name}
-                />
-              ))}
+              <div className="pt-2">
+                <ContactInfo />
+              </div>
+
+              {/* Social Links - Estilo profesional */}
+              <div>
+                <p className="text-sm font-semibold text-gray-900 mb-3 tracking-tight">
+                  Seguinos
+                </p>
+                <div className="flex gap-3">
+                  {socialLinks.map((social) => (
+                    <SocialButton
+                      key={social.name}
+                      href={social.href}
+                      icon={social.icon}
+                      name={social.name}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Links Columns - Espaciado profesional */}
+            <div className="lg:col-span-5">
+              <div className="grid grid-cols-2 sm:grid-cols-2 gap-8 lg:gap-12">
+                <FooterSection {...footerLinks.plataforma} />
+                <FooterSection {...footerLinks.servicios} />
+              </div>
+              
+              <div className="grid grid-cols-2 sm:grid-cols-2 gap-8 lg:gap-12 mt-8 lg:mt-12">
+                <FooterSection {...footerLinks.empresa} />
+                <FooterSection {...footerLinks.legal} />
+              </div>
+            </div>
+
+            {/* Newsletter Column */}
+            <div className="lg:col-span-3">
+              <Newsletter />
             </div>
           </div>
-
-          {/* Links Columns */}
-          <div className="col-span-1 md:col-span-2 lg:col-span-2">
-            <FooterSection {...footerLinks.plataforma} />
-          </div>
-
-          <div className="col-span-1 md:col-span-2 lg:col-span-2">
-            <FooterSection {...footerLinks.servicios} />
-          </div>
-
-          <div className="col-span-1 md:col-span-2 lg:col-span-2">
-            <FooterSection {...footerLinks.empresa} />
-          </div>
-
-          {/* Newsletter Column (Desktop) */}
-          <div className="col-span-2 md:col-span-4 lg:col-span-2 hidden lg:block">
-            <FooterSection {...footerLinks.legal} />
-          </div>
         </div>
 
-        {/* Newsletter Row (Mobile/Tablet) */}
-        <div className="lg:hidden pb-8">
-          <Newsletter />
+        {/* Trust Stats Bar - Nuevo elemento profesional */}
+        <div className="border-t border-gray-200/60 py-8">
+          <TrustStats />
         </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-slate-700/50 py-6">
+        {/* Bottom Bar - Refinado */}
+        <div className="border-t border-gray-200/60 py-6">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            
             {/* Copyright */}
-            <p className="text-sm text-slate-500 text-center sm:text-left">
+            <p className="text-sm text-gray-500 font-medium">
               © {currentYear} EscribanosARG. Todos los derechos reservados.
             </p>
 
-            {/* Made in Argentina Badge */}
-            <div className="flex items-center gap-2 text-sm text-slate-500">
-              <span>Hecho con</span>
-              <motion.div
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 1, repeat: Infinity, repeatDelay: 2 }}
-              >
-                <Heart className="h-4 w-4 text-rose-400 fill-rose-400" />
-              </motion.div>
-              <span>en Argentina 🇦🇷</span>
+            {/* Quality Badges - Profesional */}
+            <div className="flex items-center gap-6">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="h-4 w-4 text-success" strokeWidth={2.5} />
+                <span className="text-sm text-gray-600 font-medium">
+                  100% Seguro
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Shield className="h-4 w-4 text-primary-700" strokeWidth={2.5} />
+                <span className="text-sm text-gray-600 font-medium">
+                  Datos Protegidos
+                </span>
+              </div>
             </div>
 
-            {/* Legal Links (Mobile) */}
-            <div className="flex items-center gap-4 text-sm lg:hidden">
-              {footerLinks.legal.links.slice(0, 2).map((link) => (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  className="text-slate-500 hover:text-white transition-colors"
-                >
-                  {link.name.split(" ")[0]}
-                </Link>
-              ))}
+            {/* Made in Badge - Refinado */}
+            <div className="text-sm text-gray-500 font-medium">
+              Hecho en Argentina 🇦🇷
             </div>
           </div>
         </div>
